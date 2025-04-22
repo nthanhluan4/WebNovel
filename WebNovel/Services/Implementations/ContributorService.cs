@@ -1,4 +1,5 @@
-﻿using WebNovel.Models;
+﻿using WebNovel.Exceptions;
+using WebNovel.Models;
 using WebNovel.Repositories.Interfaces;
 using WebNovel.Services.Interfaces;
 
@@ -22,7 +23,10 @@ namespace WebNovel.Services.Implementations
         public async Task<bool> RequestToBecomeAsync(Contributor contributor)
         {
             var existing = await _repository.GetByUserIdAsync(contributor.CreatedByUserId);
-            if (existing != null) return false;
+            if (existing != null) 
+                //return false;
+            throw new DuplicateDataException($"Bạn đã yêu cầu trở thành converter '{contributor.Name}'.");
+
             contributor.IsApproved = false;
             await _repository.AddAsync(contributor);
             return await _repository.SaveChangesAsync();

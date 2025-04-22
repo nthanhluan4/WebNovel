@@ -19,7 +19,7 @@ namespace WebNovel.Services.Implementations
         public ChapterService(IChapterRepository repository,
             IChapterStorageService storageService,
             IStoryService storyService,
-            BackgroundTaskQueue taskQueue,
+            IBackgroundTaskQueue taskQueue,
             ILogger<ChapterService> logger)
         {
             _repository = repository;

@@ -8,6 +8,8 @@ using WebNovel.Services;
 using WebNovel.Repositories.Implementations;
 using WebNovel.Repositories.Interfaces;
 using WebNovel.Services.Implementations;
+using Microsoft.AspNetCore.Diagnostics;
+using WebNovel.Exceptions;
 
 var builder = WebApplication.CreateBuilder(args);
 // KẾT NỐI DATABASE
@@ -43,36 +45,78 @@ builder.Services.AddRateLimiter(options =>
     options.RejectionStatusCode = StatusCodes.Status429TooManyRequests;
 });
 
+builder.Services.ConfigureApplicationCookie(options =>
+{
+    options.LoginPath = "/Account/Login";
+    options.AccessDeniedPath = "/Account/AccessDenied";
+});
+
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
-builder.Services.AddSingleton<IBackgroundTaskQueue, BackgroundTaskQueue>();
-builder.Services.AddHostedService<QueuedHostedService>();
-
+builder.Services.AddScoped<IBackgroundTaskQueue, BackgroundTaskQueue>();
+builder.Services.AddScoped<QueuedHostedService>();
 
 //builder.Services.AddScoped<IUserRepository, UserRepository>();
-builder.Services.AddScoped<IStoryRepository, StoryRepository>();
-builder.Services.AddScoped<IChapterRepository, ChapterRepository>();
-builder.Services.AddScoped<IAuthorRepository, AuthorRepository>();
-builder.Services.AddScoped<IGenreRepository, GenreRepository>();
-builder.Services.AddScoped<IContributorRepository, ContributorRepository>();
-
 //builder.Services.AddScoped<IUserService, UserService>();
+
+builder.Services.AddScoped<IStoryRepository, StoryRepository>();
 builder.Services.AddScoped<IStoryService, StoryService>();
+
+builder.Services.AddScoped<IChapterRepository, ChapterRepository>();
+builder.Services.AddScoped<IChapterStorageService, ChapterStorageService>();
 builder.Services.AddScoped<IChapterService, ChapterService>();
+
+builder.Services.AddScoped<IAuthorRepository, AuthorRepository>();
 builder.Services.AddScoped<IAuthorService, AuthorService>();
+
+builder.Services.AddScoped<IGenreRepository, GenreRepository>();
 builder.Services.AddScoped<IGenreService, GenreService>();
+
+builder.Services.AddScoped<IContributorRepository, ContributorRepository>();
 builder.Services.AddScoped<IContributorService, ContributorService>();
+
+builder.Services.AddScoped<ITagRepository, TagRepository>();
+builder.Services.AddScoped<ITagService, TagService>();
+
+builder.Services.AddScoped<IRatingRepository, RatingRepository>();
+builder.Services.AddScoped<IRatingService, RatingService>();
 
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-if (!app.Environment.IsDevelopment())
+app.UseExceptionHandler(errorApp =>
 {
-    app.UseExceptionHandler("/Home/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-    app.UseHsts();
-}
+    errorApp.Run(async context =>
+    {
+        var feature = context.Features.Get<IExceptionHandlerPathFeature>();
+        var exception = feature?.Error;
+
+        var isApiRequest = context.Request.Path.StartsWithSegments("/api") ||
+                           context.Request.Headers["Accept"].Any(h => h.Contains("application/json"));
+
+        if (isApiRequest)
+        {
+            context.Response.ContentType = "application/json";
+
+            if (exception is DuplicateDataException dup)
+            {
+                context.Response.StatusCode = StatusCodes.Status409Conflict;
+                await context.Response.WriteAsJsonAsync(new { message = dup.Message });
+            }
+            else
+            {
+                context.Response.StatusCode = StatusCodes.Status500InternalServerError;
+                await context.Response.WriteAsJsonAsync(new { message = "Lỗi hệ thống, vui lòng thử lại sau." });
+            }
+        }
+        else
+        {
+            context.Response.Redirect("/Home/Error");
+        }
+    });
+});
+
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
@@ -87,6 +131,10 @@ app.UseAuthorization();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
+
+app.MapControllerRoute(
+    name: "areas",
+    pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
 
 using (var scope = app.Services.CreateScope())
 {

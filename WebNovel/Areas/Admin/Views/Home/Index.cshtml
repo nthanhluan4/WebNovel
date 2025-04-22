@@ -1,0 +1,15 @@
+﻿@{
+    ViewData["Title"] = "Trang quản trị";
+}
+
+<h2>Chào mừng đến trang Admin</h2>
+<p>Bạn có quyền truy cập để quản lý toàn bộ hệ thống truyện.</p>
+
+<ul>
+    <li><a href="/Admin/Story">Quản lý truyện</a></li>
+    <li><a href="/Admin/User">Quản lý người dùng</a></li>
+</ul>
+<form asp-area="" asp-controller="Account" asp-action="Logout" method="post" style="display:inline">
+    @Html.AntiForgeryToken()
+    <button type="submit">Đăng xuất</button>
+</>

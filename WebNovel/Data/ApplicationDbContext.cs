@@ -11,10 +11,12 @@ namespace WebNovel.Data
         {
         }
         public DbSet<Story> Stories { get; set; }
+        public DbSet<Tag> Tags { get; set; }
         public DbSet<Genre> Genres { get; set; }
         public DbSet<Author> Authors { get; set; }
         public DbSet<Contributor> Contributors { get; set; }
         public DbSet<Chapter> Chapters { get; set; }
+        public DbSet<Rating> Ratings { get; set; }
         public DbSet<ChapterContent> ChapterContents { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
@@ -31,6 +33,10 @@ namespace WebNovel.Data
 
             builder.Entity<Contributor>()
                 .HasIndex(c => c.Slug)
+                .IsUnique();
+
+            builder.Entity<Tag>()
+                .HasIndex(a => a.Slug)
                 .IsUnique();
 
             builder.Entity<Story>()

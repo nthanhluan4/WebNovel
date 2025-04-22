@@ -1,4 +1,5 @@
-﻿using WebNovel.Models;
+﻿using WebNovel.Exceptions;
+using WebNovel.Models;
 using WebNovel.Repositories.Interfaces;
 using WebNovel.Services.Interfaces;
 
@@ -21,7 +22,9 @@ namespace WebNovel.Services.Implementations
 
         public async Task<bool> CreateAsync(Author author)
         {
-            if (await _repository.ExistsByNameAsync(author.Name)) return false;
+            if (await _repository.ExistsByNameAsync(author.Name))
+                //return false;
+                throw new DuplicateDataException($"Tác giả '{author.Name}' đã tồn tại.");
             await _repository.AddAsync(author);
             return await _repository.SaveChangesAsync();
         }
