@@ -1,26 +1,86 @@
-﻿@using WebNovel.Models
-@model Story
+﻿@model WebNovel.Models.Story
+
 @{
-    ViewData["Title"] = Model.Id == 0 ? "Tạo truyện mới" : "Chỉnh sửa truyện";
-    var currentAction = ViewContext.RouteData.Values["action"]?.ToString();
+    ViewData["Title"] = Model.Id == 0 ? "Thêm truyện mới" : "Cập nhật truyện";
+    string actionName = Model.Id == 0 ? "Create" : "Edit";
 }
 
 <h2>@ViewData["Title"]</h2>
 
-<form asp-action=@currentAction" method="post">
-    <div>
-        <label>Tiêu đề</label>
-        <input asp-for="Title" />
-        <span asp-validation-for="Title"></span>
+<form asp-area="Admin" asp-controller="Story" asp-action="@actionName" method="post">
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(m => m.Id)
+
+    <div class="mb-3">
+        <label for="Title">Tiêu đề</label>
+        @Html.Kendo().TextBox()
+        .Name("Title")
+        .Value(Model.Title ?? "")
+        .HtmlAttributes(new { style = "width:100%" })
     </div>
-    <div>
-        <label>Mô tả</label>
-        <textarea asp-for="Description"></textarea>
+
+    <div class="mb-3">
+        <label for="Slug">Slug</label>
+        @Html.Kendo().TextBox()
+        .Name("Slug")
+        .Value(Model.Slug ?? "")
+        .HtmlAttributes(new { style = "width:100%" })
     </div>
-    <div>
-        <label>Id Tác giả</label>
-        <input asp-for="AuthorId" />
+
+    <div class="mb-3">
+        <label for="Summary">Tóm tắt</label>
+        @Html.Kendo().TextArea()
+        .Name("Summary")
+        .Value(Model.Summary ?? "")
+        .Rows(4)
+        .HtmlAttributes(new { style = "width:100%" })
     </div>
-    <button type="submit">Lưu</button>
-    <a asp-action="Index">Quay lại</a>
+
+    <div class="mb-3">
+        <label for="AuthorId">Tác giả</label>
+        @Html.Kendo().DropDownList()
+        .Name("AuthorId")
+        .DataTextField("Text")
+        .DataValueField("Value")
+        .BindTo((IEnumerable<SelectListItem>
+            )ViewBag.Authors)
+            .Value(Model.AuthorId.ToString())
+            .OptionLabel("-- Chọn tác giả --")
+            .HtmlAttributes(new { style = "width:100%" })
+    </div>
+
+    <div class="mb-3">
+        <label for="CoverImageUrl">Ảnh bìa (URL)</label>
+        @Html.Kendo().TextBox()
+        .Name("CoverImageUrl")
+        .Value(Model.CoverImageUrl ?? "")
+        .HtmlAttributes(new { style = "width:100%" })
+    </div>
+
+    <div class="mb-3">
+        <label for="Status">Tình trạng</label>
+        @Html.Kendo().DropDownList()
+        .Name("Status")
+        .Items(i =>
+        {
+        i.Add().Text("Đang cập nhật").Value("0");
+        i.Add().Text("Tạm dừng").Value("1");
+        i.Add().Text("Hoàn thành").Value("2");
+        })
+        .Value(Model.Status.ToString())
+        .HtmlAttributes(new { style = "width:100%" })
+    </div>
+
+    <div class="mb-3">
+        <label for="Tags">Tags</label>
+        @Html.Kendo().TextBox()
+        .Name("Tags")
+        .Value(Model.Tags ?? "")
+        .HtmlAttributes(new { placeholder = "tu-tien, kiem-hiep", style = "width:100%" })
+    </div>
+
+    <div class="mt-4">
+        <button type="submit" class="k-button k-primary">Lưu</button>
+        <a asp-area="Admin" asp-controller="Story" asp-action="Index" class="k-button">Quay lại</a>
+    </div>
 </form>

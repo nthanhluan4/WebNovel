@@ -1,4 +1,8 @@
-﻿@{
+﻿@using WebNovel.Models
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@addTagHelper *, Kendo.Mvc
+
+@{
     ViewData["Title"] = "Trang quản trị";
 }
 
@@ -9,7 +13,4 @@
     <li><a href="/Admin/Story">Quản lý truyện</a></li>
     <li><a href="/Admin/User">Quản lý người dùng</a></li>
 </ul>
-<form asp-area="" asp-controller="Account" asp-action="Logout" method="post" style="display:inline">
-    @Html.AntiForgeryToken()
-    <button type="submit">Đăng xuất</button>
-</>
+

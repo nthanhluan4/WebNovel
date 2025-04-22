@@ -1,0 +1,1373 @@
+﻿<script src="~/admin/lib/jquery/dist/jquery.js"></script>@*  v3.6.0 *@
+@* <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js" integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script> *@
+@* <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script> *@
+<script src="https://unpkg.com/jszip/dist/jszip.min.js"></script>
+@* <script src="https://kendo.cdn.telerik.com/2024.2.514/js/kendo.all.min.js"></script> *@
+@* <script src="https://kendo.cdn.telerik.com/2024.2.514/js/kendo.aspnetmvc.min.js"></script> *@
+
+<script src="https://kendo.cdn.telerik.com/2023.2.829/js/kendo.all.min.js"></script>
+@* <script src="~/admin/js/kendo2024.js"></script> *@
+<script src="https://kendo.cdn.telerik.com/2023.2.829/js/kendo.aspnetmvc.min.js"></script>
+<script src="~/admin/lib/pnotify/pnotify.custom.min.js"></script>
+<script src="~/admin/lib/pnotify/pnotifycall.js"></script>
+
+
+
+<!--Việt hóa kendo-->
+<script src="~/admin/js/kendo.culture.vi-vn.min.js"></script>
+<script src="~/admin/js/kendo.messages.vi-vn.min.js"></script>
+<!--lodash-->
+<script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js"></script>
+<!--signalr-->
+<!-- Popper.js v2 -->
+<script src="https://unpkg.com/@@popperjs/core@2"></script>
+
+<!-- Tippy.js -->
+<script src="https://unpkg.com/tippy.js@6"></script>
+<link rel="stylesheet" href="https://unpkg.com/tippy.js@6/themes/light.css" />
+
+<!-- toast.js -->
+<link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor.min.css">
+<script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
+
+<!--Thời gian-->
+<script src="~/admin/js/moment.min.js"></script>
+<script src="~/admin/js/moment-timezone-with-data-1970-2030.js"></script>
+
+<link href="~/admin/css/editorstyles.css" rel="stylesheet" />
+
+<script id="fileTemplate" type="text/x-kendo-template">
+    <span class='k-progress'></span>
+    <div class='file-wrapper'>
+    @* <span class='file-icon'></span> *@
+    <div id='fileUploadInfo'>
+         <a href='/DownloadFile/GetFile?fileName=#:name#' target='_blank'>
+            <span class='file-heading file-name-heading'>Tên file: #:name#</span>
+        </a>
+        <span class="k-file-validation-message" aria-live="polite"></span>
+    </div>
+        <strong class="k-upload-status">
+            <button type='button' class='k-upload-action'></button>
+            <button type='button' class='k-upload-action'></button>
+        </strong>
+    </div>
+</script>
+<script id="fileTemplateCitizenIDImg" type="text/x-kendo-template">
+    <span class='k-progress'></span>
+    <div class='file-wrapper'>
+    @* <span class='file-icon'></span> *@
+    <div id='fileUploadInfo'>
+         <a href='/DownloadFile/GetFile?fileName=#:name#&fileType=CCCD' target='_blank'>
+            <span class='file-heading file-name-heading'>Tên file: #:name#</span>
+        </a>
+    </div>
+        <strong class="k-upload-status">
+            <button type='button' class='k-upload-action'></button>
+            <button type='button' class='k-upload-action'></button>
+        </strong>
+    </div>
+</script>
+<script id="memberOfProject" type="text/x-kendo-template">
+    <div class="emp-option">
+        <img class="emp-img" src="/uploads/EmpImgs/#:EmpImage#"></img>
+        <span class="emp-info">
+            <p><strong>#: data.Text #</strong></span>
+            <p style="padding: 0 0 10px 0">#: data.CustomValue1 #</span>
+        </span>
+    <div>
+</script>
+<script>
+    kendo.culture("vi-VN");
+    //------------KHAI BÁO CÁC BIẾN--------------------
+    var record = 0; //STT lưới
+    var lstOpen = ['Cần thực hiện'];
+    var lstWaiting = ['Chờ ký', 'Chờ duyệt', 'Lập hồ sơ', 'Dự thầu', 'Đang thực hiện', 'Chưa đóng thầu',
+                        'BA xử lý', 'SE xử lý', 'QC xử lý', 'SE xử lý lỗi', 'Design xử lý'];
+    var lstApproved = ['Đã ký', 'Đã duyệt', 'Hoàn thành', 'Bàn giao', 'Nghiệm thu', 'Có KQ LCNT', 'Đã hoàn thành'];
+    var lstCancel = ['Hủy ký', 'Hủy', 'Hủy thầu', 'Đang xét thầu', 'OFF (Nghỉ, vắng mặt)'];
+    var lstCanceled = [];
+    var lstRejected = [];
+    var lstLocked = ['Ẩn'];
+    //-----------------------------------------------
+    function delthis(id) {
+        $("#" + id).remove();
+    }
+    function getChipListValue(id) {
+        var selected = $("#" + id).data("kendoChipList").select();
+        var valueOfChipList = [];
+        selected.each(function () {
+            valueOfChipList.push($(this).attr('data-chip-item-id'));
+        });
+        return valueOfChipList;
+    }
+    function isElementDisplay($element) {
+        return $element.is(':visible');
+    }
+    function copyToClipboard(text, $button) {
+        var tempInput = document.createElement("input");
+        tempInput.style.position = "absolute";
+        tempInput.style.left = "-1000px";
+        tempInput.style.top = "-1000px";
+        tempInput.value = text;
+        document.body.appendChild(tempInput);
+        tempInput.select();
+        document.execCommand("copy");
+        document.body.removeChild(tempInput);
+
+        // Đổi icon và text thành "Đã sao chép"
+        $button.html('<span class="mdi mdi-check-all"></span> Đã sao chép');
+
+        // Sau 3 giây, đổi lại icon và text ban đầu
+        setTimeout(function () {
+            $button.html('<span class="mdi mdi-content-copy"></span> Sao chép');
+        }, 3000); // Đổi lại sau 3 giây
+    }
+    //------------NHÓM HÀM DRAWER--------------------
+
+   
+
+
+    //------------NHÓM HÀM DATABOUND / EVENT--------------------
+    function onDataBoundComboboxId(e) {
+        if (this.value() == '0')
+            this.value('');
+    }
+    function onUpload(e) {
+        var files = e.files;
+        if (files.length != 0) {
+            var data = new FormData();
+            for (var i = 0; i < files.length; i++) {
+                e.formData.append(files[i].name, files[i]);
+            }
+        }
+    }
+    function onUploadSuccess(e) {
+        if (e.operation == "upload") {
+            var response = e.response;
+            var newFileName = response.fileName;
+
+            //Lấy thông tin file
+            var uploadWidget = $("#" + e.sender.name).data("kendoUpload");
+            var files = uploadWidget.getFiles();
+
+            // Tìm tệp đã được tải lên và cập nhật tên tệp
+            for (var i = 0; i < files.length; i++) {
+                if (files[i].name === e.files[0].name) {
+                    files[i].name = newFileName;
+                    break;
+                }
+            }
+
+            //Cập nhật lại trên giao diện
+            var fileInfoElement = $("li[data-uid='" + response.fileUid + "']").find("#fileUploadInfo");
+            fileInfoElement.html('<a href="/DownloadFile/GetFile?fileName=' + response.fileName + '" target="_blank"><span class="file-heading file-name-heading">Tên file: ' + response.fileName + '</span></a>');
+        }
+    }
+    function onUploadSelect(e) {
+        var files = e.files;
+        var allowedExtensions = this.options.validation.allowedExtensions;
+        var files = e.files;
+        for (var i = 0; i < files.length; i += 1) {
+            var file = files[i];
+            if (file.validationErrors && file.validationErrors.length > 0) {
+                // Xóa file hoặc không hiển thị file lên trên kendo Upload
+                e.preventDefault();
+                createNotify.alert.error({ text: "File không đúng định dạng. Các định dạng được hỗ trợ là: " + allowedExtensions.join(", ") });
+            }
+        }
+    }
+    function removeFileFromList(fileUid) {
+        var upload = $("#FileContract").data("kendoUpload");
+        var fileEntry = upload.wrapper.find("[data-uid='" + fileUid + "']");
+        fileEntry.remove();
+    }
+
+    // function onTabSelectBase(e, id, lstUrl) {
+    //     var contentElement = $(e.contentElement);
+    //     var tabIndex = $(e.item).index();
+    //     contentElement.html('Đang tải nội dung, vui lòng chờ trong giây lát...');
+    //     NProgress.start();
+    //     $('#' + id + ' .k-content').each(function (index) {
+    //         if (index !== tabIndex) {
+    //             $(this).html('');
+    //         }
+    //     });
+    //     var url = '';
+    //     if (tabIndex <= lstUrl.length) {
+    //         url = lstUrl[tabIndex];
+    //     }
+
+    //     loadTabContentBase(contentElement, url);
+    // }
+    // function loadTabContentBase(contentElement, url) {
+    //     if (url) {
+    //         $.ajax({
+    //             url: url,
+    //             success: function (data) {
+    //                 contentElement.html(data);
+    //                 setValidateUploadMessage();
+    //                 NProgress.done();
+    //             },
+    //             error: function () {
+    //                 contentElement.html('Không thể tải trang. Vui lòng chụp ảnh màn hình và liên hệ Administrator để được hỗ trợ.');
+    //                 NProgress.done();
+    //             }
+    //         });
+    //     }
+    //     else {
+    //         contentElement.html('Đường dẫn không chính xác. Vui lòng chụp ảnh màn hình và liên hệ Administrator để được hỗ trợ.');
+    //         NProgress.done();
+    //     }
+    // }
+
+
+
+    function onTabSelectBase(e, lstUrl, baseUrl, goToUrl) {
+        var tabStrip = $(e.sender.element).data("kendoTabStrip"); // Lấy đối tượng TabStrip hiện tại
+        var tabIndex = $(e.item).index(); // Lấy chỉ số tab được chọn
+        var contentElement = tabStrip.contentElement(tabIndex);
+        // Đặt nội dung các tab khác thành rỗng
+        tabStrip.tabGroup.children("li").each(function (i, item) {
+            if (i !== tabIndex) {
+                var contentEle = tabStrip.contentElement(i);
+                $(contentEle).html(''); // Làm rỗng nội dung của các tab khác
+            }
+        });
+
+        loadTabContentBase(tabStrip, tabIndex, lstUrl, baseUrl, goToUrl); // Gọi hàm load nội dung
+    }
+
+    function loadTabContentBase(tabStrip, tabIndex, lstUrl, baseUrl, goToUrl) {
+        var tabId = $(tabStrip.tabGroup.children("li")[tabIndex]).data("id");
+        var url = '';
+        if (tabIndex <= lstUrl.length) {
+            url = lstUrl[tabIndex];
+        }
+        var newUrl = baseUrl + tabId;
+        if (goToUrl !== undefined && goToUrl !== null && goToUrl !== '') {
+            newUrl = goToUrl;
+        }
+        if (url) {
+                history.pushState({ tab: tabIndex }, "", newUrl);
+            $.ajax({
+                url: url,
+                success: function (data) {
+                    var contentElement = tabStrip.contentElement(tabIndex);
+                    $(contentElement).html(data); // Đặt nội dung vào tab được chọn
+                    setValidateUploadMessage();
+                   
+                    NProgress.done();
+                },
+                error: function (jqXHR, status, err) {
+                    handleFailRequest(jqXHR);
+                    var contentElement = tabStrip.contentElement(tabIndex);
+                    contentElement.html('Không thể tải trang. Vui lòng chụp ảnh màn hình và liên hệ Administrator để được hỗ trợ.');
+                    NProgress.done();
+                }
+            });
+        }
+        else {
+            contentElement.html('Đường dẫn không chính xác. Vui lòng chụp ảnh màn hình và liên hệ Administrator để được hỗ trợ.');
+            NProgress.done();
+        }
+    }
+
+
+    //-----------------------------------------------
+
+
+    //------------NHÓM TEMPLATE GRID--------------------
+    //1. Templates ->> Trạng thái trên lưới
+    function getStatusTemplate(status) {
+        if (!status) return "";
+
+        // var template = '<div class="label label-sm ';
+        // if (lstWaiting.includes(status)) {
+        //     template += 'label-submit';
+        // } else if (lstApproved.includes(status)) {
+        //     template += 'label-approve';
+        // } else if (lstCancel.includes(status)) {
+        //     template += 'label-cancel';
+        // } else if (lstCanceled.includes(status)) {
+        //     template += 'label-cancelled';
+        // } else if (lstRejected.includes(status)) {
+        //     template += 'label-reject';
+        // } else if (lstLocked.includes(status)) {
+        //     template += 'label-locked';
+        // }else {
+        //     template += 'label-open';
+        // }
+        // template += '">' + kendo.htmlEncode(status) + '</div>';
+
+
+        var template = '<span class="badge ';
+        if (lstWaiting.includes(status)) {
+            template += 'badge-gradient-warning';
+        } else if (lstApproved.includes(status)) {
+            template += 'text-bg-success';
+        } else if (lstCancel.includes(status)) {
+            template += 'text-bg-danger';
+        } else if (lstCanceled.includes(status)) {
+            template += 'rounded-pill badge-soft-danger';
+        } else if (lstRejected.includes(status)) {
+            template += 'badge-soft-danger badge-border';
+        } else if (lstLocked.includes(status)) {
+            template += 'rounded-pill badge-soft-dark';
+        } else {
+            template += 'badge-outline-info';
+        }
+        template += '">' + kendo.htmlEncode(status) + '</span>';
+        return template;
+    }
+
+    //2. Template ->> Checkbox trên lưới
+    function getCheckboxTemplate(value) {
+        var template = '<div style="text-align: center;"><input type="checkbox"';
+        if (value) {
+            template += 'checked=checked';
+        }
+        template += ' disabled="disabled" ></input></div>';
+        return template;
+    }
+
+    //3. Template ->>File trên lưới
+    function getFilesTemplate(files, type) {
+        if (!files) return "";
+        var filesArray = files.split(",");
+        var template = "";
+        var typeName = "";
+        if (type !== undefined && type !== null && type !== '') {
+            typeName = kendo.htmlEncode("&fileType=" + type);
+        }
+        for (var i = 0; i < filesArray.length; i++) {
+            var fileName = kendo.htmlEncode(filesArray[i].trim());
+            template += "<a target='_blank' href='DownloadFile/GetFile?fileName=" + fileName + typeName + "'>" + fileName + "</a>";
+            if (i < filesArray.length - 1) {
+                template += ", ";
+            }
+        }
+        return template;
+    }
+
+    //4. Template ->> Nhiều option trong ô
+    function getMultiOptionsTemplate(value, type) {
+        if (!value) return "";
+        var typeClass = "badge-soft-primary"
+        if (type == 2) {
+            typeClass = "badge-soft-secondary"
+        }
+        var valueArray = value.split(",");
+        var template = '<div class="cell-multi-option">';
+        for (var i = 0; i < valueArray.length; i++) {
+            var val = valueArray[i].trim();
+            template += '<span class="badge ' + typeClass + '">' + kendo.htmlEncode(val) + '</span>';
+        }
+        template += '</div>';
+        return template;
+    }
+
+
+    //5. Template ->> Wrap-Content
+    function getWrapContentTemplate(value) {
+        if (!value) return "";
+        var template = "<span class='wrap-content'>" + kendo.htmlEncode(value) + "<span>";
+        return template;
+    }
+
+    //6. Template ->> Copy-Content
+    function getCopyContentTemplate(value) {
+        if (!value) return "";
+        var template = "<div style='white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 200px;'>" + kendo.htmlEncode(value) + "</div>" +
+            "<button class='btn small-btn btn-outline-secondary waves-effect waves-light k-copy-button' title='Sao chép'>" +
+            "<span class='mdi mdi-content-copy'></span> Sao chép" +
+            "</button>";
+        return template;
+    }
+    $(document).on("click", "td .k-copy-button", function () {
+        var content = $(this).siblings('div').text().trim(); // Lấy nội dung của cột
+        copyToClipboard(content, $(this));
+    });
+
+    //-----------------------------------------------
+
+
+    //------------NHÓM JS FUNCTION--------------------
+    //Functions Tạo popUp window
+    function getWidthWindow(width) {
+        if (width == "" || width == undefined)
+            width = 760;
+        var Wid = Number(width.replace("px", ""));
+        if (Wid > screen.width) {
+            width = (screen.width - 10);
+        }
+        else width = Wid;
+        return width;
+    }
+    function openNewWindow(id, url, windowTitle, width) {
+        var _width = getWidthWindow(width);
+        var _left = (screen.width - _width) / 2 / screen.width * 100;
+
+        // $("#window").closest('.k-window.k-focus').css("width", width);
+        $('.k-window[aria-labelledby="window_wnd_title"]').css("width", _width);
+        $("#window").empty();
+        $("#window").kendoWindow({
+            width: _width,
+            height: "auto",
+            modal: true,
+            position: {
+                top: 5,
+                left: _left + "%",
+            },
+            activate: function () {
+                setValidateUploadMessage();
+            },
+            refresh: function () {
+                setValidateUploadMessage();
+            },
+            title: windowTitle,
+            actions: ["Close"],
+            close: onCloseWindow,
+        });
+        var formCreateOrEdit = $("#window").data("kendoWindow");
+        formCreateOrEdit.refresh({
+            url: url,
+            data: { Id: id },
+        });
+
+        formCreateOrEdit.open();
+        $("#window_wnd_title").text(windowTitle);
+    }
+    function openNewWindowCustom(dataBody, url, windowTitle, width, refreshFunctionName, activeFunctionName, postionTop) {
+        var _width = getWidthWindow(width);
+        var _left = (screen.width - _width) / 2 / screen.width * 100;
+        if (postionTop === undefined || postionTop === null || postionTop === '')
+            postionTop = 5;
+        // $("#window").closest('.k-window.k-focus').css("width", width);
+        $('.k-window[aria-labelledby="window_wnd_title"]').css("width", _width);
+        $("#window").empty();
+        $("#window").kendoWindow({
+            width: _width,
+            height: "auto",
+            modal: true,
+            position: {
+                top: postionTop,
+                left: _left + "%",
+            },
+            title: windowTitle,
+            actions: ["Close"],
+            close: onCloseWindow,
+            activate: function () {
+                setValidateUploadMessage();
+                if (activeFunctionName !== undefined && activeFunctionName != null && activeFunctionName != '') {
+                    if (typeof window[activeFunctionName] === 'function') {
+                        window[activeFunctionName]();
+                    }
+                }
+            },
+            refresh: function () {
+                setValidateUploadMessage();
+                if (refreshFunctionName !== undefined && refreshFunctionName != null && refreshFunctionName != '') {
+                    if (typeof window[refreshFunctionName] === 'function') {
+                        window[refreshFunctionName]();
+                    }
+                }
+            }
+        });
+        var formCreateOrEdit = $("#window").data("kendoWindow");
+        formCreateOrEdit.refresh({
+            url: url,
+            data: dataBody,
+        });
+
+        formCreateOrEdit.open();
+        $("#window_wnd_title").text(windowTitle);
+    }
+    function onCloseWindow() {
+        $(this.element).empty();
+    }
+    function closeWindowClick(id) {
+        if (id === undefined || id === null || id === '') {
+            id = 'window';
+        }
+        $("#" + id).data('kendoWindow').close();
+    }
+
+    //Functions Tìm kiếm
+    function getModelSearch(attribute) {
+        var result = {};
+        var searchModel = {};
+        var countCondition = 0;
+        var isShow = true;
+        $('[' + attribute + ']').each(function () {
+            var field = $(this).attr(attribute);
+            var value;
+            if ($(this).data("kendoMultiSelect")) {
+                value = $(this).data("kendoMultiSelect").value().toString();
+                isShow = isElementDisplay($(this).parent());
+            } else if ($(this).data("kendoComboBox")) {
+                value = $(this).data("kendoComboBox").value();
+                if (value === '')
+                    value = null;
+                isShow = isElementDisplay($(this).parent());
+            } else if ($(this).data("kendoNumericTextBox")) {
+                value = $(this).data("kendoNumericTextBox").value();
+            } else if ($(this).data("kendoDatePicker")) {
+                var utcDate = $(this).data("kendoDatePicker").value();
+                if (utcDate != null && utcDate != '')
+                    value = moment(utcDate).tz('Asia/Bangkok').format();
+                else
+                    value = utcDate;
+                isShow = isElementDisplay($(this).parent());
+            } else if ($(this).data("kendoRadioGroup")) {
+                value = $(this).data("kendoRadioGroup").value();
+            } else if ($(this).data("kendoDateRangePicker")) {
+                var isHasValue = false;
+                var range = $(this).data("kendoDateRangePicker").range();
+                if (range != null) {
+                    var utcDate = range.start;
+                    if (utcDate != null && utcDate != '') {
+                        isHasValue = true;
+                        value = moment(utcDate).tz('Asia/Bangkok').format();
+                    }
+                    else
+                        value = utcDate;
+                    searchModel[field + "_From"] = value;
+                    var utcDate = range.end;
+                    if (utcDate != null && utcDate != '') {
+                        isHasValue = true;
+                        value = moment(utcDate).tz('Asia/Bangkok').format();
+                    }
+                    else
+                        value = utcDate;
+                    searchModel[field + "_To"] = value;
+                    typeOfField = "kendoDateRangePicker";
+                    //Xử lý đặc thù với loại kendoDateRangePicker
+                }
+                else {
+                    searchModel[field + "_From"] = null;
+                    searchModel[field + "_To"] = null;
+                }
+                if (isHasValue)
+                    countCondition++;
+                return;
+            } else {
+                value = $(this).val();
+                isShow = isElementDisplay($(this));
+            }
+
+            //Thêm logic xử lý kiểm tra nếu có value và field không bị ẩn thì thêm 1 điều kiện lọc ở button Lọc
+            //isShow: Trường hợp các field ẩn (Gán sẵn cho các tab) thì không tính
+            if (value != undefined && value != null && value != '' && isShow)
+                countCondition++;
+            searchModel[field] = value;
+        });
+
+        result["model"] = searchModel;
+        result["count"] = countCondition;
+        return result;
+    }
+    function SearchModel() {
+        var data = getModelSearch('s-data-field');
+        $("#btnFilter .badge").remove();
+        if (data.count > 0) {
+            $("#btnFilter").append('<span class="badge text-bg-danger">' + data.count + '</span>');
+        }
+        return {
+            search: data.model
+        }
+    }
+    function SearchModelCustom(attribute) {
+        var data = getModelSearch(attribute);
+        $("#btnFilter .badge").remove();
+        if (data.count > 0) {
+            $("#btnFilter").append('<span class="badge text-bg-danger">' + data.count + '</span>');
+        }
+        return {
+            search: data.model
+        }
+    }
+    function Filter(event) {
+        NProgress.start();
+        event.preventDefault();
+        var button = event.target;
+        if (button.tagName === 'i') {
+            button = button.parentElement;
+        }
+        var controller = button.getAttribute('data-controller');
+        var view = button.getAttribute('data-view');
+
+
+
+        reloadGrid("grid_" + controller + "_" + view);
+        NProgress.done();
+
+    }
+    function ClearFilter(event) {
+        NProgress.start();
+        event.preventDefault();
+        $('[s-data-field]').each(function () {
+            if ($(this).data("kendoMultiSelect")) {
+                $(this).data("kendoMultiSelect").value('');
+            } else if ($(this).data("kendoDropDownTree")) {
+                $(this).data("kendoDropDownTree").value('');
+            } else if ($(this).data("kendoRadioGroup")) {
+                var defaulValue = $(this).data("kendoRadioGroup")._items[0].value;
+                $(this).data("kendoRadioGroup").value(defaulValue);
+            } else if ($(this).data("kendoDateRangePicker")) {
+                $(this).data("kendoDateRangePicker").range({
+                    start: null,
+                    end: null
+                });
+            } else {
+                //Trường hợp các field ẩn (Gán sẵn cho các tab) thì không clear
+                if (isElementDisplay($(this)))
+                    $(this).val('');
+            }
+        });
+        var button = event.target;
+        if (button.tagName === 'i') {
+            button = button.parentElement;
+        }
+        var controller = button.getAttribute('data-controller');
+        var view = button.getAttribute('data-view');
+        reloadGrid("grid_" + controller + "_" + view);
+        NProgress.done();
+    }
+    // Sự kiện khi người dùng chọn hoặc bỏ chọn dòng
+    function onShowButtonToolbar() {
+        var selectedRows = this.select();
+        if (selectedRows.length > 0) {
+            // Hiển thị button khi có dòng được chọn
+            $("#btnDelete").show();
+        } else {
+            // Ẩn button khi không có dòng nào được chọn
+            $("#btnDelete").hide();
+        }
+    }
+
+    // Hàm lấy tất cả ID của các dòng được chọn
+    function getSelectedIds(gridId) {
+        var selectedIds = [];
+        var grid = $("#" + gridId).data("kendoGrid");
+        var selectedRows = grid.select();
+        selectedRows.each(function () {
+            var dataItem = grid.dataItem(this);
+            selectedIds.push(dataItem.Id); // Lấy ID của từng dòng
+        });
+        return selectedIds;
+    }
+
+    function childDeleteRowInGrid(url, gridId, callback) {
+        var selectedIds = getSelectedIds(gridId);
+        confirmDelete(selectedIds, url, gridId, function () {
+
+            if (typeof callback == "function") {
+                callback();
+            }
+        });
+    }
+
+    const debouncedDeleteRow = _.throttle(childDeleteRowInGrid, 3000);
+    function DeleteRowInGrid(url, gridId, callback) {
+        debouncedDeleteRow(url, gridId, callback);
+    }
+
+    //Functions Lưới
+    function getRecordNumber(data) {
+        record++;
+        return record;
+    }
+    function onDataBindingRecorNumber() {
+        record = (this.dataSource.page() - 1) * this.dataSource.pageSize();
+    }
+    function reloadGrid(gridId) {
+        var grid = $("#" + gridId).data("kendoGrid");
+        try {
+            grid.dataSource.page(1);
+            // grid.dataSource.read();
+            grid.clearSelection();
+            var selectedRows = grid.select();
+            if (selectedRows.length > 0) {
+                // Hiển thị button khi có dòng được chọn
+                $("#btnDelete").show();
+            } else {
+                // Ẩn button khi không có dòng nào được chọn
+                $("#btnDelete").hide();
+            }
+        }
+        catch { }
+
+    }
+
+    //Functions Xác nhận xóa
+    function confirmDelete(selectedIDs, url, gridID, callback, ...args) {
+        if (selectedIDs.length == 0) {
+            createNotify.alert.error({ text: "Vui lòng chọn dữ liệu để xóa." });
+            return false;
+        }
+        else {
+            kendo.confirm("Bạn có chắc chắn muốn xóa " + selectedIDs.length + " dòng đã chọn?").then(function () {
+                NProgress.start();
+                kendo.ui.progress($("#loading"), true);
+                $.ajax({
+                    url: url,
+                    type: "POST",
+                    data: { "Ids": selectedIDs.toString() },
+                    cache: false,
+                    //contentType: false,
+                    //processData: false,
+                    success: function (response) {
+                        if (response.Success) {
+                            createNotify.alert.success({ text: response.Message });
+                            // $.connection.hub.start().done(function () {
+                            //     gridHub.server.reLoadGrid("", gridID);
+                            // });
+                            if (gridID !== undefined && gridID !== null && gridID !== '')
+                                reloadGrid(gridID);
+                            NProgress.done();
+                            if (typeof callback === "function") {
+                                callback(...args);
+                            }
+                            return true;
+                        } else {
+                            createNotify.alert.error({ text: response.Message });
+                            NProgress.done();
+                            return false;
+                        }
+                    },
+                    complete: function (jqXHR, status) {
+                        kendo.ui.progress($("#loading"), false);
+                        NProgress.done();
+                        return true;
+                    },
+                    error: function (jqXHR, status, err) {
+                        kendo.ui.progress($("#loading"), false);
+                        NProgress.done();
+                        handleFailRequest(jqXHR);
+                        createNotify.alert.error({ text: "Xóa thất bại. Lỗi server. Vui lòng liên hệ admin để được hỗ trợ." });
+                        return false;
+                    },
+                });
+            }, function () {
+                NProgress.done();
+                return false;
+            });
+            return true;
+        }
+    }
+
+    //Functions Lưu
+    function clearDataOfField(attr) {
+        $('[' + attr + ']').each(function () {
+            if ($(this).data("kendoComboBox"))
+                $(this).data("kendoComboBox").value('');
+            else if ($(this).data("kendoDropDownList"))
+                $(this).data("kendoDropDownList").select(0);
+            else if ($(this).data("kendoCheckBox"))
+                $(this).data("kendoCheckBox").value(false);
+            else if ($(this).data("kendoMultiSelect"))
+                $(this).data("kendoMultiSelect").value('');
+            else if ($(this).data("kendoDropDownTree"))
+                $(this).data("kendoDropDownTree").value('');
+            else if ($(this).data("kendoRadioGroup")) {
+                var defaulValue = $(this).data("kendoRadioGroup")._items[0].value;
+                $(this).data("kendoRadioGroup").value(defaulValue);
+            } else if ($(this).data("kendoDateRangePicker")) {
+                $(this).data("kendoDateRangePicker").range({
+                    start: null,
+                    end: null
+                });
+            } else
+                $(this).val('');
+        });
+        $('input#Id[' + attr + ']').val('');
+    }
+    function getModelCreateOrUpdate(attribute) {
+        var result = {};
+        var modelSaveOrUpdate = {};
+        var allValid = true;
+        var errorMessages = [];
+        var groupAttribute = attribute + '-group';
+        var grpAttrName = groupAttribute + '-name';
+        var typeOfField = "";
+        $('[' + attribute + ']').each(function () {
+            var value;
+            var field = $(this).attr(attribute);
+            var idOfField = $(this).attr('id');
+            if (idOfField != undefined && idOfField != null && idOfField != '') {
+                if ($(this).data("kendoMultiSelect")) {
+                    value = $(this).data("kendoMultiSelect").value().join(',');
+                    typeOfField = "kendoMultiSelect";
+                } else if ($(this).data("kendoComboBox")) {
+                    value = $(this).data("kendoComboBox").value();
+                    if (value === '')
+                        value = null;
+                    typeOfField = "kendoComboBox";
+                } else if ($(this).data("kendoDropDownList")) {
+                    value = $(this).data("kendoDropDownList").value();
+                    if (value === '')
+                        value = null;
+                    typeOfField = "kendoDropDownList";
+                } else if ($(this).data("kendoNumericTextBox")) {
+                    value = $(this).data("kendoNumericTextBox").value();
+                    typeOfField = "kendoNumericTextBox";
+                } else if ($(this).data("kendoDatePicker")) {
+                    var utcDate = $(this).data("kendoDatePicker").value();
+                    if (utcDate != null && utcDate != '')
+                        value = moment(utcDate).tz('Asia/Bangkok').format();
+                    else
+                        value = utcDate;
+                    typeOfField = "kendoDatePicker";
+                } else if ($(this).data("kendoUpload")) {
+                    var files = $(this).data("kendoUpload").getFiles();
+                    var fileName = [];
+                    if (files.length == 0)
+                        value = null;
+                    else {
+                        for (var i = 0; i < files.length; i++) {
+                            fileName.push(files[i].name);
+                        }
+                        value = fileName.toString();
+                    }
+                } else if ($(this).data("kendoCheckBox")) {
+                    value = $(this).data("kendoCheckBox").value();
+                } else if ($(this).data("kendoDropDownTree")) {
+                    value = $(this).data("kendoDropDownTree").value().toString();
+                    typeOfField = "kendoDropDownTree";
+                } else if ($(this).data("kendoDateTimePicker")) {
+                    var utcDate = $(this).data("kendoDateTimePicker").value();
+                    if (utcDate != null && utcDate != '')
+                        value = moment(utcDate).tz('Asia/Bangkok').format();
+                    else
+                        value = utcDate;
+                    typeOfField = "kendoDateTimePicker";
+                } else if ($(this).data("kendoRadioGroup")) {
+                    value = $(this).data("kendoRadioGroup").value();
+                } else if ($(this).data("kendoChipList")) {
+                    var selected = $(this).data("kendoChipList").select();
+                    var valueOfChipList = [];
+                    selected.each(function () {
+                        valueOfChipList.push($(this).attr('data-chip-item-id'));
+                    });
+                    value = valueOfChipList.join(',');
+                    typeOfField = "kendoChipList";
+                } else if ($(this).data("kendoDateRangePicker")) {
+                    var range = $(this).data("kendoDateRangePicker").range();
+                    if (range != null) {
+                        var utcDate = range.start;
+                        if (utcDate != null && utcDate != '')
+                            value = moment(utcDate).tz('Asia/Bangkok').format();
+                        else
+                            value = utcDate;
+                        var fieldStart = field + "_From";
+                        modelSaveOrUpdate[fieldStart] = value;
+                        var utcDate = range.end;
+                        if (utcDate != null && utcDate != '')
+                            value = moment(utcDate).tz('Asia/Bangkok').format();
+                        else
+                            value = utcDate;
+                        var fieldEnd = field + "_To";
+                        modelSaveOrUpdate[fieldEnd] = value;
+                        typeOfField = "kendoDateRangePicker";
+                        //Xử lý đặc thù với loại kendoDateRangePicker
+                        return;
+                    }
+                } else {
+                    value = $(this).val();
+                    typeOfField = "TextBox";
+                }
+
+                if ($(this).hasClass('required-field') && (value == undefined || value == null || !value
+                    || (typeof str === "string" && value.trim() == ''))) {
+                    const label = $('label[displayfield="' + field + '"]');
+                    if (label) {
+                        errorMessages.push("[" + label.text().trim() + "] không thể để trống.");
+                    }
+                    allValid = false;
+                    if (typeOfField == "TextBox" || typeOfField == "kendoDatePicker" || typeOfField == "kendoDateTimePicker"
+                        || typeOfField == "kendoChipList") {
+                        $(this).css("background-color", "#f7d8d8");
+                    } else if (typeOfField == "kendoComboBox" || typeOfField == "kendoDropDownList") {
+                        $('[name="' + idOfField + '_input"]').css("background-color", "#f7d8d8");
+                    } else if (typeOfField == "kendoMultiSelect") {
+                        $('[aria-controls="' + idOfField + '_listbox"]').css("background-color", "#f7d8d8");
+                    } else if (typeOfField == "kendoNumericTextBox") {
+                        $('[aria-labelledby="' + idOfField + '_label"]').css("background-color", "#f7d8d8");
+                    }
+                }
+                else {
+                    if (typeOfField == "TextBox" || typeOfField == "kendoDatePicker"
+                        || typeOfField == "kendoNumericTextBox" || typeOfField == "kendoChipList") {
+                        $(this).css("background-color", "transparent");
+                    } else if (typeOfField == "kendoComboBox") {
+                        $('[name="' + idOfField + '_input"]').css("background-color", "transparent");
+                    } else if (typeOfField == "kendoMultiSelect") {
+                        $('[aria-controls="' + idOfField + '_listbox"]').css("background-color", "transparent");
+                    } else if (typeOfField == "kendoNumericTextBox") {
+                        $('[aria-labelledby="' + idOfField + '_label"]').css("background-color", "transparent");
+                    }
+                }
+                modelSaveOrUpdate[field] = value;
+            }
+        });
+        var lstGrpValue = [];
+        var curField = "";
+        var splitGroup = "&&";
+        var splitItem = "||";
+        var splitChildItem = "__";
+        $('[' + grpAttrName + ']').each(function () {
+            var value;
+            var field = $(this).attr(grpAttrName);
+            var idOfField = $(this).attr('id');
+            if (idOfField != undefined && idOfField != null && idOfField != '') {
+                if (curField == "")
+                    curField = field;
+                if (curField != undefined && curField != null && curField != field) {
+                    lstGrpValue = [];
+                    curField = field;
+                }
+                var lstGrpChildValue = [];
+                $(this).find('[' + groupAttribute + ']').each(function () {
+                    if ($(this).data("kendoMultiSelect")) {
+                        value = $(this).data("kendoMultiSelect").value().join(splitChildItem);
+                    } else if ($(this).data("kendoComboBox")) {
+                        value = $(this).data("kendoComboBox").value();
+                        if (value === '')
+                            value = null;
+                    } else if ($(this).data("kendoNumericTextBox")) {
+                        value = $(this).data("kendoNumericTextBox").value();
+                    } else if ($(this).data("kendoDatePicker")) {
+                        var utcDate = $(this).data("kendoDatePicker").value();
+                        if (utcDate != null && utcDate != '')
+                            value = moment(utcDate).tz('Asia/Bangkok').format();
+                        else
+                            value = utcDate;
+                    } else if ($(this).data("kendoUpload")) {
+                        var files = $(this).data("kendoUpload").getFiles();
+                        var fileName = [];
+                        if (files.length == 0)
+                            value = null;
+                        else {
+                            for (var i = 0; i < files.length; i++) {
+                                fileName.push(files[i].name);
+                            }
+                            value = fileName.toString();
+                        }
+                    }
+                    else if ($(this).data("kendoCheckBox")) {
+                        value = $(this).data("kendoCheckBox").value();
+                    } else if ($(this).data("kendoDropDownTree")) {
+                        value = $(this).data("kendoDropDownTree").value().join(splitChildItem);
+                    } else if ($(this).data("kendoChipList")) {
+                        var selected = $(this).data("kendoChipList").select();
+                        var valueOfChipList = [];
+                        selected.each(function () {
+                            valueOfChipList.push($(this).attr('data-chip-item-id'));
+                        });
+                        value = valueOfChipList.join(splitChildItem);
+                    } else
+                        value = $(this).val();
+                    if ($(this).hasClass('required-field') && (value == undefined || value == null || !value
+                        || (typeof str === "string" && value.trim() == ''))) {
+                        const label = $('label[displayfield="' + field + '"]');
+                        if (label) {
+                            errorMessages.push("[" + label.text().trim() + "] không thể để trống.");
+                        }
+                        allValid = false;
+                    }
+                    lstGrpChildValue.push(value);
+                });
+                lstGrpValue.push(lstGrpChildValue.join(splitItem));
+                modelSaveOrUpdate[curField] = lstGrpValue.join(splitGroup);
+            }
+        });
+        result["Data"] = modelSaveOrUpdate;
+        result["Success"] = allValid;
+        result["Message"] = errorMessages.join('\n');
+
+        return result;
+    }
+
+ 
+    function childSave(url, gridId, type, callBackFuncName) {
+        NProgress.start();
+        var modelData = getModelCreateOrUpdate('fm-data-field');
+        if (!modelData.Success) {
+            // Hiển thị các thông báo lỗi
+            createNotify.alert.error({ text: modelData.Message });
+            NProgress.done();
+            return;
+        }
+        // Gửi dữ liệu qua AJAX
+        fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(modelData.Data)
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.Success) {
+                    createNotify.alert.success({ text: data.Message });
+                    reloadGrid(gridId);
+
+                    if (callBackFuncName !== undefined && callBackFuncName != null && callBackFuncName != '') {
+                        if (typeof window[callBackFuncName] === 'function') {
+                            window[callBackFuncName]();
+                        }
+                    }
+                    if (type == "new") {
+                        clearDataOfField('fm-data-field');
+                    }
+                    else {
+                        var popUp = $("#window").data("kendoWindow");
+                        popUp.close();
+                    }
+                    NProgress.done();
+                }
+                else {
+                    createNotify.alert.error({ text: data.Message });
+                    NProgress.done();
+                }
+            })
+            .catch((jqXHR, status, err) => {
+                NProgress.done();
+                createNotify.alert.error({ text: "Xảy ra lỗi trong tiến trình." });
+                handleFailRequest(jqXHR);
+            });
+    }
+    function childSaveCustom(url, gridId, attribute, isClose, isReNew, successFunction, errorFunction, callBackFuncName) {
+        NProgress.start();
+        var modelData = getModelCreateOrUpdate(attribute);
+        if (!modelData.Success) {
+            // Hiển thị các thông báo lỗi
+            createNotify.alert.error({ text: modelData.Message });
+            NProgress.done();
+            return;
+        }
+        // Gửi dữ liệu qua AJAX
+        fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(modelData.Data)
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.Success) {
+                    createNotify.alert.success({ text: data.Message });
+                    reloadGrid(gridId);
+                    if (callBackFuncName !== undefined && callBackFuncName != null && callBackFuncName != '') {
+                        if (typeof window[callBackFuncName] === 'function') {
+                            window[callBackFuncName]();
+                        }
+                    }
+                    if (isReNew == true) {
+                        clearDataOfField(attribute);
+                    }
+                    if (isClose == true) {
+                        var popUp = $("#window").data("kendoWindow");
+                        popUp.close();
+                    }
+                    if (successFunction !== undefined && successFunction != null && successFunction != '') {
+                        if (typeof window[successFunction] === 'function') {
+                            window[successFunction]();
+                        }
+                    }
+
+                    NProgress.done();
+                }
+                else {
+                    createNotify.alert.error({ text: data.Message });
+                    if (errorFunction !== undefined && errorFunction != null && errorFunction != '') {
+                        if (typeof window[errorFunction] === 'function') {
+                            window[errorFunction]();
+                        }
+                    }
+                    NProgress.done();
+                }
+            })
+            .catch((jqXHR, status, err) => {
+                NProgress.done();
+                handleFailRequest(jqXHR);
+            });
+    }
+    function childSaveCustomV2(url, gridId, type, attribute, callBack) {
+        NProgress.start();
+        var modelData = getModelCreateOrUpdate(attribute);
+        if (!modelData.Success) {
+            // Hiển thị các thông báo lỗi
+            createNotify.alert.error({ text: modelData.Message });
+            NProgress.done();
+            return;
+        }
+        // Gửi dữ liệu qua AJAX
+        fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(modelData.Data)
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (typeof callBack == 'function'){
+                    callBack(data);
+                }
+                if (data.Success) {
+                    createNotify.alert.success({ text: data.Message });
+                    NProgress.done();
+                }
+                else {
+                    createNotify.alert.error({ text: data.Message });
+                    NProgress.done();
+                }
+                if (type == "new") {
+                    clearDataOfField('fm-data-field');
+                }
+                else {
+                    var popUp = $("#window").data("kendoWindow");
+                    popUp.close();
+                }
+            })
+            .catch((jqXHR, status, err) => {
+                NProgress.done();
+                handleFailRequest(jqXHR);
+            });
+    }
+
+    const debouncedSave = _.throttle(childSave, 3000);
+    const debouncedSaveCustom = _.throttle(childSaveCustom, 3000);
+    const debouncedSaveCustomV2 = _.throttle(childSaveCustomV2, 3000);
+
+    function save(url, gridId, type, callBackFuncName) {
+        debouncedSave(url, gridId, type, callBackFuncName);
+    }
+    function saveCustom(url, gridId, attribute, isClose, isReNew, successFunction, errorFunction, callBackFuncName) {
+        debouncedSaveCustom(url, gridId, attribute, isClose, isReNew, successFunction, errorFunction, callBackFuncName);
+    }
+    function saveCustomV2(url, gridId, type, attribute, callBack) {
+        debouncedSaveCustomV2(url, gridId, type, attribute, callBack);
+    }
+
+    function SaveNew(event) {
+        event.preventDefault();
+        var button = event.target;
+        if (button.tagName === 'i') {
+            button = button.parentElement;
+        }
+        var callBackFuncName = button.getAttribute('data-callback');
+        var controller = button.getAttribute('data-controller');
+        if (controller !== undefined && controller !== null && controller !== '') {
+            var view = button.getAttribute('data-view');
+            var gridId = button.getAttribute('data-grid');
+            if (gridId == undefined || gridId == null || gridId == '') {
+                gridId = "grid_" + controller + "_" + view;
+            }
+
+            var url = '/' + controller + '/CreateOrUpdate';
+            var api = button.getAttribute('data-api');
+            if (api !== undefined && api !== null && api !== '' && api === 'true') {
+                url = '/api/' + controller + 's/CreateOrUpdate';
+            }
+            save(url, gridId, "new", callBackFuncName);
+        }
+        else {
+            var url = button.getAttribute('data-url');
+            var gridId = button.getAttribute('data-grid');
+            save(url, gridId, "new", callBackFuncName);
+        }
+    }
+    function SaveClose(event) {
+        event.preventDefault();
+        var button = event.target;
+        if (button.tagName === 'i') {
+            button = button.parentElement;
+        }
+        var callBackFuncName = button.getAttribute('data-callback');
+        var controller = button.getAttribute('data-controller');
+        if (controller !== undefined && controller !== null && controller !== '') {
+            var view = button.getAttribute('data-view');
+            var gridId = button.getAttribute('data-grid');
+            if (gridId == undefined || gridId == null || gridId == '') {
+                gridId = "grid_" + controller + "_" + view;
+            }
+            var url = '/' + controller + '/CreateOrUpdate';
+            var api = button.getAttribute('data-api');
+            if (api !== undefined && api !== null && api !== '' && api === 'true') {
+                url = '/api/' + controller + 's/CreateOrUpdate';
+            }
+
+            save(url, gridId, "close", callBackFuncName);
+        }
+        else {
+            var url = button.getAttribute('data-url');
+            var gridId = button.getAttribute('data-grid');
+            save(url, gridId, "close", callBackFuncName);
+        }
+
+    }
+   
+
+    //-----------------------------------------------
+
+    //Khai báo các button chung
+    $("#btnSearch").click(function (event) {
+        Filter(event);
+    });
+    $("#btnClearSearch").click(function (event) {
+        ClearFilter(event);
+    });
+    function setValidateUploadMessage() {
+        $("input[data-role='upload']").each(function () {
+            var id = $(this).attr('id');
+            var upload = $("#" + id).data("kendoUpload");
+            var allowedExtensions = upload.options.validation.allowedExtensions;
+            var validateMess = '<span class="upload-validate-extension"><i>Hỗ trợ các tập tin có định dạng: ' + allowedExtensions.join(", ") + '</span></i></span>';
+            var $validateExtension = $('#' + id).closest('.k-upload').find('.upload-validate-extension');
+
+            if ($validateExtension.length === 0) {
+                // Nếu chưa tồn tại, thêm phần tử mới
+                $('#' + id).closest('.k-upload').append(validateMess);
+            } else {
+                // Nếu đã tồn tại, cập nhật nội dung của nó
+                $validateExtension.html('<i>Hỗ trợ các tập tin có định dạng: ' + allowedExtensions.join(", ") + '</i>');
+            }
+        });
+    }
+
+    function setActiveMenu(url) {
+        $('.menu-link').removeClass('active');
+        $('.menu-link').each(function () {
+            if ($(this).attr('href') === url) {
+                $(this).addClass('active');
+            }
+        });
+    }
+
+    function handleFailRequest(jqXHR) {
+        if (jqXHR.status === 401) { // Chuyển hướng đến trang đăng nhập
+            window.location.href = "/Account/Login";
+        } else if (jqXHR.status === 403) {
+            $.get("/Account/AccessDenied", function (data403) {
+                $('#main-content').html($(data403).find('#main-content').html());
+            });
+        }
+    }
+
+    function setTabStripLoadContent(lstUrlArr, baseUrl, goToUrl) {
+        $(".k-tabstrip").each(function (index) {
+            var tabStrip = $(this).data("kendoTabStrip"); // Lấy đối tượng TabStrip hiện tại
+            var activeTab = tabStrip.select().index(); // Lấy chỉ số của tab đang được chọn
+            if (goToUrl)
+                loadTabContentBase(tabStrip, activeTab, lstUrlArr[index], baseUrl, goToUrl); // Gọi hàm để load nội dung cho tab đầu tiên
+            else
+                loadTabContentBase(tabStrip, activeTab, lstUrlArr[index], baseUrl); // Gọi hàm để load nội dung cho tab đầu tiên
+        });
+        // var tabStrip = $("#" + tabStripId).data("kendoTabStrip");
+        // var activeTab = tabStrip.select().index();
+        // loadTabContent(tabStrip, activeTab, lstUrl);
+    }
+
+
+
+    function setAllGridsHeight(option) {
+        var _h = 70;
+        if (option === "split" || option === "tab") {
+            _h = 125;
+        }
+        // Duyệt qua tất cả các Kendo Grid trên trang
+        $(".k-grid").each(function () {
+
+            var gridElement = $(this);
+            var newHeight = $(window).height() - _h;
+
+            // Chỉ áp dụng nếu chiều cao mới lớn hơn một giá trị tối thiểu
+            if (newHeight > 600) {
+                var grid = gridElement.data("kendoGrid");
+                if (grid) {
+                    grid.wrapper.height(newHeight);
+                    // grid.setOptions({
+                    //     height: newHeight + "px"
+                    // });
+                }
+            }
+        });
+    }
+    function setAllTabStripHeight(option) {
+        var _h = 70;
+        if (option === "split" || option === "tab") {
+            _h = 70;
+        }
+        if (option === "full")
+            _h = -100;
+        // Duyệt qua tất cả các Kendo Grid trên trang
+        $(".k-tabstrip").each(function () {
+            var tabStripElement = $(this);
+            var newHeight = $(window).height() - _h;
+
+            // Chỉ áp dụng nếu chiều cao mới lớn hơn một giá trị tối thiểu
+            if (newHeight > 600) {
+                var tabStrip = tabStripElement.data("kendoTabStrip");
+                if (tabStrip) {
+                    tabStrip.wrapper.height(newHeight + "px");
+                }
+            }
+        });
+    }
+    function setAllSplitHeight(option) {
+        var _h = 70;
+        if (option === "split" || option === "tab") {
+            _h = 122;
+        }
+        // Duyệt qua tất cả các Kendo Spliter trên trang
+        $(".k-pane.k-scrollable").each(function () {
+            var tabStripElement = $(this);
+            var newHeight = $(window).height() - _h;
+
+            // Chỉ áp dụng nếu chiều cao mới lớn hơn một giá trị tối thiểu
+            if (newHeight > 600) {
+                $(this).css("height", newHeight + "px");
+            }
+        });
+        $(".k-widget.k-splitter").each(function () {
+            var tabStripElement = $(this);
+            var newHeight = $(window).height() - _h;
+
+            // Chỉ áp dụng nếu chiều cao mới lớn hơn một giá trị tối thiểu
+            if (newHeight > 600) {
+                $(this).css("height", newHeight + "px");
+            }
+        });
+        $(".k-splitbar.k-splitbar-horizontal").each(function () {
+            var tabStripElement = $(this);
+            var newHeight = $(window).height() - _h;
+
+            // Chỉ áp dụng nếu chiều cao mới lớn hơn một giá trị tối thiểu
+            if (newHeight > 600) {
+                $(this).css("height", newHeight + "px");
+            }
+        });
+    }
+
+
+    function resizeAllComponent(option) {
+        setAllGridsHeight(option);
+        setAllTabStripHeight(option);
+        setAllSplitHeight(option);
+    }
+    // $(window).resize(function () {
+    //     setAllGridsHeight();
+    //     setAllTabStripHeight();
+    // });
+
+    window.onpopstate = function (event) {
+        if (event.state) {
+            var url = event.state.path;
+            document.refresh();
+        }
+    };
+
+</script>

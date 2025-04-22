@@ -1,0 +1,241 @@
+﻿.emp-option {
+    display: flex;
+}
+
+    .emp-option img {
+        border-radius: 50%;
+        width: 50px;
+        height: 50px;
+        border: 1px solid #797d7e;
+    }
+
+    .emp-option .emp-info {
+        padding-left: 10px;
+    }
+
+        .emp-option .emp-info p {
+            line-height: 18px;
+            margin-bottom: 0 !important;
+        }
+
+.k-table-td .cell-multi-option {
+    margin-top: -5px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.k-table-td span.badge {
+    margin-right: 5px;
+    margin-top: 2px;
+}
+
+.k-pager .k-pager-refresh {
+    display: block !important;
+}
+
+.k-pager .k-pager-info {
+    display: block !important;
+}
+
+.upload-validate-extension {
+    padding-left: 5px;
+}
+
+    .upload-validate-extension i {
+        color: rgba(0,0,0,0.34);
+    }
+
+.border-temp {
+    border-style: dashed !important;
+}
+
+.card.group-field {
+    border-radius: 0;
+    margin: 5px 0px;
+    border: 1px dashed #999898;
+}
+
+    .card.group-field:first-child {
+        margin: 5px 0px;
+        border: 1px solid;
+        border-color: rgba(0, 0, 0, 0.12);
+    }
+
+    .card.group-field .card-header {
+        padding: 10px 20px 10px 10px;
+        border-radius: 0;
+    }
+
+        .card.group-field .card-header .btn-close {
+            position: absolute;
+            top: 0;
+            right: 0;
+        }
+
+[data-define-chiplist="true"].k-chip-list .k-chip:not(.k-selected) .k-chip-icon {
+    display: none !important;
+}
+
+.k-chip-outline-base {
+    border-color: rgba(0, 0, 0, 0.2);
+    color: rgba(0, 0, 0, 0.87);
+    background-color: #ffffff;
+}
+
+    .k-chip-outline-base.k-selected {
+        border-color: rgba(0, 0, 0, 0.37);
+    }
+
+div.required-field.k-chip-list {
+    border-left: 1px solid;
+    padding-left: 4px;
+}
+
+.history-info {
+    font-style: italic;
+    padding: 5px 0;
+    color: #959595;
+    display: flex;
+    gap: 4px;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.text-info-value {
+    padding-bottom: 5px;
+}
+
+    .text-info-value.b {
+        font-weight: 600 !important;
+    }
+
+    .text-info-value .badge {
+        font-size: 10px !important;
+        margin-bottom: 4px;
+    }
+
+    .text-info-value.red {
+        color: red !important;
+    }
+
+    .text-info-value.orange {
+        color: orange !important;
+    }
+
+.wrap-content {
+    white-space: pre-wrap !important;
+}
+
+.mb-4 .row-search-box {
+    display: flex;
+    justify-content: space-between;
+}
+
+    .mb-4 .row-search-box .col-sm-6 {
+        width: calc(50% - 4px);
+    }
+
+.k-daterangepicker {
+    width: 100%;
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    gap: 8px;
+    justify-content: space-between;
+}
+
+    .k-daterange-picker .k-dateinput, .k-daterangepicker .k-dateinput {
+        width: 100%;
+    }
+
+.small-btn {
+    font-size: 12px;
+    line-height: 1;
+    padding: 5px 8px;
+}
+
+
+.k-input-solid {
+    background-color: #fff !important;
+    border-radius: 0px !important;
+    line-height: 28px;
+    height: 28px;
+}
+
+textarea {
+    /* resize: vertical !important; */
+}
+
+.btn.btn-cancel {
+    padding: 5px 20px;
+}
+
+#breadcrumb {
+    display: none;
+}
+
+
+.drawer-head {
+    background-color: #0c6d9e !important;
+    border-color: #056190 !important;
+}
+
+    .drawer-head .drawer-title {
+        color: #ffffffdd !important;
+        font-size: 14px;
+        padding-left: 10px;
+        font-weight: bold;
+    }
+
+    .drawer-head .drawer-close {
+        color: white;
+        font-size: 18px;
+        font-weight: bold;
+        padding: 0px 10px;
+    }
+
+.drawer-body .drawer-body-content {
+    padding: 10px;
+    background-color: var(--vz-body-bg);
+}
+
+.k-drawer-items .drawer-body {
+    height: calc(100vh - 90px) !important;
+}
+
+
+
+.k-drawer-items .drawer-footer {
+    background-color: #fff;
+    z-index: 99999;
+}
+
+.custom-tooltip {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    cursor: pointer;
+}
+
+    .custom-tooltip .tooltip-content {
+        white-space: nowrap;
+        text-overflow: ellipsis;
+    }
+
+    .custom-tooltip .tooltip-text {
+        display: none;
+        visibility: hidden;
+    }
+
+
+.tippy-box {
+    z-index: 100000 !important; /* Đảm bảo tooltip luôn ở trên */
+}
+
+[data-tippy-root] {
+    z-index: 100000 !important; /* Đặt giá trị cao hơn thẻ đang gây cản trở */
+}
+
+
+.child-info {
+    color: #797d7e;
+}

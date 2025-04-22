@@ -1,45 +1,57 @@
-﻿@using WebNovel.Models.Dtos
-@model List<StoryDto>
+﻿@using WebNovel.Models
 @{
     ViewData["Title"] = "Quản lý truyện";
 }
 
-<h2>Quản lý truyện</h2>
+<h2 class="mb-3">Danh sách truyện</h2>
 
-<form method="get" class="mb-3">
-    <input name="keyword" value="@ViewBag.Keyword" placeholder="Tìm kiếm theo tên truyện..." />
-    <button type="submit">Tìm</button>
+<p>
+    <a href="/Admin/Story/Create" class="k-button k-primary">
+        <i class="k-icon k-i-plus"></i> Thêm truyện mới
+    </a>
+</p>
 
-</form>
-<a href="/Admin/Story/Create" class="btn btn-primary">➕ Thêm truyện mới</a>
-
-<table>
-    <thead>
-        <tr>
-            <th>Tiêu đề</th>
-            <th>Tác giả</th>
-            <th>Chương</th>
-            <th>Số từ</th>
-            <th>Ngày tạo</th>
-            <th>Thao tác</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var story in Model)
+@(Html.Kendo().Grid<Story>()
+    .Name("StoryGrid")
+    .Columns(columns =>
+    {
+        columns.Bound(s => s.Title).Title("Tiêu đề");
+        columns.Bound(s => s.AuthorName).Title("Tác giả");
+        columns.Bound(s => s.Status).Title("Tình trạng")
+               .ClientTemplate("#= statusText(Status) #");
+        columns.Bound(s => s.CreatedAt).Format("{0:dd/MM/yyyy}").Title("Ngày tạo");
+        columns.Command(cmd =>
         {
-            <tr>
-                <td>@story.Title</td>
-                <td>@story.AuthorName</td>
-                <td>@story.TotalChapters</td>
-                <td>@story.TotalWords</td>
-                <td>@story.CreatedAt.ToShortDateString()</td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@story.Id">Sửa</a>
-                    <form asp-action="Delete" asp-route-id="@story.Id" method="post" style="display:inline">
-                        <button type="submit" onclick="return confirm('Xoá truyện này?');">Xoá</button>
-                    </form>
-                </td>
-            </tr>
+            cmd.Custom("Edit").Click("onEdit").Text("Sửa");
+            cmd.Custom("Delete").Click("onDelete").Text("Xóa");
+        }).Title("Thao tác").Width(200);
+    })
+    .Pageable()
+    .Sortable()
+    .DataSource(ds => ds.Ajax()
+        .Read("GetAll", "Story", new { area = "Admin" })
+    )
+)
+
+<script>
+    function statusText(status) {
+        switch (status) {
+            case 0: return "Đang cập nhật";
+            case 1: return "Tạm dừng";
+            case 2: return "Hoàn thành";
+            default: return "Không rõ";
         }
-    </tbody>
-</table>
+    }
+
+    function onEdit(e) {
+        const data = this.dataItem($(e.currentTarget).closest("tr"));
+        window.location.href = `/Admin/Story/Edit/${data.Id}`;
+    }
+
+    function onDelete(e) {
+        const data = this.dataItem($(e.currentTarget).closest("tr"));
+        if (confirm("Bạn chắc chắn muốn xóa truyện '" + data.Title + "'?")) {
+            window.location.href = `/Admin/Story/Delete/${data.Id}`;
+        }
+    }
+</script>

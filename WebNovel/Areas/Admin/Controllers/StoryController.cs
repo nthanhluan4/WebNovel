@@ -6,6 +6,8 @@ using WebNovel.Models;
 using global::WebNovel.Services.Interfaces;
 using global::WebNovel.Models.Dtos;
 using global::WebNovel.Models;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using WebNovel.Services.Implementations;
 
 namespace WebNovel.Areas.Admin.Controllers
 {
@@ -14,10 +16,12 @@ namespace WebNovel.Areas.Admin.Controllers
     public class StoryController : Controller
     {
         private readonly IStoryService _storyService;
+        private readonly IAuthorService _authorService;
 
-        public StoryController(IStoryService storyService)
+        public StoryController(IStoryService storyService, IAuthorService authorService)
         {
             _storyService = storyService;
+            _authorService = authorService; 
         }
 
         public async Task<IActionResult> Index(string? keyword)
@@ -43,10 +47,10 @@ namespace WebNovel.Areas.Admin.Controllers
         }
 
         [HttpGet]
-        public IActionResult Create()
+        public async Task<IActionResult> CreateAsync()
         {
-            var model = new Story(); // hoặc new Story { Title = "", ... }
-            return View(model); // ✅ truyền model vào View
+            ViewBag.Authors = new SelectList(await _authorService.GetAllAsync(), "Id", "Name");
+            return View("Create", new Story());
         }
 
         [HttpPost]

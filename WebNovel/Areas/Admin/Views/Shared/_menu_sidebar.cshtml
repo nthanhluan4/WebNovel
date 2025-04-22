@@ -1,0 +1,471 @@
+﻿<!-- ========== App Menu ========== -->
+<style>
+    img {
+        "/ max-width: 60px !important;
+        height: auto;
+    }
+</style>
+
+<div class="app-menu navbar-menu">
+    <!-- LOGO -->
+    <div class="navbar-brand-box">
+        <!-- Dark Logo-->
+        <a href="/" class="logo logo-dark">
+            <span class="logo-sm">
+                <img src="/admin/assets/images/logo-sm.png" alt="" height="22">
+            </span>
+            <span class="logo-lg">
+                <img src="/admin/assets/images/logo-dark.png" alt="" height="17">
+            </span>
+        </a>
+        <!-- Light Logo-->
+        <a href="/" class="logo logo-light">
+            <span class="logo-sm">
+                <img src="/admin/assets/images/logo-sm.png" alt="" height="22">
+            </span>
+            <span class="logo-lg">
+                <img src="/admin/assets/images/logo-gold.png" alt="" height="50">
+            </span>
+        </a>
+        <button type="button" class="btn btn-sm p-0 fs-20 header-item float-end btn-vertical-sm-hover" id="vertical-hover">
+            <i class="ri-record-circle-line"></i>
+        </button>
+    </div>
+
+    <div id="scrollbar">
+        <div class="container-fluid">
+            <div id="two-column-menu">
+            </div>
+            <ul class="navbar-nav" id="navbar-nav">
+                <!-- Hệ thống -->
+                <li class="menu-title">
+                    <span>Nghiệp vụ</span>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link menu-link collapsed" href="#sidebarBackLog" data-bs-toggle="collapse" role="button"
+                       aria-expanded="false" aria-controls="sidebarBackLog">
+                        <i class="mdi mdi-file-document-multiple-outline"></i>
+                        <span>BackLog</span>
+                    </a>
+                    <div class="collapse menu-dropdown" id="sidebarBackLog">
+                        <ul class="nav nav-sm flex-column">
+                            <li class="nav-item">
+                                <a href="@Url.Action("Index", "xxxxxx")" class="nav-link menu-link">Dashboard</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#sidebarBackLog-Bussiness" class="nav-link collapsed" data-bs-toggle="collapse"
+                                   role="button" aria-expanded="true" aria-controls="sidebarBackLog-Bussiness">
+                                    Nghiệp vụ
+                                </a>
+                                <div class="collapse menu-dropdown" id="sidebarBackLog-Bussiness">
+                                    <ul class="nav nav-sm flex-column">
+                                        <li class="nav-item">
+                                            <a href="@Url.Action("Index", "SprintBacklog")" class="nav-link">
+                                                Sprint Backlog
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="@Url.Action("Index", "Sprint")" class="nav-link">
+                                                Sprint
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="@Url.Action("Index", "ReleaseVersion")" class="nav-link">
+                                                Version Release
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="@Url.Action("Index", "Project")" class="nav-link">
+                                                Dự án
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link menu-link" href="#sidebarCategories" data-bs-toggle="collapse"
+                       role="button" aria-expanded="false" aria-controls="sidebarCategories">
+                        <i class="mdi mdi mdi-form-select"></i> <span>Danh mục</span>
+                    </a>
+                    <div class="collapse menu-dropdown" id="sidebarCategories">
+                        <ul class="nav nav-sm flex-column">
+                            <li class="nav-item">
+                                <a href="#sidebarCategories-Bussiness" class="nav-link collapsed" data-bs-toggle="collapse"
+                                   role="button" aria-expanded="true" aria-controls="sidebarCategories-Bussiness">
+                                    Nghiệp vụ
+                                </a>
+                                <div class="collapse menu-dropdown show" id="sidebarCategories-Bussiness">
+                                    <ul class="nav nav-sm flex-column">
+                                        <li class="nav-item">
+                                            <a href="@Url.Action("Index", "Relationship")" class="nav-link">
+                                                Liên kết
+                                            </a>
+                                        </li>
+                                        @*     <li class="nav-item">
+                                        <a href="@Url.Action("Index", "Sprint")" class="nav-link">
+                                        Sprint
+                                        </a>
+                                        </li> *@
+                                    </ul>
+                                </div>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#sidebarCategories-Categories" class="nav-link collapsed" data-bs-toggle="collapse"
+                                   role="button" aria-expanded="false" aria-controls="sidebarCategories-Categories">
+                                    Danh mục
+                                </a>
+                                <div class="collapse menu-dropdown" id="sidebarCategories-Categories">
+                                    <ul class="nav nav-sm flex-column">
+                                        <li class="nav-item">
+                                            <a href="@Url.Action("Index", "RelationshipType")" class="nav-link">
+                                                Loại Liên kết
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="@Url.Action("Index", "TestingStatus")" class="nav-link">
+                                                Testing Status
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="@Url.Action("Index", "Priority")" class="nav-link">
+                                                Độ ưu tiên
+                                            </a>
+                                        </li>
+                                        @*     <li class="nav-item">
+                                        <a href="@Url.Action("Index", "Sprint")" class="nav-link">
+                                        Sprint
+                                        </a>
+                                        </li> *@
+                                    </ul>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+
+
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link menu-link" href="#sidebarHRM" data-bs-toggle="collapse"
+                       role="button" aria-expanded="false" aria-controls="sidebarHRM">
+                        <i class="mdi mdi-format-list-bulleted-square"></i> <span>HRM</span>
+                    </a>
+                    <div class="collapse menu-dropdown" id="sidebarHRM">
+                        <ul class="nav nav-sm flex-column">
+                            <li class="nav-item">
+                                <a href="#sidebarHRM-Bussiness" class="nav-link collapsed" data-bs-toggle="collapse"
+                                   role="button" aria-expanded="true" aria-controls="sidebarHRM-Bussiness">
+                                    Nghiệp vụ
+                                </a>
+                                <div class="collapse menu-dropdown show" id="sidebarHRM-Bussiness">
+                                    <ul class="nav nav-sm flex-column">
+                                        <li class="nav-item">
+                                            <a href="@Url.Action("Index", "TaskInfosControl")" class="nav-link">
+                                                Dashboard (HRM)
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="@Url.Action("Index", "HRMModule")" class="nav-link">
+                                                Phân hệ
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="@Url.Action("Index", "HRMPage")" class="nav-link">
+                                                Màn hình
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="@Url.Action("Index", "HRMButton")" class="nav-link">
+                                                Buttons
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="@Url.Action("Index", "HRMFunction")" class="nav-link">
+                                                Function
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="@Url.Action("Index", "HRMFunctionList")" class="nav-link">
+                                                Function List
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#sidebarHRM-Categories" class="nav-link collapsed" data-bs-toggle="collapse"
+                                   role="button" aria-expanded="false" aria-controls="sidebarHRM-Categories">
+                                    Danh mục
+                                </a>
+                                <div class="collapse menu-dropdown" id="sidebarHRM-Categories">
+                                    <ul class="nav nav-sm flex-column">
+                                        <li class="nav-item">
+                                            <a href="@Url.Action("Index", "ModuleGroup")" class="nav-link">
+                                                Nhóm phân hệ
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+
+
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link menu-link" href="#sidebarORG" data-bs-toggle="collapse"
+                       role="button" aria-expanded="false" aria-controls="sidebarORG">
+                        <i class="mdi mdi-view-grid-plus-outline"></i> <span>Tổ chức</span>
+                    </a>
+                    <div class="collapse menu-dropdown" id="sidebarORG">
+                        <ul class="nav nav-sm flex-column">
+                            <li class="nav-item">
+                                <a href="#sidebarORG-Bussiness" class="nav-link collapsed" data-bs-toggle="collapse"
+                                   role="button" aria-expanded="true" aria-controls="sidebarORG-Bussiness">
+                                    Nghiệp vụ
+                                </a>
+                                <div class="collapse menu-dropdown show" id="sidebarORG-Bussiness">
+                                    <ul class="nav nav-sm flex-column">
+                                        <li class="nav-item">
+                                            <a href="@Url.Action("Index", "Department")" class="nav-link">
+                                                Phòng ban
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="@Url.Action("Index", "Team")" class="nav-link">
+                                                Team
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+                            @* <li class="nav-item">
+                                <a href="#sidebarORG-Categories" class="nav-link collapsed" data-bs-toggle="collapse"
+                                   role="button" aria-expanded="false" aria-controls="sidebarORG-Categories">
+                                    Danh mục
+                                </a>
+                                <div class="collapse menu-dropdown" id="sidebarORG-Categories">
+                                    <ul class="nav nav-sm flex-column">
+                                        <li class="nav-item">
+                                            <a href="@Url.Action("Index", "ModuleGroup")" class="nav-link">
+                                                Nhóm phân hệ
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li> *@
+                        </ul>
+                    </div>
+
+
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link menu-link" href="#sidebarTask" data-bs-toggle="collapse"
+                       role="button" aria-expanded="false" aria-controls="sidebarTask">
+                        <i class="mdi mdi-text-box-search-outline"></i> <span>Task</span>
+                    </a>
+                    <div class="collapse menu-dropdown" id="sidebarTask">
+                        <ul class="nav nav-sm flex-column">
+                            <li class="nav-item">
+                                <a href="#sidebarTask-Bussiness" class="nav-link collapsed" data-bs-toggle="collapse"
+                                   role="button" aria-expanded="true" aria-controls="sidebarTask-Bussiness">
+                                    Nghiệp vụ
+                                </a>
+                                <div class="collapse menu-dropdown show" id="sidebarTask-Bussiness">
+                                    <ul class="nav nav-sm flex-column">
+                                        <li class="nav-item">
+                                            <a href="@Url.Action("Index", "TaskInfo")" class="nav-link">
+                                                Task
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="@Url.Action("Index", "TaskTCs")" class="nav-link">
+                                                TCs of Task
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="@Url.Action("Index", "TaskTCsHistory")" class="nav-link">
+                                                History TCs of Task
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="@Url.Action("Index", "TaskTCsSection")" class="nav-link">
+                                                Section
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#sidebarTask-Categories" class="nav-link collapsed" data-bs-toggle="collapse"
+                                   role="button" aria-expanded="false" aria-controls="sidebarTask-Categories">
+                                    Danh mục
+                                </a>
+                                <div class="collapse menu-dropdown" id="sidebarTask-Categories">
+                                    <ul class="nav nav-sm flex-column">
+                                        <li class="nav-item">
+                                            <a href="@Url.Action("Index", "TaskType")" class="nav-link">
+                                                Loại task
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="@Url.Action("Index", "TaskLevel")" class="nav-link">
+                                                Cấp độ task
+                                            </a>
+                                        </li>
+                                       
+                                        <li class="nav-item">
+                                            <a href="@Url.Action("Index", "TaskTemplate")" class="nav-link">
+                                                Template Task
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+
+
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link menu-link" href="#sidebarTCs" data-bs-toggle="collapse"
+                       role="button" aria-expanded="false" aria-controls="sidebarTCs">
+                        <i class="mdi mdi-file-check-outline"></i> <span>TestCase</span>
+                    </a>
+                    <div class="collapse menu-dropdown" id="sidebarTCs">
+                        <ul class="nav nav-sm flex-column">
+                            <li class="nav-item">
+                                <a href="#sidebarTCs-Bussiness" class="nav-link collapsed" data-bs-toggle="collapse"
+                                   role="button" aria-expanded="true" aria-controls="sidebarTCs-Bussiness">
+                                    Nghiệp vụ
+                                </a>
+                                <div class="collapse menu-dropdown show" id="sidebarTCs-Bussiness">
+                                    <ul class="nav nav-sm flex-column">
+                                        <li class="nav-item">
+                                            <a href="@Url.Action("Index", "ProjectTCs")" class="nav-link">
+                                                Các bộ TCs
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="@Url.Action("Index", "ProjectTCsDetail")" class="nav-link">
+                                                Các bộ TCs (chi tiết)
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="@Url.Action("Index", "Scenario")" class="nav-link">
+                                                Scenario
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="@Url.Action("Index", "TCsSection")" class="nav-link">
+                                                TCs Section
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="@Url.Action("Index", "TestCase")" class="nav-link">
+                                                TestCase
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#sidebarTCs-Categories" class="nav-link collapsed" data-bs-toggle="collapse"
+                                   role="button" aria-expanded="false" aria-controls="sidebarTCs-Categories">
+                                    Danh mục
+                                </a>
+                                <div class="collapse menu-dropdown" id="sidebarTCs-Categories">
+                                    <ul class="nav nav-sm flex-column">
+                                        <li class="nav-item">
+                                            <a href="@Url.Action("Index", "TCsType")" class="nav-link">
+                                                Loại TestCase
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="@Url.Action("Index", "TCsTemplate")" class="nav-link">
+                                                Template Testcase
+                                            </a>
+                                        </li>
+                                        
+                                    </ul>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+
+                <!-- Hệ thống -->
+                <li class="menu-title">
+                    <span>Hệ thống</span>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link menu-link" href="#sidebarTables" data-bs-toggle="collapse" role="button"
+                       aria-expanded="false" aria-controls="sidebarTables">
+                        <i class="mdi mdi-cog-outline"></i> <span>Thiết lập</span>
+                    </a>
+                    <div class="collapse menu-dropdown" id="sidebarTables">
+                        <ul class="nav nav-sm flex-column">
+                            <li class="nav-item">
+                                <a href="@Url.Action("Index", "DataGenerationFormula")" class="nav-link menu-link">Sinh dữ liệu tự động</a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link menu-link" href="#sidebarSystemTools" data-bs-toggle="collapse" role="button"
+                       aria-expanded="false" aria-controls="sidebarSystemTools">
+                        <i class="mdi mdi-tools"></i> <span>Công cụ</span>
+                    </a>
+                    <div class="collapse menu-dropdown" id="sidebarSystemTools">
+                        <ul class="nav nav-sm flex-column">
+                            <li class="nav-item">
+                                <a href="@Url.Action("Index", "ImportData")" class="nav-link menu-link">Nhập dữ liệu</a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                @* <li class="nav-item">
+                    <a class="nav-link menu-link" href="#sidebarUI" data-bs-toggle="collapse" role="button"
+                       aria-expanded="false" aria-controls="sidebarUI">
+                        <i class="mdi mdi mdi-form-select"></i>
+                        <span>Danh mục</span>
+                    </a>
+
+                    <div class="collapse menu-dropdown mega-dropdown-menu" id="sidebarUI">
+                        <div class="row">
+                            <div class="col-lg-4">
+                                <ul class="nav nav-sm flex-column">
+                                    <li class="nav-item">
+                                        <a href="#sidebarEmail" class="nav-link collapsed" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarEmail">
+                                            Đơn Vị Hành Chính
+                                        </a>
+
+                                        <div class="collapse menu-dropdown" id="sidebarEmail">
+                                            <ul class="nav nav-sm flex-column">
+                                                <li class="nav-item">
+                                                    <a href="@Url.Action("Index", "Province")" class="nav-link">Tỉnh/Thành Phố</a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a href="@Url.Action("Index", "District")" class="nav-link">Quận/Huyện</a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a href="@Url.Action("Index", "Ward")" class="nav-link">Phường/Xã</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </li> *@
+            </ul>
+        </div>
+        <!-- Sidebar -->
+    </div>
+</div>
+<!-- Left Sidebar End -->
+<!-- Vertical Overlay-->
+<div class="vertical-overlay"></div>

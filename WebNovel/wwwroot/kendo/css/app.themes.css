@@ -1,0 +1,3814 @@
+﻿
+.app-theme-item {
+    border-radius: 8px;
+    cursor: pointer;
+    height: 36px;
+    margin: 7px;
+}
+
+    .app-theme-item.theme-item-1 {
+        background-color: #a32135;
+    }
+
+    .app-theme-item.theme-item-2 {
+        background-color: #00a652;
+    }
+
+    .app-theme-item.theme-item-3 {
+        background-color: #9b58b5;
+    }
+
+    .app-theme-item.theme-item-4 {
+        background-color: #004d83;
+    }
+
+    .app-theme-item.theme-item-5 {
+        background-color: #03689b;
+    }
+
+    .app-theme-item.theme-item-6 {
+        background-color: #f37020;
+    }
+
+    .app-theme-item.theme-item-7 {
+        background-color: #108670;
+    }
+
+    .app-theme-item.theme-item-8 {
+        background-color: #e5322e;
+    }
+
+    .app-theme-item.theme-item-9 {
+        background-color: #d73c8a;
+    }
+
+    .app-theme-item.theme-item-10 {
+        background-color: #1c2b36;
+    }
+
+    .app-theme-item.theme-item-11 {
+        background-color: #441714;
+    }
+
+    .app-theme-item.theme-item-12 {
+        background-color: #b97c46;
+    }
+
+    .app-theme-item.active:before {
+        content: "V";
+        position: absolute;
+        font-size: 1.6rem;
+        margin-left: 5px;
+        padding-top: 3px;
+        color: #fff;
+    }
+
+/*general-menu*/
+.left-menu.bg-theme .nav {
+    background: rgba(255, 255, 255, 0) !important;
+}
+
+    .left-menu.bg-theme .nav.dk {
+        background: rgba(255, 255, 255, 0.04) !important;
+    }
+
+    .left-menu.bg-theme .nav.dker {
+        background: rgba(255, 255, 255, 0.05) !important;
+    }
+
+    .left-menu.bg-theme .nav > li:hover > a,
+    .left-menu.bg-theme .nav > li:focus > a,
+    .left-menu.bg-theme .nav > li.active > a,
+    .left-menu.bg-theme .nav > li > a:hover,
+    .left-menu.bg-theme .nav > li > a:focus {
+        background: rgba(0, 0, 0, 0.06) !important;
+    }
+
+    .left-menu.bg-theme .nav > li.active > a {
+        border-left: solid 1px #ffffff !important;
+    }
+
+.app-mode-light.menu-simplified .left-menu.bg-theme .nav.dk {
+    background: rgba(255, 255, 255, 0.7) !important;
+}
+
+.app-mode-light.menu-simplified .left-menu.bg-theme .nav.dker {
+    background: rgba(255, 255, 255, 0.9) !important;
+}
+
+/*theme-default*/
+/*Login Screen*/
+.login-screen .login-area,
+.login-screen .white-box,
+.login-screen .login-box {
+    background-color: #1c2b36 !important;
+}
+
+    .login-screen .login-area::-webkit-scrollbar-button {
+        background-color: rgba(0, 0, 0, 0.5) !important;
+    }
+
+    .login-screen .login-area::-webkit-scrollbar-track {
+        background-color: rgba(0, 0, 0, 0.2) !important;
+    }
+
+.login-screen .login-message-error {
+    color: #f7ce0b !important;
+}
+
+.login-screen .login-message-license {
+    color: #f7ce0b !important;
+}
+
+.login-screen .login-text-title {
+    color: #fff !important;
+}
+
+.login-screen .login-text-input {
+    border: 1px solid #e6e7e7 !important;
+    background: #e6e7e7 !important;
+    color: #1c2b36 !important;
+}
+
+    .login-screen .login-text-input::placeholder {
+        color: #1c2b36 !important;
+        opacity: 1 !important;
+    }
+
+.login-screen .login-text-other {
+    color: #cfd6d6 !important;
+}
+
+.login-screen a.login-text-other:hover {
+    color: #fff !important;
+}
+
+.login-screen button.btn.btn-primary,
+.login-screen button.btn.btn-primary i {
+    color: #fff !important;
+}
+
+.login-screen .normal-language-item,
+.login-screen button.btn.btn-primary {
+    background: rgba(0, 0, 0, 0.08) !important;
+    border: 1px solid #476581 !important;
+}
+
+    .login-screen .selected-language-item,
+    .login-screen button.btn.btn-primary.active.focus,
+    .login-screen button.btn.btn-primary.active:focus,
+    .login-screen button.btn.btn-primary.active:hover,
+    .login-screen button.btn.btn-primary.focus:active,
+    .login-screen button.btn.btn-primary:active:focus,
+    .login-screen button.btn.btn-primary:active:hover,
+    .login-screen button.btn.btn-primary.disabled:hover,
+    .login-screen button.btn.btn-primary.focus,
+    .login-screen button.btn.btn-primary:focus,
+    .login-screen button.btn.btn-primary:hover {
+        background: rgba(0, 0, 0, 0.18) !important;
+        border: 1px solid #476581 !important;
+    }
+
+/*Main Screen*/
+.top-menu.navbar-inverse {
+    background-color: #1c2b36 !important;
+    border-color: #1c2b36 !important;
+}
+
+    .top-menu.navbar-inverse .navbar-nav > li > a {
+        color: #869fb1 !important;
+    }
+
+        .top-menu.navbar-inverse .navbar-nav > li > a:hover,
+        .top-menu.navbar-inverse .navbar-nav > li > a:focus,
+        .top-menu.navbar-inverse .navbar-nav > .open > a,
+        .top-menu.navbar-inverse .navbar-nav > .open > a:hover,
+        .top-menu.navbar-inverse .navbar-nav > .open > a:focus {
+            background-color: #152028 !important;
+            color: #ffffff !important;
+        }
+
+.navbar-header.left-menu.bg-theme,
+.navbar-header.bg-theme > button {
+    background-color: #152028 !important;
+}
+
+.left-menu.bg-theme {
+    background-color: #1c2b36 !important;
+}
+
+    .left-menu.bg-theme .line.dk {
+        background: rgba(0, 0, 0, 0.3) !important;
+    }
+
+    .left-menu.bg-theme .nav > li:hover > a,
+    .left-menu.bg-theme .nav > li:focus > a,
+    .left-menu.bg-theme .nav > li.active > a,
+    .left-menu.bg-theme .nav > li > a:hover,
+    .left-menu.bg-theme .nav > li > a:focus {
+        color: #ffffff !important;
+    }
+
+    .left-menu.bg-theme .text-lt,
+    .left-menu.bg-theme .nav > li > a {
+        color: #869fb1 !important;
+    }
+
+    .left-menu.bg-theme .text-muted {
+        color: #5c798f !important;
+    }
+
+.app-aside-folded .left-menu.bg-theme .nav.dk {
+    background: #283640 !important;
+}
+
+.app-mode-light.menu-simplified .top-menu.navbar-inverse .navbar-nav > li > a:hover,
+.app-mode-light.menu-simplified .top-menu.navbar-inverse .navbar-nav > li > a:focus,
+.app-mode-light.menu-simplified .top-menu.navbar-inverse .navbar-nav > .open > a,
+.app-mode-light.menu-simplified .top-menu.navbar-inverse .navbar-nav > .open > a:hover,
+.app-mode-light.menu-simplified .top-menu.navbar-inverse .navbar-nav > .open > a:focus
+.app-mode-dark.menu-simplified .top-menu.navbar-inverse .navbar-nav > li > a:hover,
+.app-mode-dark.menu-simplified .top-menu.navbar-inverse .navbar-nav > li > a:focus,
+.app-mode-dark.menu-simplified .top-menu.navbar-inverse .navbar-nav > .open > a,
+.app-mode-dark.menu-simplified .top-menu.navbar-inverse .navbar-nav > .open > a:hover,
+.app-mode-dark.menu-simplified .top-menu.navbar-inverse .navbar-nav > .open > a:focus,
+.app-mode-light.menu-simplified .left-menu.bg-theme .nav > li:hover > a,
+.app-mode-light.menu-simplified .left-menu.bg-theme .nav > li:focus > a,
+.app-mode-light.menu-simplified .left-menu.bg-theme .nav > li.active > a,
+.app-mode-light.menu-simplified .left-menu.bg-theme .nav > li > a:hover,
+.app-mode-light.menu-simplified .left-menu.bg-theme .nav > li > a:focus,
+.app-mode-light.menu-simplified .text-center > a:hover,
+.app-mode-dark.menu-simplified .left-menu.bg-theme .nav > li:hover > a,
+.app-mode-dark.menu-simplified .left-menu.bg-theme .nav > li:focus > a,
+.app-mode-dark.menu-simplified .left-menu.bg-theme .nav > li.active > a,
+.app-mode-dark.menu-simplified .left-menu.bg-theme .nav > li > a:hover,
+.app-mode-dark.menu-simplified .left-menu.bg-theme .nav > li > a:focus,
+.app-mode-dark.menu-simplified .text-center > a:hover {
+    color: #03689b !important;
+}
+
+.app-mode-light.menu-simplified .left-menu.bg-theme .nav > li.active > a,
+.app-mode-dark.menu-simplified .left-menu.bg-theme .nav > li.active > a {
+    border-left: solid 1px #03689b !important;
+}
+
+/*View Controls*/
+.k-checkbox:checked + .k-checkbox-label:before,
+.k-radio:checked + .k-radio-label:after,
+.k-calendar td.k-state-selected .k-link,
+.k-calendar td.k-selected .k-link,
+.k-checkbox:checked,
+.k-radio:checked {
+    background-color: #0c6d9e !important;
+    border-color: #0c6d9e !important;
+    color: #ffffffdd !important;
+}
+
+.k-calendar td.k-selected .k-link,
+.k-calendar td.k-state-selected .k-link,
+.k-calendar td.k-state-focused .k-link {
+    box-shadow: inset 0 0 0 1px #0c6d9e !important;
+}
+
+.k-toolbar-button-group .k-button.k-selected {
+    background-color: #0c6d9e !important;
+    color: #ffffffdd !important;
+}
+
+.k-list-item.k-selected {
+    background-color: #0c6d9edd !important;
+    border-bottom: solid 1px #0c6d9ebb;
+    color: #ffffffdd !important;
+}
+
+.k-textbox:focus,
+.k-textbox:hover,
+.k-input.k-focus,
+.k-input.k-hover,
+.k-input:hover,
+.k-picker.k-focus,
+.k-picker.k-hover,
+.k-picker:hover,
+.k-grid-edit-row > td > input,
+.k-grid-edit-row > td > .text-box,
+.k-dropdown-wrap.k-state-hover,
+.k-dropdown-wrap.k-state-focused,
+.k-dropdown-wrap.k-state-active,
+.k-picker-wrap.k-state-hover,
+.k-picker-wrap.k-state-focused,
+.k-picker-wrap.k-state-active,
+.k-numeric-wrap.k-state-hover,
+.k-numeric-wrap.k-state-focused,
+.k-numeric-wrap.k-state-active,
+.k-tabstrip-items-wrapper .k-item.k-active::after,
+.k-multiselect.k-state-hover > .k-multiselect-wrap,
+.k-multiselect.k-state-focused > .k-multiselect-wrap,
+.k-multiselect.k-state-active > .k-multiselect-wrap,
+.k-radio:checked + .k-radio-label:hover:before,
+.k-radio:checked + .k-radio-label:before,
+.k-checkbox:hover,
+.k-radio:hover {
+    border-color: #0c6d9e !important;
+}
+
+.k-scheduler-toolbar .k-scheduler-views li.k-state-selected.k-state-hover,
+.k-scheduler-toolbar > .k-scheduler-views > li.k-state-selected,
+.k-scheduler-toolbar .k-scheduler-views button.k-selected,
+.k-tabstrip-items .k-state-active,
+.k-tabstrip-items .k-state-hover {
+    border-bottom-color: #0c6d9e !important;
+}
+
+.btn-info,
+.btn-primary,
+.combobox-header,
+.k-calendar .k-header,
+.navbar-header > button,
+.k-button-solid-primary,
+.k-action-buttons .k-button,
+.k-grid .k-header .k-button,
+.k-grid .k-toolbar .k-button,
+.k-dialog .k-button.k-primary,
+.k-dialog .k-window-titlebar,
+.k-window-titlebar .k-dialog-title,
+.k-window-actions .k-button,
+.k-window-title {
+    color: #ffffffdd !important;
+}
+
+.btn-info,
+.btn-primary,
+.combobox-header,
+.k-calendar .k-header,
+.k-button-solid-primary,
+.k-action-buttons .k-button,
+.k-grid .k-header .k-button,
+.k-grid .k-toolbar .k-button,
+.k-dialog .k-button.k-primary,
+.k-dialog .k-window-titlebar,
+.k-window-titlebar.k-hstack,
+.k-window-actions.k-hstack,
+.k-drag-clue {
+    background-color: #0c6d9e !important;
+    border-color: #056190 !important;
+}
+
+    .btn-info:hover,
+    .btn-primary:hover,
+    .combobox-header:hover,
+    .k-button-solid-primary:hover,
+    .k-action-buttons .k-button:hover,
+    .k-grid .k-header .k-button:hover,
+    .k-grid .k-toolbar .k-button:hover,
+    .k-dialog .k-button.k-primary:hover,
+    .k-calendar .k-header .k-link.k-state-hover {
+        background-color: #056190 !important;
+        border-color: #056190 !important;
+        color: #ffffff !important;
+    }
+
+.k-loading-image,
+.app-menu-group,
+.k-grid-header .k-grid-header-menu.k-active {
+    color: #056190 !important;
+}
+
+/*theme-item-1*/
+/*Login Screen*/
+.app-theme-1.login-screen .login-area,
+.app-theme-1.login-screen .white-box,
+.app-theme-1.login-screen .login-box {
+    background-color: #a32135 !important;
+}
+
+    .app-theme-1.login-screen .login-area::-webkit-scrollbar-button {
+        background-color: rgba(0, 0, 0, 0.5) !important;
+    }
+
+    .app-theme-1.login-screen .login-area::-webkit-scrollbar-track {
+        background-color: rgba(0, 0, 0, 0.2) !important;
+    }
+
+.app-theme-1.login-screen .login-message-error {
+    color: #f7ce0b !important;
+}
+
+.app-theme-1.login-screen .login-message-license {
+    color: #f7ce0b !important;
+}
+
+.app-theme-1.login-screen .login-text-title {
+    color: #fff !important;
+}
+
+.app-theme-1.login-screen .login-text-input {
+    border: 1px solid #e6e7e7 !important;
+    background: #e6e7e7 !important;
+    color: #a32135 !important;
+}
+
+    .app-theme-1.login-screen .login-text-input::placeholder {
+        color: #a32135 !important;
+        opacity: 1 !important;
+    }
+
+.app-theme-1.login-screen .login-text-other {
+    color: #cfd6d6 !important;
+}
+
+.app-theme-1.login-screen a.login-text-other:hover {
+    color: #fff !important;
+}
+
+.app-theme-1.login-screen button.btn.btn-primary,
+.app-theme-1.login-screen button.btn.btn-primary i {
+    color: #fff !important;
+}
+
+.app-theme-1.login-screen .normal-language-item,
+.app-theme-1.login-screen button.btn.btn-primary {
+    background: rgba(0, 0, 0, 0.08) !important;
+    border: 1px solid #cf5265 !important;
+}
+
+    .app-theme-1.login-screen .selected-language-item,
+    .app-theme-1.login-screen button.btn.btn-primary.active.focus,
+    .app-theme-1.login-screen button.btn.btn-primary.active:focus,
+    .app-theme-1.login-screen button.btn.btn-primary.active:hover,
+    .app-theme-1.login-screen button.btn.btn-primary.focus:active,
+    .app-theme-1.login-screen button.btn.btn-primary:active:focus,
+    .app-theme-1.login-screen button.btn.btn-primary:active:hover,
+    .app-theme-1.login-screen button.btn.btn-primary.disabled:hover,
+    .app-theme-1.login-screen button.btn.btn-primary.focus,
+    .app-theme-1.login-screen button.btn.btn-primary:focus,
+    .app-theme-1.login-screen button.btn.btn-primary:hover {
+        background: rgba(0, 0, 0, 0.18) !important;
+        border: 1px solid #cf5265 !important;
+    }
+
+/*Main Screen*/
+.app-theme-1 .top-menu.navbar-inverse {
+    background-color: #a32135 !important;
+    border-color: #a32135 !important;
+}
+
+    .app-theme-1 .top-menu.navbar-inverse .navbar-nav > li > a {
+        color: #ffffffdd !important;
+    }
+
+        .app-theme-1 .top-menu.navbar-inverse .navbar-nav > li > a:hover,
+        .app-theme-1 .top-menu.navbar-inverse .navbar-nav > li > a:focus,
+        .app-theme-1 .top-menu.navbar-inverse .navbar-nav > .open > a,
+        .app-theme-1 .top-menu.navbar-inverse .navbar-nav > .open > a:hover,
+        .app-theme-1 .top-menu.navbar-inverse .navbar-nav > .open > a:focus {
+            background-color: #991f32 !important;
+            color: #ffffff !important;
+        }
+
+.app-theme-1 .navbar-header.left-menu.bg-theme,
+.app-theme-1 .navbar-header.bg-theme > button {
+    background-color: #991f32 !important;
+}
+
+.app-theme-1 .left-menu.bg-theme {
+    background-color: #a32135 !important;
+}
+
+    .app-theme-1 .left-menu.bg-theme .line.dk {
+        background: rgba(0, 0, 0, 0.08) !important;
+    }
+
+    .app-theme-1 .left-menu.bg-theme .nav > li:hover > a,
+    .app-theme-1 .left-menu.bg-theme .nav > li:focus > a,
+    .app-theme-1 .left-menu.bg-theme .nav > li.active > a,
+    .app-theme-1 .left-menu.bg-theme .nav > li > a:hover,
+    .app-theme-1 .left-menu.bg-theme .nav > li > a:focus {
+        color: #ffffff !important;
+    }
+
+    .app-theme-1 .left-menu.bg-theme .text-lt,
+    .app-theme-1 .left-menu.bg-theme .nav > li > a {
+        color: #ffffffdd !important;
+    }
+
+    .app-theme-1 .left-menu.bg-theme .text-muted {
+        color: #c19ba0 !important;
+    }
+
+.app-theme-1 .app-aside-folded .left-menu.bg-theme .nav.dk {
+    background: #a52d3f !important;
+}
+
+.app-theme-1.menu-simplified .top-menu.navbar-inverse .navbar-nav > li > a:hover,
+.app-theme-1.menu-simplified .top-menu.navbar-inverse .navbar-nav > li > a:focus,
+.app-theme-1.menu-simplified .top-menu.navbar-inverse .navbar-nav > .open > a,
+.app-theme-1.menu-simplified .top-menu.navbar-inverse .navbar-nav > .open > a:hover,
+.app-theme-1.menu-simplified .top-menu.navbar-inverse .navbar-nav > .open > a:focus,
+.app-theme-1.menu-simplified .left-menu.bg-theme .nav > li:hover > a,
+.app-theme-1.menu-simplified .left-menu.bg-theme .nav > li:focus > a,
+.app-theme-1.menu-simplified .left-menu.bg-theme .nav > li.active > a,
+.app-theme-1.menu-simplified .left-menu.bg-theme .nav > li > a:hover,
+.app-theme-1.menu-simplified .left-menu.bg-theme .nav > li > a:focus,
+.app-theme-1.menu-simplified .text-center > a:hover {
+    color: #a32135 !important;
+}
+
+.app-theme-1.menu-simplified .left-menu.bg-theme .nav > li.active > a {
+    border-left: solid 1px #a32135 !important;
+}
+
+/*View Controls*/
+.app-theme-1 .k-checkbox:checked + .k-checkbox-label:before,
+.app-theme-1 .k-radio:checked + .k-radio-label:after,
+.app-theme-1 .k-calendar td.k-state-selected .k-link,
+.app-theme-1 .k-calendar td.k-selected .k-link,
+.app-theme-1 .k-checkbox:checked,
+.app-theme-1 .k-radio:checked {
+    background-color: #a52d3f !important;
+    border-color: #a52d3f !important;
+    color: #ffffffdd !important;
+}
+
+.app-theme-1 .k-calendar td.k-selected .k-link,
+.app-theme-1 .k-calendar td.k-state-selected .k-link,
+.app-theme-1 .k-calendar td.k-state-focused .k-link {
+    box-shadow: inset 0 0 0 1px #a52d3f !important;
+}
+
+.app-theme-1 .k-toolbar-button-group .k-button.k-selected {
+    background-color: #a52d3f !important;
+    color: #ffffffdd !important;
+}
+
+.app-theme-1 .k-list-item.k-selected {
+    background-color: #a52d3fdd !important;
+    border-bottom: solid 1px #a52d3fbb;
+    color: #ffffffdd !important;
+}
+
+.app-theme-1 .k-textbox:focus,
+.app-theme-1 .k-textbox:hover,
+.app-theme-1 .k-input.k-focus,
+.app-theme-1 .k-input.k-hover,
+.app-theme-1 .k-input:hover,
+.app-theme-1 .k-picker.k-focus,
+.app-theme-1 .k-picker.k-hover,
+.app-theme-1 .k-picker:hover,
+.app-theme-1 .k-grid-edit-row > td > input,
+.app-theme-1 .k-grid-edit-row > td > .text-box,
+.app-theme-1 .k-dropdown-wrap.k-state-hover,
+.app-theme-1 .k-dropdown-wrap.k-state-focused,
+.app-theme-1 .k-dropdown-wrap.k-state-active,
+.app-theme-1 .k-picker-wrap.k-state-hover,
+.app-theme-1 .k-picker-wrap.k-state-focused,
+.app-theme-1 .k-picker-wrap.k-state-active,
+.app-theme-1 .k-numeric-wrap.k-state-hover,
+.app-theme-1 .k-numeric-wrap.k-state-focused,
+.app-theme-1 .k-numeric-wrap.k-state-active,
+.app-theme-1 .k-tabstrip-items-wrapper .k-item.k-active::after,
+.app-theme-1 .k-multiselect.k-state-hover > .k-multiselect-wrap,
+.app-theme-1 .k-multiselect.k-state-focused > .k-multiselect-wrap,
+.app-theme-1 .k-multiselect.k-state-active > .k-multiselect-wrap,
+.app-theme-1 .k-radio:checked + .k-radio-label:hover:before,
+.app-theme-1 .k-radio:checked + .k-radio-label:before,
+.app-theme-1 .k-checkbox:hover,
+.app-theme-1 .k-radio:hover {
+    border-color: #a52d3f !important;
+}
+
+.app-theme-1 .k-scheduler-toolbar .k-scheduler-views li.k-state-selected.k-state-hover,
+.app-theme-1 .k-scheduler-toolbar > .k-scheduler-views > li.k-state-selected,
+.app-theme-1 .k-scheduler-toolbar .k-scheduler-views button.k-selected,
+.app-theme-1 .k-tabstrip-items .k-state-active,
+.app-theme-1 .k-tabstrip-items .k-state-hover {
+    border-bottom-color: #a52d3f !important;
+}
+
+.app-theme-1 .btn-info,
+.app-theme-1 .btn-primary,
+.app-theme-1 .combobox-header,
+.app-theme-1 .k-calendar .k-header,
+.app-theme-1 .navbar-header > button,
+.app-theme-1 .k-button-solid-primary,
+.app-theme-1 .k-action-buttons .k-button,
+.app-theme-1 .k-grid .k-header .k-button,
+.app-theme-1 .k-grid .k-toolbar .k-button,
+.app-theme-1 .k-dialog .k-button.k-primary,
+.app-theme-1 .k-dialog .k-window-titlebar,
+.app-theme-1 .k-window-titlebar .k-dialog-title,
+.app-theme-1 .k-window-actions .k-button,
+.app-theme-1 .k-window-title {
+    color: #ffffffdd !important;
+}
+
+.app-theme-1 .btn-info,
+.app-theme-1 .btn-primary,
+.app-theme-1 .combobox-header,
+.app-theme-1 .k-calendar .k-header,
+.app-theme-1 .k-button-solid-primary,
+.app-theme-1 .k-action-buttons .k-button,
+.app-theme-1 .k-grid .k-header .k-button,
+.app-theme-1 .k-grid .k-toolbar .k-button,
+.app-theme-1 .k-dialog .k-button.k-primary,
+.app-theme-1 .k-dialog .k-window-titlebar,
+.app-theme-1 .k-window-titlebar.k-hstack,
+.app-theme-1 .k-window-actions.k-hstack,
+.app-theme-1 .k-drag-clue {
+    background-color: #a52d3f !important;
+    border-color: #9c2134 !important;
+}
+
+    .app-theme-1 .btn-info:hover,
+    .app-theme-1 .btn-primary:hover,
+    .app-theme-1 .combobox-header:hover,
+    .app-theme-1 .k-button-solid-primary:hover,
+    .app-theme-1 .k-action-buttons .k-button:hover,
+    .app-theme-1 .k-grid .k-header .k-button:hover,
+    .app-theme-1 .k-grid .k-toolbar .k-button:hover,
+    .app-theme-1 .k-dialog .k-button.k-primary:hover,
+    .app-theme-1 .k-calendar .k-header .k-link.k-state-hover {
+        background-color: #9c2134 !important;
+        border-color: #9c2134 !important;
+        color: #ffffff !important;
+    }
+
+.app-theme-1 .k-loading-image,
+.app-theme-1 .app-menu-group,
+.app-theme-1 .k-grid-header .k-grid-header-menu.k-active {
+    color: #9c2134 !important;
+}
+
+/*theme-item-2*/
+/*Login Screen*/
+.app-theme-2.login-screen .login-area,
+.app-theme-2.login-screen .white-box,
+.app-theme-2.login-screen .login-box {
+    background-color: #00a652 !important;
+}
+
+    .app-theme-2.login-screen .login-area::-webkit-scrollbar-button {
+        background-color: rgba(0, 0, 0, 0.5) !important;
+    }
+
+    .app-theme-2.login-screen .login-area::-webkit-scrollbar-track {
+        background-color: rgba(0, 0, 0, 0.2) !important;
+    }
+
+.app-theme-2.login-screen .login-message-error {
+    color: #f7ce0b !important;
+}
+
+.app-theme-2.login-screen .login-message-license {
+    color: #f7ce0b !important;
+}
+
+.app-theme-2.login-screen .login-text-title {
+    color: #fff !important;
+}
+
+.app-theme-2.login-screen .login-text-input {
+    border: 1px solid #e6e7e7 !important;
+    background: #e6e7e7 !important;
+    color: #00a652 !important;
+}
+
+    .app-theme-2.login-screen .login-text-input::placeholder {
+        color: #00a652 !important;
+        opacity: 1 !important;
+    }
+
+.app-theme-2.login-screen .login-text-other {
+    color: #cfd6d6 !important;
+}
+
+.app-theme-2.login-screen a.login-text-other:hover {
+    color: #fff !important;
+}
+
+.app-theme-2.login-screen button.btn.btn-primary,
+.app-theme-2.login-screen button.btn.btn-primary i {
+    color: #fff !important;
+}
+
+.app-theme-2.login-screen .normal-language-item,
+.app-theme-2.login-screen button.btn.btn-primary {
+    background: rgba(0, 0, 0, 0.08) !important;
+    border: 1px solid #5dd196 !important;
+}
+
+    .app-theme-2.login-screen .selected-language-item,
+    .app-theme-2.login-screen button.btn.btn-primary.active.focus,
+    .app-theme-2.login-screen button.btn.btn-primary.active:focus,
+    .app-theme-2.login-screen button.btn.btn-primary.active:hover,
+    .app-theme-2.login-screen button.btn.btn-primary.focus:active,
+    .app-theme-2.login-screen button.btn.btn-primary:active:focus,
+    .app-theme-2.login-screen button.btn.btn-primary:active:hover,
+    .app-theme-2.login-screen button.btn.btn-primary.disabled:hover,
+    .app-theme-2.login-screen button.btn.btn-primary.focus,
+    .app-theme-2.login-screen button.btn.btn-primary:focus,
+    .app-theme-2.login-screen button.btn.btn-primary:hover {
+        background: rgba(0, 0, 0, 0.18) !important;
+        border: 1px solid #5dd196 !important;
+    }
+
+/*Main Screen*/
+.app-theme-2 .top-menu.navbar-inverse {
+    background-color: #00a652 !important;
+    border-color: #00a652 !important;
+}
+
+    .app-theme-2 .top-menu.navbar-inverse .navbar-nav > li > a {
+        color: #ffffffdd !important;
+    }
+
+        .app-theme-2 .top-menu.navbar-inverse .navbar-nav > li > a:hover,
+        .app-theme-2 .top-menu.navbar-inverse .navbar-nav > li > a:focus,
+        .app-theme-2 .top-menu.navbar-inverse .navbar-nav > .open > a,
+        .app-theme-2 .top-menu.navbar-inverse .navbar-nav > .open > a:hover,
+        .app-theme-2 .top-menu.navbar-inverse .navbar-nav > .open > a:focus {
+            background-color: #019e4f !important;
+            color: #ffffff !important;
+        }
+
+.app-theme-2 .navbar-header.left-menu.bg-theme,
+.app-theme-2 .navbar-header.bg-theme > button {
+    background-color: #019e4f !important;
+}
+
+.app-theme-2 .left-menu.bg-theme {
+    background-color: #00a652 !important;
+}
+
+    .app-theme-2 .left-menu.bg-theme .line.dk {
+        background: rgba(0, 0, 0, 0.08) !important;
+    }
+
+    .app-theme-2 .left-menu.bg-theme .nav > li:hover > a,
+    .app-theme-2 .left-menu.bg-theme .nav > li:focus > a,
+    .app-theme-2 .left-menu.bg-theme .nav > li.active > a,
+    .app-theme-2 .left-menu.bg-theme .nav > li > a:hover,
+    .app-theme-2 .left-menu.bg-theme .nav > li > a:focus {
+        color: #ffffff !important;
+    }
+
+    .app-theme-2 .left-menu.bg-theme .text-lt,
+    .app-theme-2 .left-menu.bg-theme .nav > li > a {
+        color: #ffffffdd !important;
+    }
+
+    .app-theme-2 .left-menu.bg-theme .text-muted {
+        color: #c5dbd9 !important;
+    }
+
+.app-theme-2 .app-aside-folded .left-menu.bg-theme .nav.dk {
+    background: #0fab5c !important;
+}
+
+.app-theme-2.menu-simplified .top-menu.navbar-inverse .navbar-nav > li > a:hover,
+.app-theme-2.menu-simplified .top-menu.navbar-inverse .navbar-nav > li > a:focus,
+.app-theme-2.menu-simplified .top-menu.navbar-inverse .navbar-nav > .open > a,
+.app-theme-2.menu-simplified .top-menu.navbar-inverse .navbar-nav > .open > a:hover,
+.app-theme-2.menu-simplified .top-menu.navbar-inverse .navbar-nav > .open > a:focus,
+.app-theme-2.menu-simplified .left-menu.bg-theme .nav > li:hover > a,
+.app-theme-2.menu-simplified .left-menu.bg-theme .nav > li:focus > a,
+.app-theme-2.menu-simplified .left-menu.bg-theme .nav > li.active > a,
+.app-theme-2.menu-simplified .left-menu.bg-theme .nav > li > a:hover,
+.app-theme-2.menu-simplified .left-menu.bg-theme .nav > li > a:focus,
+.app-theme-2.menu-simplified .text-center > a:hover {
+    color: #00a652 !important;
+}
+
+.app-theme-2.menu-simplified .left-menu.bg-theme .nav > li.active > a {
+    border-left: solid 1px #00a652 !important;
+}
+
+/*View Controls*/
+.app-theme-2 .k-checkbox:checked + .k-checkbox-label:before,
+.app-theme-2 .k-radio:checked + .k-radio-label:after,
+.app-theme-2 .k-calendar td.k-state-selected .k-link,
+.app-theme-2 .k-calendar td.k-selected .k-link,
+.app-theme-2 .k-checkbox:checked,
+.app-theme-2 .k-radio:checked {
+    background-color: #0fab5c !important;
+    border-color: #0fab5c !important;
+    color: #ffffffdd !important;
+}
+
+.app-theme-2 .k-calendar td.k-selected .k-link,
+.app-theme-2 .k-calendar td.k-state-selected .k-link,
+.app-theme-2 .k-calendar td.k-state-focused .k-link {
+    box-shadow: inset 0 0 0 1px #0fab5c !important;
+}
+
+.app-theme-2 .k-toolbar-button-group .k-button.k-selected {
+    background-color: #0fab5c !important;
+    color: #ffffffdd !important;
+}
+
+.app-theme-2 .k-list-item.k-selected {
+    background-color: #0fab5cdd !important;
+    border-bottom: solid 1px #0fab5cbb;
+    color: #ffffffdd !important;
+}
+
+.app-theme-2 .k-textbox:focus,
+.app-theme-2 .k-textbox:hover,
+.app-theme-2 .k-input.k-focus,
+.app-theme-2 .k-input.k-hover,
+.app-theme-2 .k-input:hover,
+.app-theme-2 .k-picker.k-focus,
+.app-theme-2 .k-picker.k-hover,
+.app-theme-2 .k-picker:hover,
+.app-theme-2 .k-grid-edit-row > td > input,
+.app-theme-2 .k-grid-edit-row > td > .text-box,
+.app-theme-2 .k-dropdown-wrap.k-state-hover,
+.app-theme-2 .k-dropdown-wrap.k-state-focused,
+.app-theme-2 .k-dropdown-wrap.k-state-active,
+.app-theme-2 .k-picker-wrap.k-state-hover,
+.app-theme-2 .k-picker-wrap.k-state-focused,
+.app-theme-2 .k-picker-wrap.k-state-active,
+.app-theme-2 .k-numeric-wrap.k-state-hover,
+.app-theme-2 .k-numeric-wrap.k-state-focused,
+.app-theme-2 .k-numeric-wrap.k-state-active,
+.app-theme-2 .k-tabstrip-items-wrapper .k-item.k-active::after,
+.app-theme-2 .k-multiselect.k-state-hover > .k-multiselect-wrap,
+.app-theme-2 .k-multiselect.k-state-focused > .k-multiselect-wrap,
+.app-theme-2 .k-multiselect.k-state-active > .k-multiselect-wrap,
+.app-theme-2 .k-radio:checked + .k-radio-label:hover:before,
+.app-theme-2 .k-radio:checked + .k-radio-label:before,
+.app-theme-2 .k-checkbox:hover,
+.app-theme-2 .k-radio:hover {
+    border-color: #0fab5c !important;
+}
+
+.app-theme-2 .k-scheduler-toolbar .k-scheduler-views li.k-state-selected.k-state-hover,
+.app-theme-2 .k-scheduler-toolbar > .k-scheduler-views > li.k-state-selected,
+.app-theme-2 .k-scheduler-toolbar .k-scheduler-views button.k-selected,
+.app-theme-2 .k-tabstrip-items .k-state-active,
+.app-theme-2 .k-tabstrip-items .k-state-hover {
+    border-bottom-color: #0fab5c !important;
+}
+
+.app-theme-2 .btn-info,
+.app-theme-2 .btn-primary,
+.app-theme-2 .combobox-header,
+.app-theme-2 .k-calendar .k-header,
+.app-theme-2 .navbar-header > button,
+.app-theme-2 .k-button-solid-primary,
+.app-theme-2 .k-action-buttons .k-button,
+.app-theme-2 .k-grid .k-header .k-button,
+.app-theme-2 .k-grid .k-toolbar .k-button,
+.app-theme-2 .k-dialog .k-button.k-primary,
+.app-theme-2 .k-dialog .k-window-titlebar,
+.app-theme-2 .k-window-titlebar .k-dialog-title,
+.app-theme-2 .k-window-actions .k-button,
+.app-theme-2 .k-window-title {
+    color: #ffffffdd !important;
+}
+
+.app-theme-2 .btn-info,
+.app-theme-2 .btn-primary,
+.app-theme-2 .combobox-header,
+.app-theme-2 .k-calendar .k-header,
+.app-theme-2 .k-button-solid-primary,
+.app-theme-2 .k-action-buttons .k-button,
+.app-theme-2 .k-grid .k-header .k-button,
+.app-theme-2 .k-grid .k-toolbar .k-button,
+.app-theme-2 .k-dialog .k-button.k-primary,
+.app-theme-2 .k-dialog .k-window-titlebar,
+.app-theme-2 .k-window-titlebar.k-hstack,
+.app-theme-2 .k-window-actions.k-hstack,
+.app-theme-2 .k-drag-clue {
+    background-color: #0fab5c !important;
+    border-color: #019e4f !important;
+}
+
+    .app-theme-2 .btn-info:hover,
+    .app-theme-2 .btn-primary:hover,
+    .app-theme-2 .combobox-header:hover,
+    .app-theme-2 .k-button-solid-primary:hover,
+    .app-theme-2 .k-action-buttons .k-button:hover,
+    .app-theme-2 .k-grid .k-header .k-button:hover,
+    .app-theme-2 .k-grid .k-toolbar .k-button:hover,
+    .app-theme-2 .k-dialog .k-button.k-primary:hover,
+    .app-theme-2 .k-calendar .k-header .k-link.k-state-hover {
+        background-color: #019e4f !important;
+        border-color: #019e4f !important;
+        color: #ffffff !important;
+    }
+
+.app-theme-2 .k-loading-image,
+.app-theme-2 .app-menu-group,
+.app-theme-2 .k-grid-header .k-grid-header-menu.k-active {
+    color: #019e4f !important;
+}
+
+/*theme-item-3*/
+/*Login Screen*/
+.app-theme-3.login-screen .login-area,
+.app-theme-3.login-screen .white-box,
+.app-theme-3.login-screen .login-box {
+    background-color: #9b58b5 !important;
+}
+
+    .app-theme-3.login-screen .login-area::-webkit-scrollbar-button {
+        background-color: rgba(0, 0, 0, 0.5) !important;
+    }
+
+    .app-theme-3.login-screen .login-area::-webkit-scrollbar-track {
+        background-color: rgba(0, 0, 0, 0.2) !important;
+    }
+
+.app-theme-3.login-screen .login-message-error {
+    color: #f7ce0b !important;
+}
+
+.app-theme-3.login-screen .login-message-license {
+    color: #f7ce0b !important;
+}
+
+.app-theme-3.login-screen .login-text-title {
+    color: #fff !important;
+}
+
+.app-theme-3.login-screen .login-text-input {
+    border: 1px solid #e6e7e7 !important;
+    background: #e6e7e7 !important;
+    color: #9b58b5 !important;
+}
+
+    .app-theme-3.login-screen .login-text-input::placeholder {
+        color: #9b58b5 !important;
+        opacity: 1 !important;
+    }
+
+.app-theme-3.login-screen .login-text-other {
+    color: #cfd6d6 !important;
+}
+
+.app-theme-3.login-screen a.login-text-other:hover {
+    color: #fff !important;
+}
+
+.app-theme-3.login-screen button.btn.btn-primary,
+.app-theme-3.login-screen button.btn.btn-primary i {
+    color: #fff !important;
+}
+
+.app-theme-3.login-screen .normal-language-item,
+.app-theme-3.login-screen button.btn.btn-primary {
+    background: rgba(0, 0, 0, 0.08) !important;
+    border: 1px solid #d399e9 !important;
+}
+
+    .app-theme-3.login-screen .selected-language-item,
+    .app-theme-3.login-screen button.btn.btn-primary.active.focus,
+    .app-theme-3.login-screen button.btn.btn-primary.active:focus,
+    .app-theme-3.login-screen button.btn.btn-primary.active:hover,
+    .app-theme-3.login-screen button.btn.btn-primary.focus:active,
+    .app-theme-3.login-screen button.btn.btn-primary:active:focus,
+    .app-theme-3.login-screen button.btn.btn-primary:active:hover,
+    .app-theme-3.login-screen button.btn.btn-primary.disabled:hover,
+    .app-theme-3.login-screen button.btn.btn-primary.focus,
+    .app-theme-3.login-screen button.btn.btn-primary:focus,
+    .app-theme-3.login-screen button.btn.btn-primary:hover {
+        background: rgba(0, 0, 0, 0.18) !important;
+        border: 1px solid #d399e9 !important;
+    }
+
+/*Main Screen*/
+.app-theme-3 .top-menu.navbar-inverse {
+    background-color: #9b58b5 !important;
+    border-color: #9b58b5 !important;
+}
+
+    .app-theme-3 .top-menu.navbar-inverse .navbar-nav > li > a {
+        color: #ffffffdd !important;
+    }
+
+        .app-theme-3 .top-menu.navbar-inverse .navbar-nav > li > a:hover,
+        .app-theme-3 .top-menu.navbar-inverse .navbar-nav > li > a:focus,
+        .app-theme-3 .top-menu.navbar-inverse .navbar-nav > .open > a,
+        .app-theme-3 .top-menu.navbar-inverse .navbar-nav > .open > a:hover,
+        .app-theme-3 .top-menu.navbar-inverse .navbar-nav > .open > a:focus {
+            background-color: #9253aa !important;
+            color: #ffffff !important;
+        }
+
+.app-theme-3 .navbar-header.left-menu.bg-theme,
+.app-theme-3 .navbar-header.bg-theme > button {
+    background-color: #9253aa !important;
+}
+
+.app-theme-3 .left-menu.bg-theme {
+    background-color: #9b58b5 !important;
+}
+
+    .app-theme-3 .left-menu.bg-theme .line.dk {
+        background: rgba(0, 0, 0, 0.08) !important;
+    }
+
+    .app-theme-3 .left-menu.bg-theme .nav > li:hover > a,
+    .app-theme-3 .left-menu.bg-theme .nav > li:focus > a,
+    .app-theme-3 .left-menu.bg-theme .nav > li.active > a,
+    .app-theme-3 .left-menu.bg-theme .nav > li > a:hover,
+    .app-theme-3 .left-menu.bg-theme .nav > li > a:focus {
+        color: #ffffff !important;
+    }
+
+    .app-theme-3 .left-menu.bg-theme .text-lt,
+    .app-theme-3 .left-menu.bg-theme .nav > li > a {
+        color: #ffffffdd !important;
+    }
+
+    .app-theme-3 .left-menu.bg-theme .text-muted {
+        color: #c2b0c9 !important;
+    }
+
+.app-theme-3 .app-aside-folded .left-menu.bg-theme .nav.dk {
+    background: #9d60b5 !important;
+}
+
+.app-theme-3.menu-simplified .top-menu.navbar-inverse .navbar-nav > li > a:hover,
+.app-theme-3.menu-simplified .top-menu.navbar-inverse .navbar-nav > li > a:focus,
+.app-theme-3.menu-simplified .top-menu.navbar-inverse .navbar-nav > .open > a,
+.app-theme-3.menu-simplified .top-menu.navbar-inverse .navbar-nav > .open > a:hover,
+.app-theme-3.menu-simplified .top-menu.navbar-inverse .navbar-nav > .open > a:focus,
+.app-theme-3.menu-simplified .left-menu.bg-theme .nav > li:hover > a,
+.app-theme-3.menu-simplified .left-menu.bg-theme .nav > li:focus > a,
+.app-theme-3.menu-simplified .left-menu.bg-theme .nav > li.active > a,
+.app-theme-3.menu-simplified .left-menu.bg-theme .nav > li > a:hover,
+.app-theme-3.menu-simplified .left-menu.bg-theme .nav > li > a:focus,
+.app-theme-3.menu-simplified .text-center > a:hover {
+    color: #9b58b5 !important;
+}
+
+.app-theme-3.menu-simplified .left-menu.bg-theme .nav > li.active > a {
+    border-left: solid 1px #9b58b5 !important;
+}
+
+/*View Controls*/
+.app-theme-3 .k-checkbox:checked + .k-checkbox-label:before,
+.app-theme-3 .k-radio:checked + .k-radio-label:after,
+.app-theme-3 .k-calendar td.k-state-selected .k-link,
+.app-theme-3 .k-calendar td.k-selected .k-link,
+.app-theme-3 .k-checkbox:checked,
+.app-theme-3 .k-radio:checked {
+    background-color: #9d60b5 !important;
+    border-color: #9d60b5 !important;
+    color: #ffffffdd !important;
+}
+
+.app-theme-3 .k-calendar td.k-selected .k-link,
+.app-theme-3 .k-calendar td.k-state-selected .k-link,
+.app-theme-3 .k-calendar td.k-state-focused .k-link {
+    box-shadow: inset 0 0 0 1px #9d60b5 !important;
+}
+
+.app-theme-3 .k-toolbar-button-group .k-button.k-selected {
+    background-color: #9d60b5 !important;
+    color: #ffffffdd !important;
+}
+
+.app-theme-3 .k-list-item.k-selected {
+    background-color: #9d60b5dd !important;
+    border-bottom: solid 1px #9d60b5bb;
+    color: #ffffffdd !important;
+}
+
+.app-theme-3 .k-textbox:focus,
+.app-theme-3 .k-textbox:hover,
+.app-theme-3 .k-input.k-focus,
+.app-theme-3 .k-input.k-hover,
+.app-theme-3 .k-input:hover,
+.app-theme-3 .k-picker.k-focus,
+.app-theme-3 .k-picker.k-hover,
+.app-theme-3 .k-picker:hover,
+.app-theme-3 .k-grid-edit-row > td > input,
+.app-theme-3 .k-grid-edit-row > td > .text-box,
+.app-theme-3 .k-dropdown-wrap.k-state-hover,
+.app-theme-3 .k-dropdown-wrap.k-state-focused,
+.app-theme-3 .k-dropdown-wrap.k-state-active,
+.app-theme-3 .k-picker-wrap.k-state-hover,
+.app-theme-3 .k-picker-wrap.k-state-focused,
+.app-theme-3 .k-picker-wrap.k-state-active,
+.app-theme-3 .k-numeric-wrap.k-state-hover,
+.app-theme-3 .k-numeric-wrap.k-state-focused,
+.app-theme-3 .k-numeric-wrap.k-state-active,
+.app-theme-3 .k-tabstrip-items-wrapper .k-item.k-active::after,
+.app-theme-3 .k-multiselect.k-state-hover > .k-multiselect-wrap,
+.app-theme-3 .k-multiselect.k-state-focused > .k-multiselect-wrap,
+.app-theme-3 .k-multiselect.k-state-active > .k-multiselect-wrap,
+.app-theme-3 .k-radio:checked + .k-radio-label:hover:before,
+.app-theme-3 .k-radio:checked + .k-radio-label:before,
+.app-theme-3 .k-checkbox:hover,
+.app-theme-3 .k-radio:hover {
+    border-color: #9d60b5 !important;
+}
+
+.app-theme-3 .k-scheduler-toolbar .k-scheduler-views li.k-state-selected.k-state-hover,
+.app-theme-3 .k-scheduler-toolbar > .k-scheduler-views > li.k-state-selected,
+.app-theme-3 .k-scheduler-toolbar .k-scheduler-views button.k-selected,
+.app-theme-3 .k-tabstrip-items .k-state-active,
+.app-theme-3 .k-tabstrip-items .k-state-hover {
+    border-bottom-color: #9d60b5 !important;
+}
+
+.app-theme-3 .btn-info,
+.app-theme-3 .btn-primary,
+.app-theme-3 .combobox-header,
+.app-theme-3 .k-calendar .k-header,
+.app-theme-3 .navbar-header > button,
+.app-theme-3 .k-button-solid-primary,
+.app-theme-3 .k-action-buttons .k-button,
+.app-theme-3 .k-grid .k-header .k-button,
+.app-theme-3 .k-grid .k-toolbar .k-button,
+.app-theme-3 .k-dialog .k-button.k-primary,
+.app-theme-3 .k-dialog .k-window-titlebar,
+.app-theme-3 .k-window-titlebar .k-dialog-title,
+.app-theme-3 .k-window-actions .k-button,
+.app-theme-3 .k-window-title {
+    color: #ffffffdd !important;
+}
+
+.app-theme-3 .btn-info,
+.app-theme-3 .btn-primary,
+.app-theme-3 .combobox-header,
+.app-theme-3 .k-calendar .k-header,
+.app-theme-3 .k-button-solid-primary,
+.app-theme-3 .k-action-buttons .k-button,
+.app-theme-3 .k-grid .k-header .k-button,
+.app-theme-3 .k-grid .k-toolbar .k-button,
+.app-theme-3 .k-dialog .k-button.k-primary,
+.app-theme-3 .k-dialog .k-window-titlebar,
+.app-theme-3 .k-window-titlebar.k-hstack,
+.app-theme-3 .k-window-actions.k-hstack,
+.app-theme-3 .k-drag-clue {
+    background-color: #9d60b5 !important;
+    border-color: #9253aa !important;
+}
+
+    .app-theme-3 .btn-info:hover,
+    .app-theme-3 .btn-primary:hover,
+    .app-theme-3 .combobox-header:hover,
+    .app-theme-3 .k-button-solid-primary:hover,
+    .app-theme-3 .k-action-buttons .k-button:hover,
+    .app-theme-3 .k-grid .k-header .k-button:hover,
+    .app-theme-3 .k-grid .k-toolbar .k-button:hover,
+    .app-theme-3 .k-dialog .k-button.k-primary:hover,
+    .app-theme-3 .k-calendar .k-header .k-link.k-state-hover {
+        background-color: #9253aa !important;
+        border-color: #9253aa !important;
+        color: #ffffff !important;
+    }
+
+.app-theme-3 .k-loading-image,
+.app-theme-3 .app-menu-group,
+.app-theme-3 .k-grid-header .k-grid-header-menu.k-active {
+    color: #9253aa !important;
+}
+
+/*theme-item-4*/
+/*Login Screen*/
+.app-theme-4.login-screen .login-area,
+.app-theme-4.login-screen .white-box,
+.app-theme-4.login-screen .login-box {
+    background-color: #004d83 !important;
+}
+
+    .app-theme-4.login-screen .login-area::-webkit-scrollbar-button {
+        background-color: rgba(0, 0, 0, 0.5) !important;
+    }
+
+    .app-theme-4.login-screen .login-area::-webkit-scrollbar-track {
+        background-color: rgba(0, 0, 0, 0.2) !important;
+    }
+
+.app-theme-4.login-screen .login-message-error {
+    color: #f7ce0b !important;
+}
+
+.app-theme-4.login-screen .login-message-license {
+    color: #f7ce0b !important;
+}
+
+.app-theme-4.login-screen .login-text-title {
+    color: #fff !important;
+}
+
+.app-theme-4.login-screen .login-text-input {
+    border: 1px solid #e6e7e7 !important;
+    background: #e6e7e7 !important;
+    color: #004d83 !important;
+}
+
+    .app-theme-4.login-screen .login-text-input::placeholder {
+        color: #004d83 !important;
+        opacity: 1 !important;
+    }
+
+.app-theme-4.login-screen .login-text-other {
+    color: #cfd6d6 !important;
+}
+
+.app-theme-4.login-screen a.login-text-other:hover {
+    color: #fff !important;
+}
+
+.app-theme-4.login-screen button.btn.btn-primary,
+.app-theme-4.login-screen button.btn.btn-primary i {
+    color: #fff !important;
+}
+
+.app-theme-4.login-screen .normal-language-item,
+.app-theme-4.login-screen button.btn.btn-primary {
+    background: rgba(0, 0, 0, 0.08) !important;
+    border: 1px solid #4da1db !important;
+}
+
+    .app-theme-4.login-screen .selected-language-item,
+    .app-theme-4.login-screen button.btn.btn-primary.active.focus,
+    .app-theme-4.login-screen button.btn.btn-primary.active:focus,
+    .app-theme-4.login-screen button.btn.btn-primary.active:hover,
+    .app-theme-4.login-screen button.btn.btn-primary.focus:active,
+    .app-theme-4.login-screen button.btn.btn-primary:active:focus,
+    .app-theme-4.login-screen button.btn.btn-primary:active:hover,
+    .app-theme-4.login-screen button.btn.btn-primary.disabled:hover,
+    .app-theme-4.login-screen button.btn.btn-primary.focus,
+    .app-theme-4.login-screen button.btn.btn-primary:focus,
+    .app-theme-4.login-screen button.btn.btn-primary:hover {
+        background: rgba(0, 0, 0, 0.18) !important;
+        border: 1px solid #4da1db !important;
+    }
+
+/*Main Screen*/
+.app-theme-4 .top-menu.navbar-inverse {
+    background-color: #004d83 !important;
+    border-color: #004d83 !important;
+}
+
+    .app-theme-4 .top-menu.navbar-inverse .navbar-nav > li > a {
+        color: #ffffffdd !important;
+    }
+
+        .app-theme-4 .top-menu.navbar-inverse .navbar-nav > li > a:hover,
+        .app-theme-4 .top-menu.navbar-inverse .navbar-nav > li > a:focus,
+        .app-theme-4 .top-menu.navbar-inverse .navbar-nav > .open > a,
+        .app-theme-4 .top-menu.navbar-inverse .navbar-nav > .open > a:hover,
+        .app-theme-4 .top-menu.navbar-inverse .navbar-nav > .open > a:focus {
+            background-color: #024879 !important;
+            color: #ffffff !important;
+        }
+
+.app-theme-4 .navbar-header.left-menu.bg-theme,
+.app-theme-4 .navbar-header.bg-theme > button {
+    background-color: #024879 !important;
+}
+
+.app-theme-4 .left-menu.bg-theme {
+    background-color: #004d83 !important;
+}
+
+    .app-theme-4 .left-menu.bg-theme .line.dk {
+        background: rgba(0, 0, 0, 0.08) !important;
+    }
+
+    .app-theme-4 .left-menu.bg-theme .nav > li:hover > a,
+    .app-theme-4 .left-menu.bg-theme .nav > li:focus > a,
+    .app-theme-4 .left-menu.bg-theme .nav > li.active > a,
+    .app-theme-4 .left-menu.bg-theme .nav > li > a:hover,
+    .app-theme-4 .left-menu.bg-theme .nav > li > a:focus {
+        color: #ffffff !important;
+    }
+
+    .app-theme-4 .left-menu.bg-theme .text-lt,
+    .app-theme-4 .left-menu.bg-theme .nav > li > a {
+        color: #ffffffdd !important;
+    }
+
+    .app-theme-4 .left-menu.bg-theme .text-muted {
+        color: #9bb1c1 !important;
+    }
+
+.app-theme-4 .app-aside-folded .left-menu.bg-theme .nav.dk {
+    background: #115585 !important;
+}
+
+.app-theme-4.menu-simplified .top-menu.navbar-inverse .navbar-nav > li > a:hover,
+.app-theme-4.menu-simplified .top-menu.navbar-inverse .navbar-nav > li > a:focus,
+.app-theme-4.menu-simplified .top-menu.navbar-inverse .navbar-nav > .open > a,
+.app-theme-4.menu-simplified .top-menu.navbar-inverse .navbar-nav > .open > a:hover,
+.app-theme-4.menu-simplified .top-menu.navbar-inverse .navbar-nav > .open > a:focus,
+.app-theme-4.menu-simplified .left-menu.bg-theme .nav > li:hover > a,
+.app-theme-4.menu-simplified .left-menu.bg-theme .nav > li:focus > a,
+.app-theme-4.menu-simplified .left-menu.bg-theme .nav > li.active > a,
+.app-theme-4.menu-simplified .left-menu.bg-theme .nav > li > a:hover,
+.app-theme-4.menu-simplified .left-menu.bg-theme .nav > li > a:focus,
+.app-theme-4.menu-simplified .text-center > a:hover {
+    color: #004d83 !important;
+}
+
+.app-theme-4.menu-simplified .left-menu.bg-theme .nav > li.active > a {
+    border-left: solid 1px #004d83 !important;
+}
+
+/*View Controls*/
+.app-theme-4 .k-checkbox:checked + .k-checkbox-label:before,
+.app-theme-4 .k-radio:checked + .k-radio-label:after,
+.app-theme-4 .k-calendar td.k-state-selected .k-link,
+.app-theme-4 .k-calendar td.k-selected .k-link,
+.app-theme-4 .k-checkbox:checked,
+.app-theme-4 .k-radio:checked {
+    background-color: #115585 !important;
+    border-color: #115585 !important;
+    color: #ffffffdd !important;
+}
+
+.app-theme-4 .k-calendar td.k-selected .k-link,
+.app-theme-4 .k-calendar td.k-state-selected .k-link,
+.app-theme-4 .k-calendar td.k-state-focused .k-link {
+    box-shadow: inset 0 0 0 1px #115585 !important;
+}
+
+.app-theme-4 .k-toolbar-button-group .k-button.k-selected {
+    background-color: #115585 !important;
+    color: #ffffffdd !important;
+}
+
+.app-theme-4 .k-list-item.k-selected {
+    background-color: #115585dd !important;
+    border-bottom: solid 1px #115585bb;
+    color: #ffffffdd !important;
+}
+
+.app-theme-4 .k-textbox:focus,
+.app-theme-4 .k-textbox:hover,
+.app-theme-4 .k-input.k-focus,
+.app-theme-4 .k-input.k-hover,
+.app-theme-4 .k-input:hover,
+.app-theme-4 .k-picker.k-focus,
+.app-theme-4 .k-picker.k-hover,
+.app-theme-4 .k-picker:hover,
+.app-theme-4 .k-grid-edit-row > td > input,
+.app-theme-4 .k-grid-edit-row > td > .text-box,
+.app-theme-4 .k-dropdown-wrap.k-state-hover,
+.app-theme-4 .k-dropdown-wrap.k-state-focused,
+.app-theme-4 .k-dropdown-wrap.k-state-active,
+.app-theme-4 .k-picker-wrap.k-state-hover,
+.app-theme-4 .k-picker-wrap.k-state-focused,
+.app-theme-4 .k-picker-wrap.k-state-active,
+.app-theme-4 .k-numeric-wrap.k-state-hover,
+.app-theme-4 .k-numeric-wrap.k-state-focused,
+.app-theme-4 .k-numeric-wrap.k-state-active,
+.app-theme-4 .k-tabstrip-items-wrapper .k-item.k-active::after,
+.app-theme-4 .k-multiselect.k-state-hover > .k-multiselect-wrap,
+.app-theme-4 .k-multiselect.k-state-focused > .k-multiselect-wrap,
+.app-theme-4 .k-multiselect.k-state-active > .k-multiselect-wrap,
+.app-theme-4 .k-radio:checked + .k-radio-label:hover:before,
+.app-theme-4 .k-radio:checked + .k-radio-label:before,
+.app-theme-4 .k-checkbox:hover,
+.app-theme-4 .k-radio:hover {
+    border-color: #115585 !important;
+}
+
+.app-theme-4 .k-scheduler-toolbar .k-scheduler-views li.k-state-selected.k-state-hover,
+.app-theme-4 .k-scheduler-toolbar > .k-scheduler-views > li.k-state-selected,
+.app-theme-4 .k-scheduler-toolbar .k-scheduler-views button.k-selected,
+.app-theme-4 .k-tabstrip-items .k-state-active,
+.app-theme-4 .k-tabstrip-items .k-state-hover {
+    border-bottom-color: #115585 !important;
+}
+
+.app-theme-4 .btn-info,
+.app-theme-4 .btn-primary,
+.app-theme-4 .combobox-header,
+.app-theme-4 .k-calendar .k-header,
+.app-theme-4 .navbar-header > button,
+.app-theme-4 .k-button-solid-primary,
+.app-theme-4 .k-action-buttons .k-button,
+.app-theme-4 .k-grid .k-header .k-button,
+.app-theme-4 .k-grid .k-toolbar .k-button,
+.app-theme-4 .k-dialog .k-button.k-primary,
+.app-theme-4 .k-dialog .k-window-titlebar,
+.app-theme-4 .k-window-titlebar .k-dialog-title,
+.app-theme-4 .k-window-actions .k-button,
+.app-theme-4 .k-window-title {
+    color: #ffffffdd !important;
+}
+
+.app-theme-4 .btn-info,
+.app-theme-4 .btn-primary,
+.app-theme-4 .combobox-header,
+.app-theme-4 .k-calendar .k-header,
+.app-theme-4 .k-button-solid-primary,
+.app-theme-4 .k-action-buttons .k-button,
+.app-theme-4 .k-grid .k-header .k-button,
+.app-theme-4 .k-grid .k-toolbar .k-button,
+.app-theme-4 .k-dialog .k-button.k-primary,
+.app-theme-4 .k-dialog .k-window-titlebar,
+.app-theme-4 .k-window-titlebar.k-hstack,
+.app-theme-4 .k-window-actions.k-hstack,
+.app-theme-4 .k-drag-clue {
+    background-color: #115585 !important;
+    border-color: #024879 !important;
+}
+
+    .app-theme-4 .btn-info:hover,
+    .app-theme-4 .btn-primary:hover,
+    .app-theme-4 .combobox-header:hover,
+    .app-theme-4 .k-button-solid-primary:hover,
+    .app-theme-4 .k-action-buttons .k-button:hover,
+    .app-theme-4 .k-grid .k-header .k-button:hover,
+    .app-theme-4 .k-grid .k-toolbar .k-button:hover,
+    .app-theme-4 .k-dialog .k-button.k-primary:hover,
+    .app-theme-4 .k-calendar .k-header .k-link.k-state-hover {
+        background-color: #024879 !important;
+        border-color: #024879 !important;
+        color: #ffffff !important;
+    }
+
+.app-theme-4 .k-loading-image,
+.app-theme-4 .app-menu-group,
+.app-theme-4 .k-grid-header .k-grid-header-menu.k-active {
+    color: #024879 !important;
+}
+
+/*theme-item-5*/
+/*Login Screen*/
+.app-theme-5.login-screen .login-area,
+.app-theme-5.login-screen .white-box,
+.app-theme-5.login-screen .login-box {
+    background-color: #03689b !important;
+}
+
+    .app-theme-5.login-screen .login-area::-webkit-scrollbar-button {
+        background-color: rgba(0, 0, 0, 0.5) !important;
+    }
+
+    .app-theme-5.login-screen .login-area::-webkit-scrollbar-track {
+        background-color: rgba(0, 0, 0, 0.2) !important;
+    }
+
+.app-theme-5.login-screen .login-message-error {
+    color: #f7ce0b !important;
+}
+
+.app-theme-5.login-screen .login-message-license {
+    color: #f7ce0b !important;
+}
+
+.app-theme-5.login-screen .login-text-title {
+    color: #fff !important;
+}
+
+.app-theme-5.login-screen .login-text-input {
+    border: 1px solid #e6e7e7 !important;
+    background: #e6e7e7 !important;
+    color: #03689b !important;
+}
+
+    .app-theme-5.login-screen .login-text-input::placeholder {
+        color: #03689b !important;
+        opacity: 1 !important;
+    }
+
+.app-theme-5.login-screen .login-text-other {
+    color: #cfd6d6 !important;
+}
+
+.app-theme-5.login-screen a.login-text-other:hover {
+    color: #fff !important;
+}
+
+.app-theme-5.login-screen button.btn.btn-primary,
+.app-theme-5.login-screen button.btn.btn-primary i {
+    color: #fff !important;
+}
+
+.app-theme-5.login-screen .normal-language-item,
+.app-theme-5.login-screen button.btn.btn-primary {
+    background: rgba(0, 0, 0, 0.08) !important;
+    border: 1px solid #49a5d4 !important;
+}
+
+    .app-theme-5.login-screen .selected-language-item,
+    .app-theme-5.login-screen button.btn.btn-primary.active.focus,
+    .app-theme-5.login-screen button.btn.btn-primary.active:focus,
+    .app-theme-5.login-screen button.btn.btn-primary.active:hover,
+    .app-theme-5.login-screen button.btn.btn-primary.focus:active,
+    .app-theme-5.login-screen button.btn.btn-primary:active:focus,
+    .app-theme-5.login-screen button.btn.btn-primary:active:hover,
+    .app-theme-5.login-screen button.btn.btn-primary.disabled:hover,
+    .app-theme-5.login-screen button.btn.btn-primary.focus,
+    .app-theme-5.login-screen button.btn.btn-primary:focus,
+    .app-theme-5.login-screen button.btn.btn-primary:hover {
+        background: rgba(0, 0, 0, 0.18) !important;
+        border: 1px solid #49a5d4 !important;
+    }
+
+/*Main Screen*/
+.app-theme-5 .top-menu.navbar-inverse {
+    background-color: #03689b !important;
+    border-color: #03689b !important;
+}
+
+    .app-theme-5 .top-menu.navbar-inverse .navbar-nav > li > a {
+        color: #ffffffdd !important;
+    }
+
+        .app-theme-5 .top-menu.navbar-inverse .navbar-nav > li > a:hover,
+        .app-theme-5 .top-menu.navbar-inverse .navbar-nav > li > a:focus,
+        .app-theme-5 .top-menu.navbar-inverse .navbar-nav > .open > a,
+        .app-theme-5 .top-menu.navbar-inverse .navbar-nav > .open > a:hover,
+        .app-theme-5 .top-menu.navbar-inverse .navbar-nav > .open > a:focus {
+            background-color: #056190 !important;
+            color: #ffffff !important;
+        }
+
+.app-theme-5 .navbar-header.left-menu.bg-theme,
+.app-theme-5 .navbar-header.bg-theme > button {
+    background-color: #056190 !important;
+}
+
+.app-theme-5 .left-menu.bg-theme {
+    background-color: #03689b !important;
+}
+
+    .app-theme-5 .left-menu.bg-theme .line.dk {
+        background: rgba(0, 0, 0, 0.08) !important;
+    }
+
+    .app-theme-5 .left-menu.bg-theme .nav > li:hover > a,
+    .app-theme-5 .left-menu.bg-theme .nav > li:focus > a,
+    .app-theme-5 .left-menu.bg-theme .nav > li.active > a,
+    .app-theme-5 .left-menu.bg-theme .nav > li > a:hover,
+    .app-theme-5 .left-menu.bg-theme .nav > li > a:focus {
+        color: #ffffff !important;
+    }
+
+    .app-theme-5 .left-menu.bg-theme .text-lt,
+    .app-theme-5 .left-menu.bg-theme .nav > li > a {
+        color: #ffffffdd !important;
+    }
+
+    .app-theme-5 .left-menu.bg-theme .text-muted {
+        color: #a3bbca !important;
+    }
+
+.app-theme-5 .app-aside-folded .left-menu.bg-theme .nav.dk {
+    background: #0c6d9e !important;
+}
+
+.app-theme-5.menu-simplified .top-menu.navbar-inverse .navbar-nav > li > a:hover,
+.app-theme-5.menu-simplified .top-menu.navbar-inverse .navbar-nav > li > a:focus,
+.app-theme-5.menu-simplified .top-menu.navbar-inverse .navbar-nav > .open > a,
+.app-theme-5.menu-simplified .top-menu.navbar-inverse .navbar-nav > .open > a:hover,
+.app-theme-5.menu-simplified .top-menu.navbar-inverse .navbar-nav > .open > a:focus,
+.app-theme-5.menu-simplified .left-menu.bg-theme .nav > li:hover > a,
+.app-theme-5.menu-simplified .left-menu.bg-theme .nav > li:focus > a,
+.app-theme-5.menu-simplified .left-menu.bg-theme .nav > li.active > a,
+.app-theme-5.menu-simplified .left-menu.bg-theme .nav > li > a:hover,
+.app-theme-5.menu-simplified .left-menu.bg-theme .nav > li > a:focus,
+.app-theme-5.menu-simplified .text-center > a:hover {
+    color: #03689b !important;
+}
+
+.app-theme-5.menu-simplified .left-menu.bg-theme .nav > li.active > a {
+    border-left: solid 1px #03689b !important;
+}
+
+/*View Controls*/
+.app-theme-5 .k-checkbox:checked + .k-checkbox-label:before,
+.app-theme-5 .k-radio:checked + .k-radio-label:after,
+.app-theme-5 .k-calendar td.k-state-selected .k-link,
+.app-theme-5 .k-calendar td.k-selected .k-link,
+.app-theme-5 .k-checkbox:checked,
+.app-theme-5 .k-radio:checked {
+    background-color: #0c6d9e !important;
+    border-color: #0c6d9e !important;
+    color: #ffffffdd !important;
+}
+
+.app-theme-5 .k-calendar td.k-selected .k-link,
+.app-theme-5 .k-calendar td.k-state-selected .k-link,
+.app-theme-5 .k-calendar td.k-state-focused .k-link {
+    box-shadow: inset 0 0 0 1px #0c6d9e !important;
+}
+
+.app-theme-5 .k-toolbar-button-group .k-button.k-selected {
+    background-color: #0c6d9e !important;
+    color: #ffffffdd !important;
+}
+
+.app-theme-5 .k-list-item.k-selected {
+    background-color: #0c6d9edd !important;
+    border-bottom: solid 1px #0c6d9ebb;
+    color: #ffffffdd !important;
+}
+
+.app-theme-5 .k-textbox:focus,
+.app-theme-5 .k-textbox:hover,
+.app-theme-5 .k-input.k-focus,
+.app-theme-5 .k-input.k-hover,
+.app-theme-5 .k-input:hover,
+.app-theme-5 .k-picker.k-focus,
+.app-theme-5 .k-picker.k-hover,
+.app-theme-5 .k-picker:hover,
+.app-theme-5 .k-grid-edit-row > td > input,
+.app-theme-5 .k-grid-edit-row > td > .text-box,
+.app-theme-5 .k-dropdown-wrap.k-state-hover,
+.app-theme-5 .k-dropdown-wrap.k-state-focused,
+.app-theme-5 .k-dropdown-wrap.k-state-active,
+.app-theme-5 .k-picker-wrap.k-state-hover,
+.app-theme-5 .k-picker-wrap.k-state-focused,
+.app-theme-5 .k-picker-wrap.k-state-active,
+.app-theme-5 .k-numeric-wrap.k-state-hover,
+.app-theme-5 .k-numeric-wrap.k-state-focused,
+.app-theme-5 .k-numeric-wrap.k-state-active,
+.app-theme-5 .k-tabstrip-items-wrapper .k-item.k-active::after,
+.app-theme-5 .k-multiselect.k-state-hover > .k-multiselect-wrap,
+.app-theme-5 .k-multiselect.k-state-focused > .k-multiselect-wrap,
+.app-theme-5 .k-multiselect.k-state-active > .k-multiselect-wrap,
+.app-theme-5 .k-radio:checked + .k-radio-label:hover:before,
+.app-theme-5 .k-radio:checked + .k-radio-label:before,
+.app-theme-5 .k-checkbox:hover,
+.app-theme-5 .k-radio:hover {
+    border-color: #0c6d9e !important;
+}
+
+.app-theme-5 .k-scheduler-toolbar .k-scheduler-views li.k-state-selected.k-state-hover,
+.app-theme-5 .k-scheduler-toolbar > .k-scheduler-views > li.k-state-selected,
+.app-theme-5 .k-scheduler-toolbar .k-scheduler-views button.k-selected,
+.app-theme-5 .k-tabstrip-items .k-state-active,
+.app-theme-5 .k-tabstrip-items .k-state-hover {
+    border-bottom-color: #0c6d9e !important;
+}
+
+.app-theme-5 .btn-info,
+.app-theme-5 .btn-primary,
+.app-theme-5 .combobox-header,
+.app-theme-5 .k-calendar .k-header,
+.app-theme-5 .navbar-header > button,
+.app-theme-5 .k-button-solid-primary,
+.app-theme-5 .k-action-buttons .k-button,
+.app-theme-5 .k-grid .k-header .k-button,
+.app-theme-5 .k-grid .k-toolbar .k-button,
+.app-theme-5 .k-dialog .k-button.k-primary,
+.app-theme-5 .k-dialog .k-window-titlebar,
+.app-theme-5 .k-window-titlebar .k-dialog-title,
+.app-theme-5 .k-window-actions .k-button,
+.app-theme-5 .k-window-title {
+    color: #ffffffdd !important;
+}
+
+.app-theme-5 .btn-info,
+.app-theme-5 .btn-primary,
+.app-theme-5 .combobox-header,
+.app-theme-5 .k-calendar .k-header,
+.app-theme-5 .k-button-solid-primary,
+.app-theme-5 .k-action-buttons .k-button,
+.app-theme-5 .k-grid .k-header .k-button,
+.app-theme-5 .k-grid .k-toolbar .k-button,
+.app-theme-5 .k-dialog .k-button.k-primary,
+.app-theme-5 .k-dialog .k-window-titlebar,
+.app-theme-5 .k-window-titlebar.k-hstack,
+.app-theme-5 .k-window-actions.k-hstack,
+.app-theme-5 .k-drag-clue {
+    background-color: #0c6d9e !important;
+    border-color: #056190 !important;
+}
+
+    .app-theme-5 .btn-info:hover,
+    .app-theme-5 .btn-primary:hover,
+    .app-theme-5 .combobox-header:hover,
+    .app-theme-5 .k-button-solid-primary:hover,
+    .app-theme-5 .k-action-buttons .k-button:hover,
+    .app-theme-5 .k-grid .k-header .k-button:hover,
+    .app-theme-5 .k-grid .k-toolbar .k-button:hover,
+    .app-theme-5 .k-dialog .k-button.k-primary:hover,
+    .app-theme-5 .k-calendar .k-header .k-link.k-state-hover {
+        background-color: #056190 !important;
+        border-color: #056190 !important;
+        color: #ffffff !important;
+    }
+
+.app-theme-5 .k-loading-image,
+.app-theme-5 .app-menu-group,
+.app-theme-5 .k-grid-header .k-grid-header-menu.k-active {
+    color: #056190 !important;
+}
+
+/*theme-item-6*/
+/*Login Screen*/
+.app-theme-6.login-screen .login-area,
+.app-theme-6.login-screen .white-box,
+.app-theme-6.login-screen .login-box {
+    background-color: #f37020 !important;
+}
+
+    .app-theme-6.login-screen .login-area::-webkit-scrollbar-button {
+        background-color: rgba(0, 0, 0, 0.5) !important;
+    }
+
+    .app-theme-6.login-screen .login-area::-webkit-scrollbar-track {
+        background-color: rgba(0, 0, 0, 0.2) !important;
+    }
+
+.app-theme-6.login-screen .login-message-error {
+    color: #f7ce0b !important;
+}
+
+.app-theme-6.login-screen .login-message-license {
+    color: #f7ce0b !important;
+}
+
+.app-theme-6.login-screen .login-text-title {
+    color: #fff !important;
+}
+
+.app-theme-6.login-screen .login-text-input {
+    border: 1px solid #e6e7e7 !important;
+    background: #e6e7e7 !important;
+    color: #f37020 !important;
+}
+
+    .app-theme-6.login-screen .login-text-input::placeholder {
+        color: #f37020 !important;
+        opacity: 1 !important;
+    }
+
+.app-theme-6.login-screen .login-text-other {
+    color: #e7e7e7 !important;
+}
+
+.app-theme-6.login-screen a.login-text-other:hover {
+    color: #fff !important;
+}
+
+.app-theme-6.login-screen button.btn.btn-primary,
+.app-theme-6.login-screen button.btn.btn-primary i {
+    color: #fff !important;
+}
+
+.app-theme-6.login-screen .normal-language-item,
+.app-theme-6.login-screen button.btn.btn-primary {
+    background: rgba(0, 0, 0, 0.08) !important;
+    border: 1px solid #f79a62 !important;
+}
+
+    .app-theme-6.login-screen .selected-language-item,
+    .app-theme-6.login-screen button.btn.btn-primary.active.focus,
+    .app-theme-6.login-screen button.btn.btn-primary.active:focus,
+    .app-theme-6.login-screen button.btn.btn-primary.active:hover,
+    .app-theme-6.login-screen button.btn.btn-primary.focus:active,
+    .app-theme-6.login-screen button.btn.btn-primary:active:focus,
+    .app-theme-6.login-screen button.btn.btn-primary:active:hover,
+    .app-theme-6.login-screen button.btn.btn-primary.disabled:hover,
+    .app-theme-6.login-screen button.btn.btn-primary.focus,
+    .app-theme-6.login-screen button.btn.btn-primary:focus,
+    .app-theme-6.login-screen button.btn.btn-primary:hover {
+        background: rgba(0, 0, 0, 0.18) !important;
+        border: 1px solid #f79a62 !important;
+    }
+
+/*Main Screen*/
+.app-theme-6 .top-menu.navbar-inverse {
+    background-color: #f37020 !important;
+    border-color: #f37020 !important;
+}
+
+    .app-theme-6 .top-menu.navbar-inverse .navbar-nav > li > a {
+        color: #ffffffdd !important;
+    }
+
+        .app-theme-6 .top-menu.navbar-inverse .navbar-nav > li > a:hover,
+        .app-theme-6 .top-menu.navbar-inverse .navbar-nav > li > a:focus,
+        .app-theme-6 .top-menu.navbar-inverse .navbar-nav > .open > a,
+        .app-theme-6 .top-menu.navbar-inverse .navbar-nav > .open > a:hover,
+        .app-theme-6 .top-menu.navbar-inverse .navbar-nav > .open > a:focus {
+            background-color: #e86c21 !important;
+            color: #ffffff !important;
+        }
+
+.app-theme-6 .navbar-header.left-menu.bg-theme,
+.app-theme-6 .navbar-header.bg-theme > button {
+    background-color: #e86c21 !important;
+}
+
+.app-theme-6 .left-menu.bg-theme {
+    background-color: #f37020 !important;
+}
+
+    .app-theme-6 .left-menu.bg-theme .line.dk {
+        background: rgba(0, 0, 0, 0.08) !important;
+    }
+
+    .app-theme-6 .left-menu.bg-theme .nav > li:hover > a,
+    .app-theme-6 .left-menu.bg-theme .nav > li:focus > a,
+    .app-theme-6 .left-menu.bg-theme .nav > li.active > a,
+    .app-theme-6 .left-menu.bg-theme .nav > li > a:hover,
+    .app-theme-6 .left-menu.bg-theme .nav > li > a:focus {
+        color: #ffffff !important;
+    }
+
+    .app-theme-6 .left-menu.bg-theme .text-lt,
+    .app-theme-6 .left-menu.bg-theme .nav > li > a {
+        color: #ffffffdd !important;
+    }
+
+    .app-theme-6 .left-menu.bg-theme .text-muted {
+        color: #e9d2c4 !important;
+    }
+
+.app-theme-6 .app-aside-folded .left-menu.bg-theme .nav.dk {
+    background: #f57c32 !important;
+}
+
+.app-theme-6.menu-simplified .top-menu.navbar-inverse .navbar-nav > li > a:hover,
+.app-theme-6.menu-simplified .top-menu.navbar-inverse .navbar-nav > li > a:focus,
+.app-theme-6.menu-simplified .top-menu.navbar-inverse .navbar-nav > .open > a,
+.app-theme-6.menu-simplified .top-menu.navbar-inverse .navbar-nav > .open > a:hover,
+.app-theme-6.menu-simplified .top-menu.navbar-inverse .navbar-nav > .open > a:focus,
+.app-theme-6.menu-simplified .left-menu.bg-theme .nav > li:hover > a,
+.app-theme-6.menu-simplified .left-menu.bg-theme .nav > li:focus > a,
+.app-theme-6.menu-simplified .left-menu.bg-theme .nav > li.active > a,
+.app-theme-6.menu-simplified .left-menu.bg-theme .nav > li > a:hover,
+.app-theme-6.menu-simplified .left-menu.bg-theme .nav > li > a:focus,
+.app-theme-6.menu-simplified .text-center > a:hover {
+    color: #f37020 !important;
+}
+
+.app-theme-6.menu-simplified .left-menu.bg-theme .nav > li.active > a {
+    border-left: solid 1px #f37020 !important;
+}
+
+/*View Controls*/
+.app-theme-6 .k-checkbox:checked + .k-checkbox-label:before,
+.app-theme-6 .k-radio:checked + .k-radio-label:after,
+.app-theme-6 .k-calendar td.k-state-selected .k-link,
+.app-theme-6 .k-calendar td.k-selected .k-link,
+.app-theme-6 .k-checkbox:checked,
+.app-theme-6 .k-radio:checked {
+    background-color: #f57c32 !important;
+    border-color: #f57c32 !important;
+    color: #ffffffdd !important;
+}
+
+.app-theme-6 .k-calendar td.k-selected .k-link,
+.app-theme-6 .k-calendar td.k-state-selected .k-link,
+.app-theme-6 .k-calendar td.k-state-focused .k-link {
+    box-shadow: inset 0 0 0 1px #f57c32 !important;
+}
+
+.app-theme-6 .k-toolbar-button-group .k-button.k-selected {
+    background-color: #f57c32 !important;
+    color: #ffffffdd !important;
+}
+
+.app-theme-6 .k-list-item.k-selected {
+    background-color: #f57c32dd !important;
+    border-bottom: solid 1px #f57c32bb;
+    color: #ffffffdd !important;
+}
+
+.app-theme-6 .k-textbox:focus,
+.app-theme-6 .k-textbox:hover,
+.app-theme-6 .k-input.k-focus,
+.app-theme-6 .k-input.k-hover,
+.app-theme-6 .k-input:hover,
+.app-theme-6 .k-picker.k-focus,
+.app-theme-6 .k-picker.k-hover,
+.app-theme-6 .k-picker:hover,
+.app-theme-6 .k-grid-edit-row > td > input,
+.app-theme-6 .k-grid-edit-row > td > .text-box,
+.app-theme-6 .k-dropdown-wrap.k-state-hover,
+.app-theme-6 .k-dropdown-wrap.k-state-focused,
+.app-theme-6 .k-dropdown-wrap.k-state-active,
+.app-theme-6 .k-picker-wrap.k-state-hover,
+.app-theme-6 .k-picker-wrap.k-state-focused,
+.app-theme-6 .k-picker-wrap.k-state-active,
+.app-theme-6 .k-numeric-wrap.k-state-hover,
+.app-theme-6 .k-numeric-wrap.k-state-focused,
+.app-theme-6 .k-numeric-wrap.k-state-active,
+.app-theme-6 .k-tabstrip-items-wrapper .k-item.k-active::after,
+.app-theme-6 .k-multiselect.k-state-hover > .k-multiselect-wrap,
+.app-theme-6 .k-multiselect.k-state-focused > .k-multiselect-wrap,
+.app-theme-6 .k-multiselect.k-state-active > .k-multiselect-wrap,
+.app-theme-6 .k-radio:checked + .k-radio-label:hover:before,
+.app-theme-6 .k-radio:checked + .k-radio-label:before,
+.app-theme-6 .k-checkbox:hover,
+.app-theme-6 .k-radio:hover {
+    border-color: #f57c32 !important;
+}
+
+.app-theme-6 .k-scheduler-toolbar .k-scheduler-views li.k-state-selected.k-state-hover,
+.app-theme-6 .k-scheduler-toolbar > .k-scheduler-views > li.k-state-selected,
+.app-theme-6 .k-scheduler-toolbar .k-scheduler-views button.k-selected,
+.app-theme-6 .k-tabstrip-items .k-state-active,
+.app-theme-6 .k-tabstrip-items .k-state-hover {
+    border-bottom-color: #f57c32 !important;
+}
+
+.app-theme-6 .btn-info,
+.app-theme-6 .btn-primary,
+.app-theme-6 .combobox-header,
+.app-theme-6 .k-calendar .k-header,
+.app-theme-6 .navbar-header > button,
+.app-theme-6 .k-button-solid-primary,
+.app-theme-6 .k-action-buttons .k-button,
+.app-theme-6 .k-grid .k-header .k-button,
+.app-theme-6 .k-grid .k-toolbar .k-button,
+.app-theme-6 .k-dialog .k-button.k-primary,
+.app-theme-6 .k-dialog .k-window-titlebar,
+.app-theme-6 .k-window-titlebar .k-dialog-title,
+.app-theme-6 .k-window-actions .k-button,
+.app-theme-6 .k-window-title {
+    color: #ffffffdd !important;
+}
+
+.app-theme-6 .btn-info,
+.app-theme-6 .btn-primary,
+.app-theme-6 .combobox-header,
+.app-theme-6 .k-calendar .k-header,
+.app-theme-6 .k-button-solid-primary,
+.app-theme-6 .k-action-buttons .k-button,
+.app-theme-6 .k-grid .k-header .k-button,
+.app-theme-6 .k-grid .k-toolbar .k-button,
+.app-theme-6 .k-dialog .k-button.k-primary,
+.app-theme-6 .k-dialog .k-window-titlebar,
+.app-theme-6 .k-window-titlebar.k-hstack,
+.app-theme-6 .k-window-actions.k-hstack,
+.app-theme-6 .k-drag-clue {
+    background-color: #f57c32 !important;
+    border-color: #e86c21 !important;
+}
+
+    .app-theme-6 .btn-info:hover,
+    .app-theme-6 .btn-primary:hover,
+    .app-theme-6 .combobox-header:hover,
+    .app-theme-6 .k-button-solid-primary:hover,
+    .app-theme-6 .k-action-buttons .k-button:hover,
+    .app-theme-6 .k-grid .k-header .k-button:hover,
+    .app-theme-6 .k-grid .k-toolbar .k-button:hover,
+    .app-theme-6 .k-dialog .k-button.k-primary:hover,
+    .app-theme-6 .k-calendar .k-header .k-link.k-state-hover {
+        background-color: #e86c21 !important;
+        border-color: #e86c21 !important;
+        color: #ffffff !important;
+    }
+
+.app-theme-6 .k-loading-image,
+.app-theme-6 .app-menu-group,
+.app-theme-6 .k-grid-header .k-grid-header-menu.k-active {
+    color: #e86c21 !important;
+}
+
+/*theme-item-7*/
+/*Login Screen*/
+.app-theme-7.login-screen .login-area,
+.app-theme-7.login-screen .white-box,
+.app-theme-7.login-screen .login-box {
+    background-color: #108670 !important;
+}
+
+    .app-theme-7.login-screen .login-area::-webkit-scrollbar-button {
+        background-color: rgba(0, 0, 0, 0.5) !important;
+    }
+
+    .app-theme-7.login-screen .login-area::-webkit-scrollbar-track {
+        background-color: rgba(0, 0, 0, 0.2) !important;
+    }
+
+.app-theme-7.login-screen .login-message-error {
+    color: #f7ce0b !important;
+}
+
+.app-theme-7.login-screen .login-message-license {
+    color: #f7ce0b !important;
+}
+
+.app-theme-7.login-screen .login-text-title {
+    color: #fff !important;
+}
+
+.app-theme-7.login-screen .login-text-input {
+    border: 1px solid #e6e7e7 !important;
+    background: #e6e7e7 !important;
+    color: #108670 !important;
+}
+
+    .app-theme-7.login-screen .login-text-input::placeholder {
+        color: #108670 !important;
+        opacity: 1 !important;
+    }
+
+.app-theme-7.login-screen .login-text-other {
+    color: #cfd6d6 !important;
+}
+
+.app-theme-7.login-screen a.login-text-other:hover {
+    color: #fff !important;
+}
+
+.app-theme-7.login-screen button.btn.btn-primary,
+.app-theme-7.login-screen button.btn.btn-primary i {
+    color: #fff !important;
+}
+
+.app-theme-7.login-screen .normal-language-item,
+.app-theme-7.login-screen button.btn.btn-primary {
+    background: rgba(0, 0, 0, 0.08) !important;
+    border: 1px solid #38c1a7 !important;
+}
+
+    .app-theme-7.login-screen .selected-language-item,
+    .app-theme-7.login-screen button.btn.btn-primary.active.focus,
+    .app-theme-7.login-screen button.btn.btn-primary.active:focus,
+    .app-theme-7.login-screen button.btn.btn-primary.active:hover,
+    .app-theme-7.login-screen button.btn.btn-primary.focus:active,
+    .app-theme-7.login-screen button.btn.btn-primary:active:focus,
+    .app-theme-7.login-screen button.btn.btn-primary:active:hover,
+    .app-theme-7.login-screen button.btn.btn-primary.disabled:hover,
+    .app-theme-7.login-screen button.btn.btn-primary.focus,
+    .app-theme-7.login-screen button.btn.btn-primary:focus,
+    .app-theme-7.login-screen button.btn.btn-primary:hover {
+        background: rgba(0, 0, 0, 0.18) !important;
+        border: 1px solid #38c1a7 !important;
+    }
+
+/*Main Screen*/
+.app-theme-7 .top-menu.navbar-inverse {
+    background-color: #108670 !important;
+    border-color: #108670 !important;
+}
+
+    .app-theme-7 .top-menu.navbar-inverse .navbar-nav > li > a {
+        color: #ffffffdd !important;
+    }
+
+        .app-theme-7 .top-menu.navbar-inverse .navbar-nav > li > a:hover,
+        .app-theme-7 .top-menu.navbar-inverse .navbar-nav > li > a:focus,
+        .app-theme-7 .top-menu.navbar-inverse .navbar-nav > .open > a,
+        .app-theme-7 .top-menu.navbar-inverse .navbar-nav > .open > a:hover,
+        .app-theme-7 .top-menu.navbar-inverse .navbar-nav > .open > a:focus {
+            background-color: #107a66 !important;
+            color: #ffffff !important;
+        }
+
+.app-theme-7 .navbar-header.left-menu.bg-theme,
+.app-theme-7 .navbar-header.bg-theme > button {
+    background-color: #107a66 !important;
+}
+
+.app-theme-7 .left-menu.bg-theme {
+    background-color: #108670 !important;
+}
+
+    .app-theme-7 .left-menu.bg-theme .line.dk {
+        background: rgba(0, 0, 0, 0.08) !important;
+    }
+
+    .app-theme-7 .left-menu.bg-theme .nav > li:hover > a,
+    .app-theme-7 .left-menu.bg-theme .nav > li:focus > a,
+    .app-theme-7 .left-menu.bg-theme .nav > li.active > a,
+    .app-theme-7 .left-menu.bg-theme .nav > li > a:hover,
+    .app-theme-7 .left-menu.bg-theme .nav > li > a:focus {
+        color: #ffffff !important;
+    }
+
+    .app-theme-7 .left-menu.bg-theme .text-lt,
+    .app-theme-7 .left-menu.bg-theme .nav > li > a {
+        color: #ffffffdd !important;
+    }
+
+    .app-theme-7 .left-menu.bg-theme .text-muted {
+        color: #a3bfba !important;
+    }
+
+.app-theme-7 .app-aside-folded .left-menu.bg-theme .nav.dk {
+    background: #208a77 !important;
+}
+
+.app-theme-7.menu-simplified .top-menu.navbar-inverse .navbar-nav > li > a:hover,
+.app-theme-7.menu-simplified .top-menu.navbar-inverse .navbar-nav > li > a:focus,
+.app-theme-7.menu-simplified .top-menu.navbar-inverse .navbar-nav > .open > a,
+.app-theme-7.menu-simplified .top-menu.navbar-inverse .navbar-nav > .open > a:hover,
+.app-theme-7.menu-simplified .top-menu.navbar-inverse .navbar-nav > .open > a:focus,
+.app-theme-7.menu-simplified .left-menu.bg-theme .nav > li:hover > a,
+.app-theme-7.menu-simplified .left-menu.bg-theme .nav > li:focus > a,
+.app-theme-7.menu-simplified .left-menu.bg-theme .nav > li.active > a,
+.app-theme-7.menu-simplified .left-menu.bg-theme .nav > li > a:hover,
+.app-theme-7.menu-simplified .left-menu.bg-theme .nav > li > a:focus,
+.app-theme-7.menu-simplified .text-center > a:hover {
+    color: #108670 !important;
+}
+
+.app-theme-7.menu-simplified .left-menu.bg-theme .nav > li.active > a {
+    border-left: solid 1px #108670 !important;
+}
+
+/*View Controls*/
+.app-theme-7 .k-checkbox:checked + .k-checkbox-label:before,
+.app-theme-7 .k-radio:checked + .k-radio-label:after,
+.app-theme-7 .k-calendar td.k-state-selected .k-link,
+.app-theme-7 .k-calendar td.k-selected .k-link,
+.app-theme-7 .k-checkbox:checked,
+.app-theme-7 .k-radio:checked {
+    background-color: #208a77 !important;
+    border-color: #208a77 !important;
+    color: #ffffffdd !important;
+}
+
+.app-theme-7 .k-calendar td.k-selected .k-link,
+.app-theme-7 .k-calendar td.k-state-selected .k-link,
+.app-theme-7 .k-calendar td.k-state-focused .k-link {
+    box-shadow: inset 0 0 0 1px #208a77 !important;
+}
+
+.app-theme-7 .k-toolbar-button-group .k-button.k-selected {
+    background-color: #208a77 !important;
+    color: #ffffffdd !important;
+}
+
+.app-theme-7 .k-list-item.k-selected {
+    background-color: #208a77dd !important;
+    border-bottom: solid 1px #208a77bb;
+    color: #ffffffdd !important;
+}
+
+.app-theme-7 .k-textbox:focus,
+.app-theme-7 .k-textbox:hover,
+.app-theme-7 .k-input.k-focus,
+.app-theme-7 .k-input.k-hover,
+.app-theme-7 .k-input:hover,
+.app-theme-7 .k-picker.k-focus,
+.app-theme-7 .k-picker.k-hover,
+.app-theme-7 .k-picker:hover,
+.app-theme-7 .k-grid-edit-row > td > input,
+.app-theme-7 .k-grid-edit-row > td > .text-box,
+.app-theme-7 .k-dropdown-wrap.k-state-hover,
+.app-theme-7 .k-dropdown-wrap.k-state-focused,
+.app-theme-7 .k-dropdown-wrap.k-state-active,
+.app-theme-7 .k-picker-wrap.k-state-hover,
+.app-theme-7 .k-picker-wrap.k-state-focused,
+.app-theme-7 .k-picker-wrap.k-state-active,
+.app-theme-7 .k-numeric-wrap.k-state-hover,
+.app-theme-7 .k-numeric-wrap.k-state-focused,
+.app-theme-7 .k-numeric-wrap.k-state-active,
+.app-theme-7 .k-tabstrip-items-wrapper .k-item.k-active::after,
+.app-theme-7 .k-multiselect.k-state-hover > .k-multiselect-wrap,
+.app-theme-7 .k-multiselect.k-state-focused > .k-multiselect-wrap,
+.app-theme-7 .k-multiselect.k-state-active > .k-multiselect-wrap,
+.app-theme-7 .k-radio:checked + .k-radio-label:hover:before,
+.app-theme-7 .k-radio:checked + .k-radio-label:before,
+.app-theme-7 .k-checkbox:hover,
+.app-theme-7 .k-radio:hover {
+    border-color: #208a77 !important;
+}
+
+.app-theme-7 .k-scheduler-toolbar .k-scheduler-views li.k-state-selected.k-state-hover,
+.app-theme-7 .k-scheduler-toolbar > .k-scheduler-views > li.k-state-selected,
+.app-theme-7 .k-scheduler-toolbar .k-scheduler-views button.k-selected,
+.app-theme-7 .k-tabstrip-items .k-state-active,
+.app-theme-7 .k-tabstrip-items .k-state-hover {
+    border-bottom-color: #208a77 !important;
+}
+
+.app-theme-7 .btn-info,
+.app-theme-7 .btn-primary,
+.app-theme-7 .combobox-header,
+.app-theme-7 .k-calendar .k-header,
+.app-theme-7 .navbar-header > button,
+.app-theme-7 .k-button-solid-primary,
+.app-theme-7 .k-action-buttons .k-button,
+.app-theme-7 .k-grid .k-header .k-button,
+.app-theme-7 .k-grid .k-toolbar .k-button,
+.app-theme-7 .k-dialog .k-button.k-primary,
+.app-theme-7 .k-dialog .k-window-titlebar,
+.app-theme-7 .k-window-titlebar .k-dialog-title,
+.app-theme-7 .k-window-actions .k-button,
+.app-theme-7 .k-window-title {
+    color: #ffffffdd !important;
+}
+
+.app-theme-7 .btn-info,
+.app-theme-7 .btn-primary,
+.app-theme-7 .combobox-header,
+.app-theme-7 .k-calendar .k-header,
+.app-theme-7 .k-button-solid-primary,
+.app-theme-7 .k-action-buttons .k-button,
+.app-theme-7 .k-grid .k-header .k-button,
+.app-theme-7 .k-grid .k-toolbar .k-button,
+.app-theme-7 .k-dialog .k-button.k-primary,
+.app-theme-7 .k-dialog .k-window-titlebar,
+.app-theme-7 .k-window-titlebar.k-hstack,
+.app-theme-7 .k-window-actions.k-hstack,
+.app-theme-7 .k-drag-clue {
+    background-color: #208a77 !important;
+    border-color: #107a66 !important;
+}
+
+    .app-theme-7 .btn-info:hover,
+    .app-theme-7 .btn-primary:hover,
+    .app-theme-7 .combobox-header:hover,
+    .app-theme-7 .k-button-solid-primary:hover,
+    .app-theme-7 .k-action-buttons .k-button:hover,
+    .app-theme-7 .k-grid .k-header .k-button:hover,
+    .app-theme-7 .k-grid .k-toolbar .k-button:hover,
+    .app-theme-7 .k-dialog .k-button.k-primary:hover,
+    .app-theme-7 .k-calendar .k-header .k-link.k-state-hover {
+        background-color: #107a66 !important;
+        border-color: #107a66 !important;
+        color: #ffffff !important;
+    }
+
+.app-theme-7 .k-loading-image,
+.app-theme-7 .app-menu-group,
+.app-theme-7 .k-grid-header .k-grid-header-menu.k-active {
+    color: #107a66 !important;
+}
+
+/*theme-item-8*/
+/*Login Screen*/
+.app-theme-8.login-screen .login-area,
+.app-theme-8.login-screen .white-box,
+.app-theme-8.login-screen .login-box {
+    background-color: #e5322e !important;
+}
+
+    .app-theme-8.login-screen .login-area::-webkit-scrollbar-button {
+        background-color: rgba(0, 0, 0, 0.5) !important;
+    }
+
+    .app-theme-8.login-screen .login-area::-webkit-scrollbar-track {
+        background-color: rgba(0, 0, 0, 0.2) !important;
+    }
+
+.app-theme-8.login-screen .login-message-error {
+    color: #f7ce0b !important;
+}
+
+.app-theme-8.login-screen .login-message-license {
+    color: #f7ce0b !important;
+}
+
+.app-theme-8.login-screen .login-text-title {
+    color: #fff !important;
+}
+
+.app-theme-8.login-screen .login-text-input {
+    border: 1px solid #e6e7e7 !important;
+    background: #e6e7e7 !important;
+    color: #e5322e !important;
+}
+
+    .app-theme-8.login-screen .login-text-input::placeholder {
+        color: #e5322e !important;
+        opacity: 1 !important;
+    }
+
+.app-theme-8.login-screen .login-text-other {
+    color: #cfd6d6 !important;
+}
+
+.app-theme-8.login-screen a.login-text-other:hover {
+    color: #fff !important;
+}
+
+.app-theme-8.login-screen button.btn.btn-primary,
+.app-theme-8.login-screen button.btn.btn-primary i {
+    color: #fff !important;
+}
+
+.app-theme-8.login-screen .normal-language-item,
+.app-theme-8.login-screen button.btn.btn-primary {
+    background: rgba(0, 0, 0, 0.08) !important;
+    border: 1px solid #ef807d !important;
+}
+
+    .app-theme-8.login-screen .selected-language-item,
+    .app-theme-8.login-screen button.btn.btn-primary.active.focus,
+    .app-theme-8.login-screen button.btn.btn-primary.active:focus,
+    .app-theme-8.login-screen button.btn.btn-primary.active:hover,
+    .app-theme-8.login-screen button.btn.btn-primary.focus:active,
+    .app-theme-8.login-screen button.btn.btn-primary:active:focus,
+    .app-theme-8.login-screen button.btn.btn-primary:active:hover,
+    .app-theme-8.login-screen button.btn.btn-primary.disabled:hover,
+    .app-theme-8.login-screen button.btn.btn-primary.focus,
+    .app-theme-8.login-screen button.btn.btn-primary:focus,
+    .app-theme-8.login-screen button.btn.btn-primary:hover {
+        background: rgba(0, 0, 0, 0.18) !important;
+        border: 1px solid #ef807d !important;
+    }
+
+/*Main Screen*/
+.app-theme-8 .top-menu.navbar-inverse {
+    background-color: #e5322e !important;
+    border-color: #e5322e !important;
+}
+
+    .app-theme-8 .top-menu.navbar-inverse .navbar-nav > li > a {
+        color: #ffffffdd !important;
+    }
+
+        .app-theme-8 .top-menu.navbar-inverse .navbar-nav > li > a:hover,
+        .app-theme-8 .top-menu.navbar-inverse .navbar-nav > li > a:focus,
+        .app-theme-8 .top-menu.navbar-inverse .navbar-nav > .open > a,
+        .app-theme-8 .top-menu.navbar-inverse .navbar-nav > .open > a:hover,
+        .app-theme-8 .top-menu.navbar-inverse .navbar-nav > .open > a:focus {
+            background-color: #d82f2c !important;
+            color: #ffffff !important;
+        }
+
+.app-theme-8 .navbar-header.left-menu.bg-theme,
+.app-theme-8 .navbar-header.bg-theme > button {
+    background-color: #d82f2c !important;
+}
+
+.app-theme-8 .left-menu.bg-theme {
+    background-color: #e5322e !important;
+}
+
+    .app-theme-8 .left-menu.bg-theme .line.dk {
+        background: rgba(0, 0, 0, 0.08) !important;
+    }
+
+    .app-theme-8 .left-menu.bg-theme .nav > li:hover > a,
+    .app-theme-8 .left-menu.bg-theme .nav > li:focus > a,
+    .app-theme-8 .left-menu.bg-theme .nav > li.active > a,
+    .app-theme-8 .left-menu.bg-theme .nav > li > a:hover,
+    .app-theme-8 .left-menu.bg-theme .nav > li > a:focus {
+        color: #ffffff !important;
+    }
+
+    .app-theme-8 .left-menu.bg-theme .text-lt,
+    .app-theme-8 .left-menu.bg-theme .nav > li > a {
+        color: #ffffffdd !important;
+    }
+
+    .app-theme-8 .left-menu.bg-theme .text-muted {
+        color: #ddb2b1 !important;
+    }
+
+.app-theme-8 .app-aside-folded .left-menu.bg-theme .nav.dk {
+    background: #e8423f !important;
+}
+
+.app-theme-8.menu-simplified .top-menu.navbar-inverse .navbar-nav > li > a:hover,
+.app-theme-8.menu-simplified .top-menu.navbar-inverse .navbar-nav > li > a:focus,
+.app-theme-8.menu-simplified .top-menu.navbar-inverse .navbar-nav > .open > a,
+.app-theme-8.menu-simplified .top-menu.navbar-inverse .navbar-nav > .open > a:hover,
+.app-theme-8.menu-simplified .top-menu.navbar-inverse .navbar-nav > .open > a:focus,
+.app-theme-8.menu-simplified .left-menu.bg-theme .nav > li:hover > a,
+.app-theme-8.menu-simplified .left-menu.bg-theme .nav > li:focus > a,
+.app-theme-8.menu-simplified .left-menu.bg-theme .nav > li.active > a,
+.app-theme-8.menu-simplified .left-menu.bg-theme .nav > li > a:hover,
+.app-theme-8.menu-simplified .left-menu.bg-theme .nav > li > a:focus,
+.app-theme-8.menu-simplified .text-center > a:hover {
+    color: #e5322e !important;
+}
+
+.app-theme-8.menu-simplified .left-menu.bg-theme .nav > li.active > a {
+    border-left: solid 1px #e5322e !important;
+}
+
+/*View Controls*/
+.app-theme-8 .k-checkbox:checked + .k-checkbox-label:before,
+.app-theme-8 .k-radio:checked + .k-radio-label:after,
+.app-theme-8 .k-calendar td.k-state-selected .k-link,
+.app-theme-8 .k-calendar td.k-selected .k-link,
+.app-theme-8 .k-checkbox:checked,
+.app-theme-8 .k-radio:checked {
+    background-color: #e8423f !important;
+    border-color: #e8423f !important;
+    color: #ffffffdd !important;
+}
+
+.app-theme-8 .k-calendar td.k-selected .k-link,
+.app-theme-8 .k-calendar td.k-state-selected .k-link,
+.app-theme-8 .k-calendar td.k-state-focused .k-link {
+    box-shadow: inset 0 0 0 1px #e8423f !important;
+}
+
+.app-theme-8 .k-toolbar-button-group .k-button.k-selected {
+    background-color: #e8423f !important;
+    color: #ffffffdd !important;
+}
+
+.app-theme-8 .k-list-item.k-selected {
+    background-color: #e8423fdd !important;
+    border-bottom: solid 1px #e8423fbb;
+    color: #ffffffdd !important;
+}
+
+.app-theme-8 .k-textbox:focus,
+.app-theme-8 .k-textbox:hover,
+.app-theme-8 .k-input.k-focus,
+.app-theme-8 .k-input.k-hover,
+.app-theme-8 .k-input:hover,
+.app-theme-8 .k-picker.k-focus,
+.app-theme-8 .k-picker.k-hover,
+.app-theme-8 .k-picker:hover,
+.app-theme-8 .k-grid-edit-row > td > input,
+.app-theme-8 .k-grid-edit-row > td > .text-box,
+.app-theme-8 .k-dropdown-wrap.k-state-hover,
+.app-theme-8 .k-dropdown-wrap.k-state-focused,
+.app-theme-8 .k-dropdown-wrap.k-state-active,
+.app-theme-8 .k-picker-wrap.k-state-hover,
+.app-theme-8 .k-picker-wrap.k-state-focused,
+.app-theme-8 .k-picker-wrap.k-state-active,
+.app-theme-8 .k-numeric-wrap.k-state-hover,
+.app-theme-8 .k-numeric-wrap.k-state-focused,
+.app-theme-8 .k-numeric-wrap.k-state-active,
+.app-theme-8 .k-tabstrip-items-wrapper .k-item.k-active::after,
+.app-theme-8 .k-multiselect.k-state-hover > .k-multiselect-wrap,
+.app-theme-8 .k-multiselect.k-state-focused > .k-multiselect-wrap,
+.app-theme-8 .k-multiselect.k-state-active > .k-multiselect-wrap,
+.app-theme-8 .k-radio:checked + .k-radio-label:hover:before,
+.app-theme-8 .k-radio:checked + .k-radio-label:before,
+.app-theme-8 .k-checkbox:hover,
+.app-theme-8 .k-radio:hover {
+    border-color: #e8423f !important;
+}
+
+.app-theme-8 .k-scheduler-toolbar .k-scheduler-views li.k-state-selected.k-state-hover,
+.app-theme-8 .k-scheduler-toolbar > .k-scheduler-views > li.k-state-selected,
+.app-theme-8 .k-scheduler-toolbar .k-scheduler-views button.k-selected,
+.app-theme-8 .k-tabstrip-items .k-state-active,
+.app-theme-8 .k-tabstrip-items .k-state-hover {
+    border-bottom-color: #e8423f !important;
+}
+
+.app-theme-8 .btn-info,
+.app-theme-8 .btn-primary,
+.app-theme-8 .combobox-header,
+.app-theme-8 .k-calendar .k-header,
+.app-theme-8 .navbar-header > button,
+.app-theme-8 .k-button-solid-primary,
+.app-theme-8 .k-action-buttons .k-button,
+.app-theme-8 .k-grid .k-header .k-button,
+.app-theme-8 .k-grid .k-toolbar .k-button,
+.app-theme-8 .k-dialog .k-button.k-primary,
+.app-theme-8 .k-dialog .k-window-titlebar,
+.app-theme-8 .k-window-titlebar .k-dialog-title,
+.app-theme-8 .k-window-actions .k-button,
+.app-theme-8 .k-window-title {
+    color: #ffffffdd !important;
+}
+
+.app-theme-8 .btn-info,
+.app-theme-8 .btn-primary,
+.app-theme-8 .combobox-header,
+.app-theme-8 .k-calendar .k-header,
+.app-theme-8 .k-button-solid-primary,
+.app-theme-8 .k-action-buttons .k-button,
+.app-theme-8 .k-grid .k-header .k-button,
+.app-theme-8 .k-grid .k-toolbar .k-button,
+.app-theme-8 .k-dialog .k-button.k-primary,
+.app-theme-8 .k-dialog .k-window-titlebar,
+.app-theme-8 .k-window-titlebar.k-hstack,
+.app-theme-8 .k-window-actions.k-hstack,
+.app-theme-8 .k-drag-clue {
+    background-color: #e8423f !important;
+    border-color: #d82f2c !important;
+}
+
+    .app-theme-8 .btn-info:hover,
+    .app-theme-8 .btn-primary:hover,
+    .app-theme-8 .combobox-header:hover,
+    .app-theme-8 .k-button-solid-primary:hover,
+    .app-theme-8 .k-action-buttons .k-button:hover,
+    .app-theme-8 .k-grid .k-header .k-button:hover,
+    .app-theme-8 .k-grid .k-toolbar .k-button:hover,
+    .app-theme-8 .k-dialog .k-button.k-primary:hover,
+    .app-theme-8 .k-calendar .k-header .k-link.k-state-hover {
+        background-color: #d82f2c !important;
+        border-color: #d82f2c !important;
+        color: #ffffff !important;
+    }
+
+.app-theme-8 .k-loading-image,
+.app-theme-8 .app-menu-group,
+.app-theme-8 .k-grid-header .k-grid-header-menu.k-active {
+    color: #d82f2c !important;
+}
+
+/*theme-item-9*/
+/*Login Screen*/
+.app-theme-9.login-screen .login-area,
+.app-theme-9.login-screen .white-box,
+.app-theme-9.login-screen .login-box {
+    background-color: #d73c8a !important;
+}
+
+    .app-theme-9.login-screen .login-area::-webkit-scrollbar-button {
+        background-color: rgba(0, 0, 0, 0.5) !important;
+    }
+
+    .app-theme-9.login-screen .login-area::-webkit-scrollbar-track {
+        background-color: rgba(0, 0, 0, 0.2) !important;
+    }
+
+.app-theme-9.login-screen .login-message-error {
+    color: #f7ce0b !important;
+}
+
+.app-theme-9.login-screen .login-message-license {
+    color: #f7ce0b !important;
+}
+
+.app-theme-9.login-screen .login-text-title {
+    color: #fff !important;
+}
+
+.app-theme-9.login-screen .login-text-input {
+    border: 1px solid #e6e7e7 !important;
+    background: #e6e7e7 !important;
+    color: #d73c8a !important;
+}
+
+    .app-theme-9.login-screen .login-text-input::placeholder {
+        color: #d73c8a !important;
+        opacity: 1 !important;
+    }
+
+.app-theme-9.login-screen .login-text-other {
+    color: #cfd6d6 !important;
+}
+
+.app-theme-9.login-screen a.login-text-other:hover {
+    color: #fff !important;
+}
+
+.app-theme-9.login-screen button.btn.btn-primary,
+.app-theme-9.login-screen button.btn.btn-primary i {
+    color: #fff !important;
+}
+
+.app-theme-9.login-screen .normal-language-item,
+.app-theme-9.login-screen button.btn.btn-primary {
+    background: rgba(0, 0, 0, 0.08) !important;
+    border: 1px solid #f36fb1 !important;
+}
+
+    .app-theme-9.login-screen .selected-language-item,
+    .app-theme-9.login-screen button.btn.btn-primary.active.focus,
+    .app-theme-9.login-screen button.btn.btn-primary.active:focus,
+    .app-theme-9.login-screen button.btn.btn-primary.active:hover,
+    .app-theme-9.login-screen button.btn.btn-primary.focus:active,
+    .app-theme-9.login-screen button.btn.btn-primary:active:focus,
+    .app-theme-9.login-screen button.btn.btn-primary:active:hover,
+    .app-theme-9.login-screen button.btn.btn-primary.disabled:hover,
+    .app-theme-9.login-screen button.btn.btn-primary.focus,
+    .app-theme-9.login-screen button.btn.btn-primary:focus,
+    .app-theme-9.login-screen button.btn.btn-primary:hover {
+        background: rgba(0, 0, 0, 0.18) !important;
+        border: 1px solid #f36fb1 !important;
+    }
+
+/*Main Screen*/
+.app-theme-9 .top-menu.navbar-inverse {
+    background-color: #d73c8a !important;
+    border-color: #d73c8a !important;
+}
+
+    .app-theme-9 .top-menu.navbar-inverse .navbar-nav > li > a {
+        color: #ffffffdd !important;
+    }
+
+        .app-theme-9 .top-menu.navbar-inverse .navbar-nav > li > a:hover,
+        .app-theme-9 .top-menu.navbar-inverse .navbar-nav > li > a:focus,
+        .app-theme-9 .top-menu.navbar-inverse .navbar-nav > .open > a,
+        .app-theme-9 .top-menu.navbar-inverse .navbar-nav > .open > a:hover,
+        .app-theme-9 .top-menu.navbar-inverse .navbar-nav > .open > a:focus {
+            background-color: #c93981 !important;
+            color: #ffffff !important;
+        }
+
+.app-theme-9 .navbar-header.left-menu.bg-theme,
+.app-theme-9 .navbar-header.bg-theme > button {
+    background-color: #c93981 !important;
+}
+
+.app-theme-9 .left-menu.bg-theme {
+    background-color: #d73c8a !important;
+}
+
+    .app-theme-9 .left-menu.bg-theme .line.dk {
+        background: rgba(0, 0, 0, 0.08) !important;
+    }
+
+    .app-theme-9 .left-menu.bg-theme .nav > li:hover > a,
+    .app-theme-9 .left-menu.bg-theme .nav > li:focus > a,
+    .app-theme-9 .left-menu.bg-theme .nav > li.active > a,
+    .app-theme-9 .left-menu.bg-theme .nav > li > a:hover,
+    .app-theme-9 .left-menu.bg-theme .nav > li > a:focus {
+        color: #ffffff !important;
+    }
+
+    .app-theme-9 .left-menu.bg-theme .text-lt,
+    .app-theme-9 .left-menu.bg-theme .nav > li > a {
+        color: #ffffffdd !important;
+    }
+
+    .app-theme-9 .left-menu.bg-theme .text-muted {
+        color: #d3a6bd !important;
+    }
+
+.app-theme-9 .app-aside-folded .left-menu.bg-theme .nav.dk {
+    background: #db4791 !important;
+}
+
+.app-theme-9.menu-simplified .top-menu.navbar-inverse .navbar-nav > li > a:hover,
+.app-theme-9.menu-simplified .top-menu.navbar-inverse .navbar-nav > li > a:focus,
+.app-theme-9.menu-simplified .top-menu.navbar-inverse .navbar-nav > .open > a,
+.app-theme-9.menu-simplified .top-menu.navbar-inverse .navbar-nav > .open > a:hover,
+.app-theme-9.menu-simplified .top-menu.navbar-inverse .navbar-nav > .open > a:focus,
+.app-theme-9.menu-simplified .left-menu.bg-theme .nav > li:hover > a,
+.app-theme-9.menu-simplified .left-menu.bg-theme .nav > li:focus > a,
+.app-theme-9.menu-simplified .left-menu.bg-theme .nav > li.active > a,
+.app-theme-9.menu-simplified .left-menu.bg-theme .nav > li > a:hover,
+.app-theme-9.menu-simplified .left-menu.bg-theme .nav > li > a:focus,
+.app-theme-9.menu-simplified .text-center > a:hover {
+    color: #d73c8a !important;
+}
+
+.app-theme-9.menu-simplified .left-menu.bg-theme .nav > li.active > a {
+    border-left: solid 1px #d73c8a !important;
+}
+
+/*View Controls*/
+.app-theme-9 .k-checkbox:checked + .k-checkbox-label:before,
+.app-theme-9 .k-radio:checked + .k-radio-label:after,
+.app-theme-9 .k-calendar td.k-state-selected .k-link,
+.app-theme-9 .k-calendar td.k-selected .k-link,
+.app-theme-9 .k-checkbox:checked,
+.app-theme-9 .k-radio:checked {
+    background-color: #db4791 !important;
+    border-color: #db4791 !important;
+    color: #ffffffdd !important;
+}
+
+.app-theme-9 .k-calendar td.k-selected .k-link,
+.app-theme-9 .k-calendar td.k-state-selected .k-link,
+.app-theme-9 .k-calendar td.k-state-focused .k-link {
+    box-shadow: inset 0 0 0 1px #db4791 !important;
+}
+
+.app-theme-9 .k-toolbar-button-group .k-button.k-selected {
+    background-color: #db4791 !important;
+    color: #ffffffdd !important;
+}
+
+.app-theme-9 .k-list-item.k-selected {
+    background-color: #db4791dd !important;
+    border-bottom: solid 1px #db4791bb;
+    color: #ffffffdd !important;
+}
+
+.app-theme-9 .k-textbox:focus,
+.app-theme-9 .k-textbox:hover,
+.app-theme-9 .k-input.k-focus,
+.app-theme-9 .k-input.k-hover,
+.app-theme-9 .k-input:hover,
+.app-theme-9 .k-picker.k-focus,
+.app-theme-9 .k-picker.k-hover,
+.app-theme-9 .k-picker:hover,
+.app-theme-9 .k-grid-edit-row > td > input,
+.app-theme-9 .k-grid-edit-row > td > .text-box,
+.app-theme-9 .k-dropdown-wrap.k-state-hover,
+.app-theme-9 .k-dropdown-wrap.k-state-focused,
+.app-theme-9 .k-dropdown-wrap.k-state-active,
+.app-theme-9 .k-picker-wrap.k-state-hover,
+.app-theme-9 .k-picker-wrap.k-state-focused,
+.app-theme-9 .k-picker-wrap.k-state-active,
+.app-theme-9 .k-numeric-wrap.k-state-hover,
+.app-theme-9 .k-numeric-wrap.k-state-focused,
+.app-theme-9 .k-numeric-wrap.k-state-active,
+.app-theme-9 .k-tabstrip-items-wrapper .k-item.k-active::after,
+.app-theme-9 .k-multiselect.k-state-hover > .k-multiselect-wrap,
+.app-theme-9 .k-multiselect.k-state-focused > .k-multiselect-wrap,
+.app-theme-9 .k-multiselect.k-state-active > .k-multiselect-wrap,
+.app-theme-9 .k-radio:checked + .k-radio-label:hover:before,
+.app-theme-9 .k-radio:checked + .k-radio-label:before,
+.app-theme-9 .k-checkbox:hover,
+.app-theme-9 .k-radio:hover {
+    border-color: #db4791 !important;
+}
+
+.app-theme-9 .k-scheduler-toolbar .k-scheduler-views li.k-state-selected.k-state-hover,
+.app-theme-9 .k-scheduler-toolbar > .k-scheduler-views > li.k-state-selected,
+.app-theme-9 .k-scheduler-toolbar .k-scheduler-views button.k-selected,
+.app-theme-9 .k-tabstrip-items .k-state-active,
+.app-theme-9 .k-tabstrip-items .k-state-hover {
+    border-bottom-color: #db4791 !important;
+}
+
+.app-theme-9 .btn-info,
+.app-theme-9 .btn-primary,
+.app-theme-9 .combobox-header,
+.app-theme-9 .k-calendar .k-header,
+.app-theme-9 .navbar-header > button,
+.app-theme-9 .k-button-solid-primary,
+.app-theme-9 .k-action-buttons .k-button,
+.app-theme-9 .k-grid .k-header .k-button,
+.app-theme-9 .k-grid .k-toolbar .k-button,
+.app-theme-9 .k-dialog .k-button.k-primary,
+.app-theme-9 .k-dialog .k-window-titlebar,
+.app-theme-9 .k-window-titlebar .k-dialog-title,
+.app-theme-9 .k-window-actions .k-button,
+.app-theme-9 .k-window-title {
+    color: #ffffffdd !important;
+}
+
+.app-theme-9 .btn-info,
+.app-theme-9 .btn-primary,
+.app-theme-9 .combobox-header,
+.app-theme-9 .k-calendar .k-header,
+.app-theme-9 .k-button-solid-primary,
+.app-theme-9 .k-action-buttons .k-button,
+.app-theme-9 .k-grid .k-header .k-button,
+.app-theme-9 .k-grid .k-toolbar .k-button,
+.app-theme-9 .k-dialog .k-button.k-primary,
+.app-theme-9 .k-dialog .k-window-titlebar,
+.app-theme-9 .k-window-titlebar.k-hstack,
+.app-theme-9 .k-window-actions.k-hstack,
+.app-theme-9 .k-drag-clue {
+    background-color: #db4791 !important;
+    border-color: #c93981 !important;
+}
+
+    .app-theme-9 .btn-info:hover,
+    .app-theme-9 .btn-primary:hover,
+    .app-theme-9 .combobox-header:hover,
+    .app-theme-9 .k-button-solid-primary:hover,
+    .app-theme-9 .k-action-buttons .k-button:hover,
+    .app-theme-9 .k-grid .k-header .k-button:hover,
+    .app-theme-9 .k-grid .k-toolbar .k-button:hover,
+    .app-theme-9 .k-dialog .k-button.k-primary:hover,
+    .app-theme-9 .k-calendar .k-header .k-link.k-state-hover {
+        background-color: #c93981 !important;
+        border-color: #c93981 !important;
+        color: #ffffff !important;
+    }
+
+.app-theme-9 .k-loading-image,
+.app-theme-9 .app-menu-group,
+.app-theme-9 .k-grid-header .k-grid-header-menu.k-active {
+    color: #c93981 !important;
+}
+
+/*theme-item-11*/
+/*Login Screen*/
+.app-theme-11.login-screen .login-area,
+.app-theme-11.login-screen .white-box,
+.app-theme-11.login-screen .login-box {
+    background-color: #441714 !important;
+}
+
+    .app-theme-11.login-screen .login-area::-webkit-scrollbar-button {
+        background-color: rgba(0, 0, 0, 0.5) !important;
+    }
+
+    .app-theme-11.login-screen .login-area::-webkit-scrollbar-track {
+        background-color: rgba(0, 0, 0, 0.2) !important;
+    }
+
+.app-theme-11.login-screen .login-message-error {
+    color: #f7ce0b !important;
+}
+
+.app-theme-11.login-screen .login-message-license {
+    color: #f7ce0b !important;
+}
+
+.app-theme-11.login-screen .login-text-title {
+    color: #fff !important;
+}
+
+.app-theme-11.login-screen .login-text-input {
+    border: 1px solid #e6e7e7 !important;
+    background: #e6e7e7 !important;
+    color: #441714 !important;
+}
+
+    .app-theme-11.login-screen .login-text-input::placeholder {
+        color: #441714 !important;
+        opacity: 1 !important;
+    }
+
+.app-theme-11.login-screen .login-text-other {
+    color: #cfd6d6 !important;
+}
+
+.app-theme-11.login-screen a.login-text-other:hover {
+    color: #fff !important;
+}
+
+.app-theme-11.login-screen button.btn.btn-primary,
+.app-theme-11.login-screen button.btn.btn-primary i {
+    color: #fcd50d !important;
+}
+
+.app-theme-11.login-screen .normal-language-item,
+.app-theme-11.login-screen button.btn.btn-primary {
+    background: rgba(0, 0, 0, 0.08) !important;
+    border: 1px solid #976561 !important;
+}
+
+    .app-theme-11.login-screen .selected-language-item,
+    .app-theme-11.login-screen button.btn.btn-primary.active.focus,
+    .app-theme-11.login-screen button.btn.btn-primary.active:focus,
+    .app-theme-11.login-screen button.btn.btn-primary.active:hover,
+    .app-theme-11.login-screen button.btn.btn-primary.focus:active,
+    .app-theme-11.login-screen button.btn.btn-primary:active:focus,
+    .app-theme-11.login-screen button.btn.btn-primary:active:hover,
+    .app-theme-11.login-screen button.btn.btn-primary.disabled:hover,
+    .app-theme-11.login-screen button.btn.btn-primary.focus,
+    .app-theme-11.login-screen button.btn.btn-primary:focus,
+    .app-theme-11.login-screen button.btn.btn-primary:hover {
+        background: rgba(0, 0, 0, 0.18) !important;
+        border: 1px solid #976561 !important;
+    }
+
+/*Main Screen*/
+.app-theme-11 .top-menu.navbar-inverse {
+    background-color: #441714 !important;
+    border-color: #441714 !important;
+}
+
+    .app-theme-11 .top-menu.navbar-inverse .navbar-nav > li > a {
+        color: #f7ce0b !important;
+    }
+
+        .app-theme-11 .top-menu.navbar-inverse .navbar-nav > li > a:hover,
+        .app-theme-11 .top-menu.navbar-inverse .navbar-nav > li > a:focus,
+        .app-theme-11 .top-menu.navbar-inverse .navbar-nav > .open > a,
+        .app-theme-11 .top-menu.navbar-inverse .navbar-nav > .open > a:hover,
+        .app-theme-11 .top-menu.navbar-inverse .navbar-nav > .open > a:focus {
+            background-color: #371310 !important;
+            color: #f9d770 !important;
+        }
+
+.app-theme-11 .navbar-header.left-menu.bg-theme,
+.app-theme-11 .navbar-header.bg-theme > button {
+    background-color: #371310 !important;
+}
+
+.app-theme-11 .left-menu.bg-theme {
+    background-color: #441714 !important;
+}
+
+    .app-theme-11 .left-menu.bg-theme .line.dk {
+        background: rgba(0, 0, 0, 0.3) !important;
+    }
+
+    .app-theme-11 .left-menu.bg-theme .nav > li.active > a {
+        border-left: solid 1px #ffc107 !important;
+    }
+
+    .app-theme-11 .left-menu.bg-theme .nav > li:hover > a,
+    .app-theme-11 .left-menu.bg-theme .nav > li:focus > a,
+    .app-theme-11 .left-menu.bg-theme .nav > li.active > a,
+    .app-theme-11 .left-menu.bg-theme .nav > li > a:hover,
+    .app-theme-11 .left-menu.bg-theme .nav > li > a:focus {
+        color: #f9d770 !important;
+    }
+
+    .app-theme-11 .left-menu.bg-theme .text-lt,
+    .app-theme-11 .left-menu.bg-theme .nav > li > a {
+        color: #f7ce0b !important;
+    }
+
+    .app-theme-11 .left-menu.bg-theme .text-muted {
+        color: #b9adac !important;
+    }
+
+.app-theme-11 .app-aside-folded .left-menu.bg-theme .nav.dk {
+    background: #4d201d !important;
+}
+
+.app-theme-11.menu-simplified .top-menu.navbar-inverse .navbar-nav > li > a:hover,
+.app-theme-11.menu-simplified .top-menu.navbar-inverse .navbar-nav > li > a:focus,
+.app-theme-11.menu-simplified .top-menu.navbar-inverse .navbar-nav > .open > a,
+.app-theme-11.menu-simplified .top-menu.navbar-inverse .navbar-nav > .open > a:hover,
+.app-theme-11.menu-simplified .top-menu.navbar-inverse .navbar-nav > .open > a:focus,
+.app-theme-11.menu-simplified .left-menu.bg-theme .nav > li:hover > a,
+.app-theme-11.menu-simplified .left-menu.bg-theme .nav > li:focus > a,
+.app-theme-11.menu-simplified .left-menu.bg-theme .nav > li.active > a,
+.app-theme-11.menu-simplified .left-menu.bg-theme .nav > li > a:hover,
+.app-theme-11.menu-simplified .left-menu.bg-theme .nav > li > a:focus,
+.app-theme-11.menu-simplified .text-center > a:hover {
+    color: #cb5f1d !important;
+}
+
+.app-theme-11.menu-simplified .left-menu.bg-theme .nav > li.active > a {
+    border-left: solid 1px #cb5f1d !important;
+}
+
+/*View Controls*/
+.app-theme-11 .k-checkbox:checked + .k-checkbox-label:before,
+.app-theme-11 .k-radio:checked + .k-radio-label:after,
+.app-theme-11 .k-calendar td.k-state-selected .k-link,
+.app-theme-11 .k-calendar td.k-selected .k-link,
+.app-theme-11 .k-checkbox:checked,
+.app-theme-11 .k-radio:checked {
+    background-color: #4d201d !important;
+    border-color: #4d201d !important;
+    color: #f7ce0b !important;
+}
+
+.app-theme-11 .k-calendar td.k-selected .k-link,
+.app-theme-11 .k-calendar td.k-state-selected .k-link,
+.app-theme-11 .k-calendar td.k-state-focused .k-link {
+    box-shadow: inset 0 0 0 1px #4d201d !important;
+}
+
+.app-theme-11 .k-toolbar-button-group .k-button.k-selected {
+    background-color: #4d201d !important;
+    color: #ffffffdd !important;
+}
+
+.app-theme-11 .k-list-item.k-selected {
+    background-color: #4d201ddd !important;
+    border-bottom: solid 1px #4d201dbb;
+    color: #ffffffdd !important;
+}
+
+.app-theme-11 .k-textbox:focus,
+.app-theme-11 .k-textbox:hover,
+.app-theme-11 .k-input.k-focus,
+.app-theme-11 .k-input.k-hover,
+.app-theme-11 .k-input:hover,
+.app-theme-11 .k-picker.k-focus,
+.app-theme-11 .k-picker.k-hover,
+.app-theme-11 .k-picker:hover,
+.app-theme-11 .k-grid-edit-row > td > input,
+.app-theme-11 .k-grid-edit-row > td > .text-box,
+.app-theme-11 .k-dropdown-wrap.k-state-hover,
+.app-theme-11 .k-dropdown-wrap.k-state-focused,
+.app-theme-11 .k-dropdown-wrap.k-state-active,
+.app-theme-11 .k-picker-wrap.k-state-hover,
+.app-theme-11 .k-picker-wrap.k-state-focused,
+.app-theme-11 .k-picker-wrap.k-state-active,
+.app-theme-11 .k-numeric-wrap.k-state-hover,
+.app-theme-11 .k-numeric-wrap.k-state-focused,
+.app-theme-11 .k-numeric-wrap.k-state-active,
+.app-theme-11 .k-tabstrip-items-wrapper .k-item.k-active::after,
+.app-theme-11 .k-multiselect.k-state-hover > .k-multiselect-wrap,
+.app-theme-11 .k-multiselect.k-state-focused > .k-multiselect-wrap,
+.app-theme-11 .k-multiselect.k-state-active > .k-multiselect-wrap,
+.app-theme-11 .k-radio:checked + .k-radio-label:hover:before,
+.app-theme-11 .k-radio:checked + .k-radio-label:before,
+.app-theme-11 .k-checkbox:hover,
+.app-theme-11 .k-radio:hover {
+    border-color: #4d201d !important;
+}
+
+.app-theme-11 .k-scheduler-toolbar .k-scheduler-views li.k-state-selected.k-state-hover,
+.app-theme-11 .k-scheduler-toolbar > .k-scheduler-views > li.k-state-selected,
+.app-theme-11 .k-scheduler-toolbar .k-scheduler-views button.k-selected,
+.app-theme-11 .k-tabstrip-items .k-state-active,
+.app-theme-11 .k-tabstrip-items .k-state-hover {
+    border-bottom-color: #4d201d !important;
+}
+
+.app-theme-11 .btn-info,
+.app-theme-11 .btn-primary,
+.app-theme-11 .combobox-header,
+.app-theme-11 .k-calendar .k-header,
+.app-theme-11 .navbar-header > button,
+.app-theme-11 .k-button-solid-primary,
+.app-theme-11 .k-action-buttons .k-button,
+.app-theme-11 .k-grid .k-header .k-button,
+.app-theme-11 .k-grid .k-toolbar .k-button,
+.app-theme-11 .k-grid .k-toolbar .k-button,
+.app-theme-11 .k-dialog .k-button.k-primary,
+.app-theme-11 .k-dialog .k-window-titlebar,
+.app-theme-11 .k-window-titlebar .k-dialog-title,
+.app-theme-11 .k-window-actions .k-button,
+.app-theme-11 .k-window-title {
+    color: #f7ce0b !important;
+}
+
+.app-theme-11 .btn-info,
+.app-theme-11 .btn-primary,
+.app-theme-11 .combobox-header,
+.app-theme-11 .k-calendar .k-header,
+.app-theme-11 .k-button-solid-primary,
+.app-theme-11 .k-action-buttons .k-button,
+.app-theme-11 .k-grid .k-header .k-button,
+.app-theme-11 .k-grid .k-toolbar .k-button,
+.app-theme-11 .k-dialog .k-button.k-primary,
+.app-theme-11 .k-dialog .k-window-titlebar,
+.app-theme-11 .k-window-titlebar.k-hstack,
+.app-theme-11 .k-window-actions.k-hstack,
+.app-theme-11 .k-drag-clue {
+    background-color: #4d201d !important;
+    border-color: #3e1612 !important;
+}
+
+    .app-theme-11 .btn-info:hover,
+    .app-theme-11 .btn-primary:hover,
+    .app-theme-11 .combobox-header:hover,
+    .app-theme-11 .k-button-solid-primary:hover,
+    .app-theme-11 .k-action-buttons .k-button:hover,
+    .app-theme-11 .k-grid .k-header .k-button:hover,
+    .app-theme-11 .k-grid .k-toolbar .k-button:hover,
+    .app-theme-11 .k-dialog .k-button.k-primary:hover,
+    .app-theme-11 .k-calendar .k-header .k-link.k-state-hover {
+        background-color: #3e1612 !important;
+        border-color: #3e1612 !important;
+        color: #ffc107 !important;
+    }
+
+.app-theme-11 .k-loading-image,
+.app-theme-11 .app-menu-group,
+.app-theme-11 .k-grid-header .k-grid-header-menu.k-active {
+    color: #ffc107 !important;
+}
+
+/*theme-item-12*/
+/*Login Screen*/
+.app-theme-12.login-screen .login-area,
+.app-theme-12.login-screen .white-box,
+.app-theme-12.login-screen .login-box {
+    background-color: #b97c46 !important;
+}
+
+    .app-theme-12.login-screen .login-area::-webkit-scrollbar-button {
+        background-color: rgba(0, 0, 0, 0.5) !important;
+    }
+
+    .app-theme-12.login-screen .login-area::-webkit-scrollbar-track {
+        background-color: rgba(0, 0, 0, 0.2) !important;
+    }
+
+.app-theme-12.login-screen .login-message-error {
+    color: #f7ce0b !important;
+}
+
+.app-theme-12.login-screen .login-message-license {
+    color: #f7ce0b !important;
+}
+
+.app-theme-12.login-screen .login-text-title {
+    color: #fff !important;
+}
+
+.app-theme-12.login-screen .login-text-input {
+    border: 1px solid #e6e7e7 !important;
+    background: #e6e7e7 !important;
+    color: #b97c46 !important;
+}
+
+    .app-theme-12.login-screen .login-text-input::placeholder {
+        color: #b97c46 !important;
+        opacity: 1 !important;
+    }
+
+.app-theme-12.login-screen .login-text-other {
+    color: #cfd6d6 !important;
+}
+
+.app-theme-12.login-screen a.login-text-other:hover {
+    color: #fff !important;
+}
+
+.app-theme-12.login-screen button.btn.btn-primary,
+.app-theme-12.login-screen button.btn.btn-primary i {
+    color: #fff !important;
+}
+
+.app-theme-12.login-screen .normal-language-item,
+.app-theme-12.login-screen button.btn.btn-primary {
+    background: rgba(0, 0, 0, 0.08) !important;
+    border: 1px solid #e3b083 !important;
+}
+
+    .app-theme-12.login-screen .selected-language-item,
+    .app-theme-12.login-screen button.btn.btn-primary.active.focus,
+    .app-theme-12.login-screen button.btn.btn-primary.active:focus,
+    .app-theme-12.login-screen button.btn.btn-primary.active:hover,
+    .app-theme-12.login-screen button.btn.btn-primary.focus:active,
+    .app-theme-12.login-screen button.btn.btn-primary:active:focus,
+    .app-theme-12.login-screen button.btn.btn-primary:active:hover,
+    .app-theme-12.login-screen button.btn.btn-primary.disabled:hover,
+    .app-theme-12.login-screen button.btn.btn-primary.focus,
+    .app-theme-12.login-screen button.btn.btn-primary:focus,
+    .app-theme-12.login-screen button.btn.btn-primary:hover {
+        background: rgba(0, 0, 0, 0.18) !important;
+        border: 1px solid #e3b083 !important;
+    }
+
+/*Main Screen*/
+.app-theme-12 .top-menu.navbar-inverse {
+    background-color: #b97c46 !important;
+    border-color: #b97c46 !important;
+}
+
+    .app-theme-12 .top-menu.navbar-inverse .navbar-nav > li > a {
+        color: #ffffffdd !important;
+    }
+
+        .app-theme-12 .top-menu.navbar-inverse .navbar-nav > li > a:hover,
+        .app-theme-12 .top-menu.navbar-inverse .navbar-nav > li > a:focus,
+        .app-theme-12 .top-menu.navbar-inverse .navbar-nav > .open > a,
+        .app-theme-12 .top-menu.navbar-inverse .navbar-nav > .open > a:hover,
+        .app-theme-12 .top-menu.navbar-inverse .navbar-nav > .open > a:focus {
+            background-color: #aa7242 !important;
+            color: #ffffff !important;
+        }
+
+.app-theme-12 .navbar-header.left-menu.bg-theme,
+.app-theme-12 .navbar-header.bg-theme > button {
+    background-color: #aa7242 !important;
+}
+
+.app-theme-12 .left-menu.bg-theme {
+    background-color: #b97c46 !important;
+}
+
+    .app-theme-12 .left-menu.bg-theme .line.dk {
+        background: rgba(0, 0, 0, 0.08) !important;
+    }
+
+    .app-theme-12 .left-menu.bg-theme .nav > li:hover > a,
+    .app-theme-12 .left-menu.bg-theme .nav > li:focus > a,
+    .app-theme-12 .left-menu.bg-theme .nav > li.active > a,
+    .app-theme-12 .left-menu.bg-theme .nav > li > a:hover,
+    .app-theme-12 .left-menu.bg-theme .nav > li > a:focus {
+        color: #ffffff !important;
+    }
+
+    .app-theme-12 .left-menu.bg-theme .text-lt,
+    .app-theme-12 .left-menu.bg-theme .nav > li > a {
+        color: #ffffffdd !important;
+    }
+
+    .app-theme-12 .left-menu.bg-theme .text-muted {
+        color: #cbbfb4 !important;
+    }
+
+.app-theme-12 .app-aside-folded .left-menu.bg-theme .nav.dk {
+    background: #bb8555 !important;
+}
+
+.app-theme-12.menu-simplified .top-menu.navbar-inverse .navbar-nav > li > a:hover,
+.app-theme-12.menu-simplified .top-menu.navbar-inverse .navbar-nav > li > a:focus,
+.app-theme-12.menu-simplified .top-menu.navbar-inverse .navbar-nav > .open > a,
+.app-theme-12.menu-simplified .top-menu.navbar-inverse .navbar-nav > .open > a:hover,
+.app-theme-12.menu-simplified .top-menu.navbar-inverse .navbar-nav > .open > a:focus,
+.app-theme-12.menu-simplified .left-menu.bg-theme .nav > li:hover > a,
+.app-theme-12.menu-simplified .left-menu.bg-theme .nav > li:focus > a,
+.app-theme-12.menu-simplified .left-menu.bg-theme .nav > li.active > a,
+.app-theme-12.menu-simplified .left-menu.bg-theme .nav > li > a:hover,
+.app-theme-12.menu-simplified .left-menu.bg-theme .nav > li > a:focus,
+.app-theme-12.menu-simplified .text-center > a:hover {
+    color: #b97c46 !important;
+}
+
+.app-theme-12.menu-simplified .left-menu.bg-theme .nav > li.active > a {
+    border-left: solid 1px #b97c46 !important;
+}
+
+/*View Controls*/
+.app-theme-12 .k-checkbox:checked + .k-checkbox-label:before,
+.app-theme-12 .k-radio:checked + .k-radio-label:after,
+.app-theme-12 .k-calendar td.k-state-selected .k-link,
+.app-theme-12 .k-calendar td.k-selected .k-link,
+.app-theme-12 .k-checkbox:checked,
+.app-theme-12 .k-radio:checked {
+    background-color: #bb8555 !important;
+    border-color: #bb8555 !important;
+    color: #ffffffdd !important;
+}
+
+.app-theme-12 .k-calendar td.k-selected .k-link,
+.app-theme-12 .k-calendar td.k-state-selected .k-link,
+.app-theme-12 .k-calendar td.k-state-focused .k-link {
+    box-shadow: inset 0 0 0 1px #bb8555 !important;
+}
+
+.app-theme-12 .k-toolbar-button-group .k-button.k-selected {
+    background-color: #bb8555 !important;
+    color: #ffffffdd !important;
+}
+
+.app-theme-12 .k-list-item.k-selected {
+    background-color: #bb8555dd !important;
+    border-bottom: solid 1px #bb8555bb;
+    color: #ffffffdd !important;
+}
+
+.app-theme-12 .k-textbox:focus,
+.app-theme-12 .k-textbox:hover,
+.app-theme-12 .k-input.k-focus,
+.app-theme-12 .k-input.k-hover,
+.app-theme-12 .k-input:hover,
+.app-theme-12 .k-picker.k-focus,
+.app-theme-12 .k-picker.k-hover,
+.app-theme-12 .k-picker:hover,
+.app-theme-12 .k-grid-edit-row > td > input,
+.app-theme-12 .k-grid-edit-row > td > .text-box,
+.app-theme-12 .k-dropdown-wrap.k-state-hover,
+.app-theme-12 .k-dropdown-wrap.k-state-focused,
+.app-theme-12 .k-dropdown-wrap.k-state-active,
+.app-theme-12 .k-picker-wrap.k-state-hover,
+.app-theme-12 .k-picker-wrap.k-state-focused,
+.app-theme-12 .k-picker-wrap.k-state-active,
+.app-theme-12 .k-numeric-wrap.k-state-hover,
+.app-theme-12 .k-numeric-wrap.k-state-focused,
+.app-theme-12 .k-numeric-wrap.k-state-active,
+.app-theme-12 .k-tabstrip-items-wrapper .k-item.k-active::after,
+.app-theme-12 .k-multiselect.k-state-hover > .k-multiselect-wrap,
+.app-theme-12 .k-multiselect.k-state-focused > .k-multiselect-wrap,
+.app-theme-12 .k-multiselect.k-state-active > .k-multiselect-wrap,
+.app-theme-12 .k-radio:checked + .k-radio-label:hover:before,
+.app-theme-12 .k-radio:checked + .k-radio-label:before,
+.app-theme-12 .k-checkbox:hover,
+.app-theme-12 .k-radio:hover {
+    border-color: #bb8555 !important;
+}
+
+.app-theme-12 .k-scheduler-toolbar .k-scheduler-views li.k-state-selected.k-state-hover,
+.app-theme-12 .k-scheduler-toolbar > .k-scheduler-views > li.k-state-selected,
+.app-theme-12 .k-scheduler-toolbar .k-scheduler-views button.k-selected,
+.app-theme-12 .k-tabstrip-items .k-state-active,
+.app-theme-12 .k-tabstrip-items .k-state-hover {
+    border-bottom-color: #bb8555 !important;
+}
+
+.app-theme-12 .btn-info,
+.app-theme-12 .btn-primary,
+.app-theme-12 .combobox-header,
+.app-theme-12 .k-calendar .k-header,
+.app-theme-12 .navbar-header > button,
+.app-theme-12 .k-button-solid-primary,
+.app-theme-12 .k-action-buttons .k-button,
+.app-theme-12 .k-grid .k-header .k-button,
+.app-theme-12 .k-grid .k-toolbar .k-button,
+.app-theme-12 .k-dialog .k-button.k-primary,
+.app-theme-12 .k-dialog .k-window-titlebar,
+.app-theme-12 .k-window-titlebar .k-dialog-title,
+.app-theme-12 .k-window-actions .k-button,
+.app-theme-12 .k-window-title {
+    color: #ffffffdd !important;
+}
+
+.app-theme-12 .btn-info,
+.app-theme-12 .btn-primary,
+.app-theme-12 .combobox-header,
+.app-theme-12 .k-calendar .k-header,
+.app-theme-12 .k-button-solid-primary,
+.app-theme-12 .k-action-buttons .k-button,
+.app-theme-12 .k-grid .k-header .k-button,
+.app-theme-12 .k-grid .k-toolbar .k-button,
+.app-theme-12 .k-dialog .k-button.k-primary,
+.app-theme-12 .k-dialog .k-window-titlebar,
+.app-theme-12 .k-window-titlebar.k-hstack,
+.app-theme-12 .k-window-actions.k-hstack,
+.app-theme-12 .k-drag-clue {
+    background-color: #bb8555 !important;
+    border-color: #aa7242 !important;
+}
+
+    .app-theme-12 .btn-info:hover,
+    .app-theme-12 .btn-primary:hover,
+    .app-theme-12 .combobox-header:hover,
+    .app-theme-12 .k-button-solid-primary:hover,
+    .app-theme-12 .k-action-buttons .k-button:hover,
+    .app-theme-12 .k-grid .k-header .k-button:hover,
+    .app-theme-12 .k-grid .k-toolbar .k-button:hover,
+    .app-theme-12 .k-dialog .k-button.k-primary:hover,
+    .app-theme-12 .k-calendar .k-header .k-link.k-state-hover {
+        background-color: #aa7242 !important;
+        border-color: #aa7242 !important;
+        color: #ffffff !important;
+    }
+
+.app-theme-12 .k-loading-image,
+.app-theme-12 .app-menu-group,
+.app-theme-12 .k-grid-header .k-grid-header-menu.k-active {
+    color: #aa7242 !important;
+}
+
+/*menu-simplified.app-mode-light*/
+.menu-simplified.app-mode-light .navbar-header.left-menu.bg-theme,
+.menu-simplified.app-mode-light .navbar-header.bg-theme > button {
+    background-color: #f6f8f8 !important;
+}
+
+.menu-simplified.app-mode-light .left-menu.bg-theme {
+    background-color: #f6f8f8 !important;
+    border-right: #e6e6e6 solid 1px;
+}
+
+    .menu-simplified.app-mode-light .left-menu.bg-theme .line.dk {
+        background: rgba(0, 0, 0, 0.03) !important;
+    }
+
+    .menu-simplified.app-mode-light .left-menu.bg-theme .text-lt,
+    .menu-simplified.app-mode-light .left-menu.bg-theme .nav > li > a {
+        color: #3b3b3b !important;
+    }
+
+    .menu-simplified.app-mode-light .left-menu.bg-theme .text-muted {
+        color: #bbbfc8 !important;
+    }
+
+.menu-simplified.app-mode-light .app-aside-folded .left-menu.bg-theme .nav.dk {
+    background: #f6f8f8 !important;
+}
+
+.menu-simplified.app-mode-light .use-top-menu .left-menu.bg-theme {
+    border-right: none !important;
+}
+
+.menu-simplified.app-mode-light .top-menu.navbar-inverse {
+    background-color: #f6f8f8 !important;
+    border-top: solid 1px #e6e6e6 !important;
+}
+
+    .menu-simplified.app-mode-light .top-menu.navbar-inverse .navbar-nav > li > a {
+        color: #3b3b3b !important;
+    }
+
+        .menu-simplified.app-mode-light .top-menu.navbar-inverse .navbar-nav > li > a:hover,
+        .menu-simplified.app-mode-light .top-menu.navbar-inverse .navbar-nav > li > a:focus,
+        .menu-simplified.app-mode-light .top-menu.navbar-inverse .navbar-nav > .open > a,
+        .menu-simplified.app-mode-light .top-menu.navbar-inverse .navbar-nav > .open > a:hover,
+        .menu-simplified.app-mode-light .top-menu.navbar-inverse .navbar-nav > .open > a:focus {
+            background: rgba(0, 0, 0, 0.03) !important;
+        }
+
+/*menu-simplified.app-mode-dark*/
+.menu-simplified.app-mode-dark .navbar-header.left-menu.bg-theme,
+.menu-simplified.app-mode-dark .navbar-header.bg-theme > button {
+    background-color: #1a1a1a !important;
+}
+
+.menu-simplified.app-mode-dark .left-menu.bg-theme {
+    background-color: #1a1a1a !important;
+    border-right: #2d2d2d solid 1px;
+}
+
+    .menu-simplified.app-mode-dark .left-menu.bg-theme .line.dk {
+        background: rgb(255, 255, 255, 0.03) !important;
+    }
+
+    .menu-simplified.app-mode-dark .left-menu.bg-theme .text-lt,
+    .menu-simplified.app-mode-dark .left-menu.bg-theme .nav > li > a {
+        color: #999 !important;
+    }
+
+    .menu-simplified.app-mode-dark .left-menu.bg-theme .text-muted {
+        color: #555555 !important;
+    }
+
+.menu-simplified.app-mode-dark .app-aside-folded .left-menu.bg-theme .nav.dk {
+    background: #1a1a1a !important;
+}
+
+.menu-simplified.app-mode-dark .use-top-menu .left-menu.bg-theme {
+    border-right: none !important;
+}
+
+.menu-simplified.app-mode-dark .top-menu.navbar-inverse {
+    background-color: #1a1a1a !important;
+    border-top: solid 1px #2d2d2d !important;
+}
+
+    .menu-simplified.app-mode-dark .top-menu.navbar-inverse .navbar-nav > li > a {
+        color: #999 !important;
+    }
+
+        .menu-simplified.app-mode-dark .top-menu.navbar-inverse .navbar-nav > li > a:hover,
+        .menu-simplified.app-mode-dark .top-menu.navbar-inverse .navbar-nav > li > a:focus,
+        .menu-simplified.app-mode-dark .top-menu.navbar-inverse .navbar-nav > .open > a,
+        .menu-simplified.app-mode-dark .top-menu.navbar-inverse .navbar-nav > .open > a:hover,
+        .menu-simplified.app-mode-dark .top-menu.navbar-inverse .navbar-nav > .open > a:focus {
+            background: rgb(255, 255, 255, 0.03) !important;
+        }
+
+/*app-mode-dark*/
+.app-mode-dark .k-pager,
+.app-mode-dark .toolbar,
+.app-mode-dark .k-grid-toolbar,
+.app-mode-dark .k-splitter,
+.app-mode-dark .breadcrumb,
+.app-mode-dark .app-breadcrumb,
+.app-mode-dark .app-footer-content,
+.app-mode-dark .quick-search-heading,
+.app-mode-dark .nav-tabs > li.active > a,
+.app-mode-dark .nav-tabs > li.active > a:hover,
+.app-mode-dark .nav-tabs > li.active > a:focus {
+    background-color: #1a1a1a !important;
+}
+
+.app-mode-dark .k-grid-header,
+.app-mode-dark .k-grid-header th.k-header {
+    background-color: #1a1a1a;
+    color: #c2c3c3 !important;
+}
+
+.app-mode-dark .app-breadcrumb {
+    border-bottom: #2d2d2d solid 1px;
+    border-top: #2d2d2d solid 1px;
+}
+
+.app-mode-dark input,
+.app-mode-dark .k-textbox,
+.app-mode-dark .k-input,
+.app-mode-dark .k-picker,
+.app-mode-dark .navbar-top-right button,
+.app-mode-dark .k-input-inner {
+    background-color: #1a1a1a !important;
+    color: #c2c3c3 !important;
+}
+
+    .app-mode-dark .app,
+    .app-mode-dark .app-body,
+    .app-mode-dark .app-content,
+    .app-mode-dark .app-content-body,
+    .app-mode-dark .app-header,
+    .app-mode-dark .app-footer,
+    .app-mode-dark .nav-tabs,
+    .app-mode-dark .panel-body,
+    .app-mode-dark .dropdown-menu,
+    .app-mode-dark .k-multiselect .k-button,
+    .app-mode-dark .k-dropzone .k-button,
+    .app-mode-dark ::-webkit-scrollbar-button,
+    .app-mode-dark .panel-info > .panel-heading,
+    .app-mode-dark .k-multiselect-wrap,
+    .app-mode-dark .navbar-top-right,
+    .app-mode-dark .k-select,
+    .app-mode-dark .k-pane,
+    .app-mode-dark .tab-content,
+    .app-mode-dark .k-splitbar,
+    .app-mode-dark .k-treeview,
+    .app-mode-dark .k-grid,
+    .app-mode-dark .k-list,
+    .app-mode-dark .k-window-content,
+    .app-mode-dark .k-autocomplete,
+    .app-mode-dark .k-grouping-header,
+    .app-mode-dark .k-pager-wrap .k-link,
+    .app-mode-dark .k-pager-wrap,
+    .app-mode-dark .k-grid-footer,
+    .app-mode-dark .k-grid-footer td,
+    .app-mode-dark .k-grid-content,
+    .app-mode-dark .k-grid-content-locked,
+    .app-mode-dark .k-grid-header th.k-header > .k-link,
+    .app-mode-dark .k-pager-numbers .k-selected,
+    .app-mode-dark .k-pager-numbers .k-state-selected,
+    .app-mode-dark .k-picker.k-focus > .k-input-button,
+    .app-mode-dark .k-picker.k-hover > .k-input-button,
+    .app-mode-dark .k-input.k-focus > .k-button,
+    .app-mode-dark .k-input.k-hover > .k-button,
+    .app-mode-dark .k-dropdown-wrap.k-state-default,
+    .app-mode-dark .k-numeric-wrap.k-state-default,
+    .app-mode-dark .k-picker-wrap.k-state-default,
+    .app-mode-dark .parameter-report-info,
+    .app-mode-dark .result-report-info,
+    .app-mode-dark .popup-commands,
+    .app-mode-dark .k-upload {
+        background-color: #202121 !important;
+        color: #c2c3c3 !important;
+    }
+
+        .app-mode-dark .dropdown-menu > li > a {
+            color: #c2c3c3 !important;
+        }
+
+            .app-mode-dark .dropdown-menu .divider,
+            .app-mode-dark .dropdown-menu > li > a:hover {
+                background-color: #2d2d2d !important;
+            }
+
+        .app-mode-dark .div-label-info,
+        .app-mode-dark .k-grid tr td {
+            color: #c2c3c3 !important;
+        }
+
+.app-mode-dark .app-footer-content {
+    border-top: 1px solid #2d2d2d;
+}
+
+.app-mode-dark ::-webkit-scrollbar-thumb {
+    background-color: #3a3939 !important;
+}
+
+    .app-mode-dark ::-webkit-scrollbar-thumb:hover {
+        background: #464545 !important;
+    }
+
+.app-mode-dark ::-webkit-scrollbar-track,
+.app-mode-dark ::-webkit-scrollbar-corner {
+    background: #232323 !important;
+}
+
+.app-mode-dark .k-treeview span.k-in {
+    background-color: #202121;
+    color: #c2c3c3;
+}
+
+.app-mode-dark .k-treeview .k-selected,
+.app-mode-dark .k-treeview .k-state-selected {
+    color: #337ab7;
+}
+
+.app-mode-dark .nav-tabs > li > a,
+.app-mode-dark .nav-tabs > li > a:focus,
+.app-mode-dark .nav-tabs > li > a:hover {
+    border-color: none;
+    color: #c2c3c3;
+}
+
+.app-mode-dark .tabs-left > .nav-tabs > li > a,
+.app-mode-dark .tabs-left > .nav-tabs > li > a:focus,
+.app-mode-dark .tabs-left > .nav-tabs > li > a:hover {
+    border-color: #2d2d2d;
+    color: #c2c3c3;
+}
+
+.app-mode-dark .nav-tabs > li.active > a,
+.app-mode-dark .nav-tabs > li.active > a:focus,
+.app-mode-dark .nav-tabs > li.active > a:hover {
+    border-top: 2px solid #4C8FBD;
+    border-right: none;
+    border-left: none;
+}
+
+.app-mode-dark .tabs-left > .nav-tabs > li.active > a,
+.app-mode-dark .tabs-left > .nav-tabs > li.active > a:focus,
+.app-mode-dark .tabs-left > .nav-tabs > li.active > a:hover {
+    border-left: 2px solid #4C8FBD;
+    border-bottom: none;
+    border-top: none;
+}
+
+.app-mode-dark .k-autocomplete,
+.app-mode-dark .k-block,
+.app-mode-dark .k-content,
+.app-mode-dark .k-dropdown-wrap,
+.app-mode-dark .k-dropzone-active,
+.app-mode-dark .k-editable-area,
+.app-mode-dark .k-filter-row > th,
+.app-mode-dark .k-grid td,
+.app-mode-dark .k-grid td.k-selected,
+.app-mode-dark .k-grid td.k-state-selected,
+.app-mode-dark .k-grid-content-locked,
+.app-mode-dark .k-grid-header,
+.app-mode-dark .k-grid-header-locked,
+.app-mode-dark .k-grid-header-wrap,
+.app-mode-dark .k-group,
+.app-mode-dark .k-grouping-header,
+.app-mode-dark .k-grouping-header .k-group-indicator,
+.app-mode-dark .k-header,
+.app-mode-dark .k-input,
+.app-mode-dark .k-pager-refresh,
+.app-mode-dark .k-panel > .k-item > .k-link,
+.app-mode-dark .k-panelbar .k-content,
+.app-mode-dark .k-panelbar .k-panel,
+.app-mode-dark .k-panelbar > .k-item > .k-link,
+.app-mode-dark .k-popup.k-align .k-list .k-item:last-child,
+.app-mode-dark .k-separator,
+.app-mode-dark .k-slider-track,
+.app-mode-dark .k-splitbar,
+.app-mode-dark .k-state-default,
+.app-mode-dark .k-state-default .k-select,
+.app-mode-dark .k-state-disabled,
+.app-mode-dark .k-picker,
+.app-mode-dark .k-textbox,
+.app-mode-dark .k-textbox > input,
+.app-mode-dark .k-tiles, .k-tooltip,
+.app-mode-dark .k-treemap-tile,
+.app-mode-dark .k-upload-files,
+.app-mode-dark .k-grid-toolbar,
+.app-mode-dark .k-toolbar,
+.app-mode-dark .k-widget,
+.app-mode-dark .extend-tree-search,
+.app-mode-dark .nav-tabs,
+.app-mode-dark .panel-info,
+.app-mode-dark .panel-info > .panel-heading,
+.app-mode-dark .k-multiselect-wrap,
+.app-mode-dark .k-dropzone .k-button,
+.app-mode-dark .showSearchControl,
+.app-mode-dark .tab-container .tab-content,
+.app-mode-dark .quick-search-item {
+    border-color: #2d2d2d;
+}
+
+.app-mode-dark .k-pager-wrap .k-link {
+    border: none !important;
+}
+
+.app-mode-dark .nav-tabs > li > a {
+    border-bottom-color: #2d2d2d !important;
+}
+
+.app-mode-dark .hr-double {
+    border-top-color: #323232 !important;
+    border-bottom-color: #323232 !important;
+}
+
+.app-mode-dark .name-field-default-style,
+.app-mode-dark .code-field-default-style,
+.app-mode-dark tr td.name-field-default-style,
+.app-mode-dark tr td.code-field-default-style {
+    color: #428bca !important;
+}
+
+
+/*Define button*/
+.k-grid .k-toolbar .k-button.btn-success {
+    border: var(--vz-btn-border-width) solid var(--vz-btn-border-color);
+    background-color: #45cb85 !important;
+    --vz-btn-focus-box-shadow: 0 0 0 0 rgba(var(--vz-btn-focus-shadow-rgb), .5);
+}
+/**/
+
+.pull-right {
+    float: right !important;
+}
+
+.k-toolbar-md {
+    gap: 0px;
+}
+
+button.k-toolbar-overflow-button.k-toolbar-tool.k-button.k-button-md.k-rounded-md.k-button-flat.k-button-flat-base.k-icon-button {
+    display: none !important;
+}
+
+td.k-command-cell button.k-button-md.k-icon-button {
+    padding: 2px !important;
+}
+
+.k-confirm .k-window-titlebar::before {
+    content: 'Thông báo';
+    font-size: 1.2em;
+    font-weight: 700;
+}
+
+.k-confirm .k-window-titlebar .k-dialog-title {
+    display: none;
+}
+/*Header canh giữa*/
+.k-grid .k-cell-inner > .k-link {
+    justify-content: space-around;
+}
+
+/*Taskboard - giảm độ dài*/
+.k-taskboard-column {
+    width: 250px;
+}
+
+.k-card-header {
+    padding-block: 0px;
+}
+/*Sửa lại giao diện tab*/
+/*Sửa lại tabStrip*/
+
+.k-tabstrip-top > .k-tabstrip-items-wrapper .k-item.k-active,
+.k-tabstrip-left > .k-tabstrip-items-wrapper .k-item.k-active {
+    background-color: var(--vz-card-cap-bg);
+    border-top: 1px solid #ddd;
+    border-left: 1px solid #ddd;
+    border-right: 1px solid #ddd;
+}
+
+.k-tabstrip-content .k-grid {
+    border-top: 0 !important;
+}
+
+.k-tabstrip-top > .k-tabstrip-items-wrapper .k-item::after {
+    border-bottom-width: 0px;
+}
+
+.k-tabstrip-items-wrapper {
+    background-color: #f6f8f8 !important;
+    border-bottom: 1px solid #ddd;
+}
+
+.k-tabstrip-content:focus, .k-tabstrip-content.k-focus,
+.k-tabstrip > .k-content:focus,
+.k-tabstrip > .k-content.k-focus {
+    outline-width: 0px;
+    outline-style: dotted;
+    outline-offset: -1px;
+}
+
+.k-tabstrip-item.k-active,
+.k-tabstrip-item.k-active .k-link .badge {
+    color: #3577f1 !important;
+}
+
+    .k-tabstrip-item.k-active .k-link .badge {
+        background-color: rgba(53, 119, 241, .1);
+    }
+
+        .k-tabstrip-item.k-active .k-link .badge.text-bg-danger {
+            color: #fff !important;
+        }
+
+.k-tabstrip-item .k-link {
+    flex-wrap: wrap;
+    align-items: flex-end;
+}
+
+    .k-tabstrip-item .k-link .k-sprite {
+        font-size: 20px;
+        line-height: 20px;
+        width: 20px;
+        height: 20px;
+        margin-right: 3px;
+    }
+
+    .k-tabstrip-item .k-link .badge {
+        color: rgba(0, 0, 0, 0.54);
+        background-color: rgb(138 157 193 / 10%);
+        top: 0px;
+        right: -5px;
+        position: relative;
+        --vz-badge-font-size: 0.95em;
+    }
+
+.k-tabstrip-left .k-tabstrip-items .k-link {
+    justify-content: flex-start;
+}
+/*Lưới*/
+.k-grid-header .k-grid-header-locked .k-table-thead .k-table-row .k-table-th {
+    border-inline-color: rgba(0, 0, 0, 0.12);
+}
+
+.app-theme-5 .k-grid-header .k-grid-header-menu.k-active {
+    background-color: #97cbf58f;
+}
+
+.k-item .k-checkbox-label {
+    align-items: center;
+}
+
+.k-grid td, .k-grid .k-table-td {
+    white-space: nowrap;
+}
+
+.k-command-cell .btn.btn-outline-secondary {
+    color: #3577f1 !important;
+    border-color: #3577f1 !important;
+}
+
+    .k-command-cell .btn.btn-outline-secondary:hover {
+        color: #fff !important;
+    }
+
+.k-command-cell .k-grid-btnDeleteRow {
+    color: #f06548 !important;
+    border-color: #f06548 !important;
+}
+
+    .k-command-cell .k-grid-btnDeleteRow:hover {
+        color: #fff !important;
+        background-color: #f06548;
+    }
+
+/*Lưới > Detail template*/
+.k-table-tbody .k-detail-row.k-table-row {
+    background-color: rgba(186, 189, 191, 0.33) !important;
+}
+/*tab*/
+.card {
+    margin-bottom: 0;
+}
+
+.k-tabstrip-content, .k-tabstrip > .k-content {
+    padding-block: 0;
+    padding-inline: 6px;
+    overflow-x: hidden;
+}
+.k-tabstrip-left > .k-tabstrip-content, .k-tabstrip-left > .k-content {
+    padding-inline: 10px;
+}
+.k-tabstrip-item .k-link img {
+    width: 20px !important;
+    height: 20px !important;
+    margin-right: 5px;
+}
+
+/*Sửa combobox*/
+.k-state-default p {
+    margin-bottom: 0;
+    padding-bottom: 10px;
+    line-height: 18px;
+}
+
+
+/*Sửa lại Expan*/
+.k-expander {
+    font-family: Arial !important;
+    font-size: 12px !important;
+    line-height: 1.5;
+}
+
+
+

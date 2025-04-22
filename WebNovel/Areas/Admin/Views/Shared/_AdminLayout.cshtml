@@ -1,0 +1,182 @@
+﻿
+<!doctype html>
+<html lang="en" data-layout="vertical" data-topbar="light" data-sidebar="dark" data-sidebar-size="lg">
+<head>
+    @await Html.PartialAsync("_head_meta.cshtml")
+    @await Html.PartialAsync("_head_css.cshtml")
+    <style>
+        .navbar-header {
+            height: 40px;
+        }
+
+        .app-search .form-control {
+            height: 36px;
+        }
+
+        .topbar-badge {
+            right: -10px;
+            top: 12px !important;
+        }
+
+        #topnav-hamburger-icon.header-item {
+            height: 70px;
+        }
+
+        .header-item {
+            height: 40px;
+        }
+
+        #page-header-user-dropdown.btn {
+            line-height: 1;
+            padding: 2px 10px;
+        }
+
+        .page-content {
+            padding: calc(30px + 1.5rem) calc(1.5rem* .5) 0px calc(1.5rem* .5);
+        }
+
+        .row.main-body {
+            padding-bottom: 10px;
+            margin-left: 0px;
+            margin-right: 0px;
+        }
+
+        .main-content .page-content .container-fluid {
+            margin-left: 0px;
+            margin-right: 0px;
+            padding-left:0px;
+            padding-right:0px;
+        }
+
+        .offcanvas.offcanvas-end {
+            z-index: 9999;
+        }
+
+        .customizer-setting {
+            position: fixed;
+            bottom: 36px;
+            right: 15px;
+            z-index: 10001;
+        }
+
+        #back-to-top {
+            z-index: 10001;
+        }
+
+        .text-sm-end.d-none.d-sm-block {
+            padding-right: 40px;
+        }
+
+        [data-layout=horizontal] .navbar-menu {
+            margin-top: 40px;
+        }
+
+        [data-layout=horizontal] .page-content {
+            padding: calc(40px + 1.5rem) calc(1.5rem / 2) 0px calc(1.5rem / 2);
+        }
+
+        @@media (min-width: 1024.1px) {
+            [data-layout=horizontal] .page-content {
+                margin-top: 40px;
+            }
+        }
+
+        @@media (min-width: 768px) {
+            :is([data-layout=vertical],[data-layout=semibox])[data-sidebar-size=sm] {
+                min-height: 100%;
+            }
+        }
+    </style>
+    @RenderSection("styles", required: false)
+
+</head>
+<body class="app-theme-5">
+    @await Html.PartialAsync("_page_scripts.cshtml")
+    <!-- Begin page -->
+    <div id="layout-wrapper">
+        @await Html.PartialAsync("_menu_topbar.cshtml")
+        @await Html.PartialAsync("_menu_sidebar.cshtml")
+        @RenderSection("scripts_top", required: false)
+
+        <!-- ============================================================== -->
+        <!-- Start right Content here -->
+        <!-- ============================================================== -->
+        <div class="main-content">
+            <div class="page-content">
+                <div class="container-fluid">
+                    <div id="drawer-container">
+                        <div id="myDrawer"></div>
+                    </div>
+                    <script>
+                        var drawer = $("#myDrawer").kendoDrawer({
+                            mode: "overlay", // Chế độ overlay
+                            position: "right", // Vị trí Drawer (left, right, top, bottom)
+                            mini: false, // Không cần chế độ mini
+                            template: "<div>Drawer Content</div>", // Nội dung Drawer
+                            swipeToOpen: false, // Vuốt để mở trên mobile
+                            autoCollapse: false, // Tự động đóng khi mở phần khác (nếu có nhiều Drawer)
+                        }).data("kendoDrawer");
+                        drawer.drawerItemsWrapper.css("width", "0px");
+                        drawer.drawerWrapper.css("width", "0px");
+                        $("#myDrawer").css("width", "0px");
+                        drawer.show();
+                        drawer.hide();
+
+
+                        function loadContentDrawer(url, title, width) {
+                            $.ajax({
+                                url: url,
+                                method: "GET",
+                                success: function (data) {
+                                    var titleHtml = '<div class="drawer-head d-flex">' +
+                                        '<div class="drawer-title d-flex gap-1" style="align-items: center;justify-content: flex-start;width: 100%;">' + title +
+                                        '</div>' +
+                                        '<div class="d-flex gap-2" style="align-items: center;justify-content: flex-end;width: 100%;">' +
+                                        '<button type="button" class="btn btn-sm drawer-close btn-rounded shadow-none" onclick="closeDrawer()">' +
+                                        '<i class="ri-close-line"></i>' +
+                                        '</button>' +
+                                        '</div></div>';
+                                    // Cập nhật nội dung Drawer sau khi tải xong
+                                    drawer.drawerItemsWrapper.html(titleHtml + data);
+                                    drawer.show();
+                                    $("#myDrawer").css("width", width);
+                                    drawer.drawerWrapper.css("width", width);
+                                    drawer.drawerItemsWrapper.css("width", width);
+
+                                    // Mở drawer sau khi tải thành công
+                                },
+                                error: function () {
+                                    // Xử lý lỗi khi không tải được nội dung
+                                    drawer.drawerItemsWrapper.html("<div>Tải nội dung thất bại. Vui lòng chụp ảnh màn hình và liên hệ admin.</div>");
+                                    handleFailRequest(jqXHR);
+                                }
+                            });
+                        }
+
+                        function closeDrawer() {
+                            drawer.drawerItemsWrapper.css("width", "0px");
+                            drawer.drawerWrapper.css("width", "0px");
+                            $("#myDrawer").css("width", "0px");
+                            drawer.hide();
+                            drawer.drawerItemsWrapper.html('');                          
+                        }
+                    </script>
+                    <div class="row" id="breadcrumb"></div>
+                    <div id="main-content">
+                        @RenderBody()
+                    </div>
+                </div>
+                <div id="window"></div>
+                <div id="windowNewCustom"></div>
+                <div id="windowAddStatus"></div>
+                <div id="windowAddLabel"></div>
+                @* @await Html.PartialAsync("_footer.cshtml") *@
+            </div>
+
+        </div>
+        <!-- END layout-wrapper -->
+        @await Html.PartialAsync("_customizer.cshtml")
+        @await Html.PartialAsync("_vendor_scripts.cshtml")
+        @RenderSection("scripts", required: false)
+</body>
+</html>
