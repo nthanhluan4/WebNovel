@@ -1,6 +1,8 @@
-﻿namespace WebNovel.Models
+﻿using WebNovel.Services.Interfaces;
+
+namespace WebNovel.Models
 {
-    public class Genre
+    public class Genre : ISlugEntity
     {
         public int Id { get; set; }
         public string Name { get; set; }         // "Tiên hiệp", "Đô thị"

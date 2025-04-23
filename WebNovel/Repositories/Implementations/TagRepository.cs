@@ -16,7 +16,7 @@ namespace WebNovel.Repositories.Implementations
 
         public async Task<IEnumerable<Tag>> GetAllAsync()
         {
-            return await _context.Tags.OrderByDescending(t => t.Popularity).ToListAsync();
+            return await _context.Tags.AsNoTracking().OrderByDescending(t => t.Name).ToListAsync();
         }
 
         public async Task<Tag?> GetByIdAsync(int id)

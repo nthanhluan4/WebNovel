@@ -42,7 +42,6 @@ namespace WebNovel.Services.Implementations
             existing.Name = tag.Name;
             existing.Slug = tag.Slug;
             existing.Description = tag.Description;
-            existing.Popularity = tag.Popularity;
 
             await _repository.UpdateAsync(existing);
             return existing;

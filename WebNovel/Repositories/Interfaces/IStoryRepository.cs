@@ -1,9 +1,13 @@
-﻿using WebNovel.Models;
+﻿using Kendo.Mvc.UI;
+using WebNovel.Models;
 
 namespace WebNovel.Repositories.Interfaces
 {
     public interface IStoryRepository
     {
+        Task<DataSourceResult> GetGridAsync(DataSourceRequest request);
+        Task<List<Story>> GetAllDropdownAsync();
+
         Task<List<Story>> GetAllAsync();
         Task<Story?> GetByIdAsync(int id);
         Task<Story?> GetBySlugAsync(string slug);

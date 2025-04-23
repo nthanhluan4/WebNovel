@@ -1,6 +1,8 @@
-﻿namespace WebNovel.Models
+﻿using WebNovel.Services.Interfaces;
+
+namespace WebNovel.Models
 {
-    public class Author
+    public class Author : ISlugEntity
     {
         public int Id { get; set; }
 

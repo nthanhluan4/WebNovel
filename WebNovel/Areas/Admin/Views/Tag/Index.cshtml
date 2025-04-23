@@ -1,0 +1,171 @@
+﻿@{
+    ViewData["Title"] = "Tag";
+    ViewData["ParentTitle"] = "Backlog";
+    ViewData["ParentTitle1"] = "Nghiệp vụ";
+}
+
+<!-- start page title -->
+<div class="row" id="breadcrumb">
+    <div class="col-12">
+        <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+            <h4 class="mb-sm-0">@ViewData["Title"]</h4>
+
+            <div class="page-title-right">
+                <ol class="breadcrumb m-0">
+                    <li class="breadcrumb-item active">@ViewData["ParentTitle"] </li>
+                    <li class="breadcrumb-item active"> @ViewData["ParentTitle1"] </li>
+                    <li class="breadcrumb-item active">@ViewData["Title"]</li>
+                </ol>
+            </div>
+
+        </div>
+    </div>
+</div>
+<!-- end page title -->
+<div id="main-content">
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="searchOffCanvas"
+         aria-labelledby="offcanvasExampleLabel">
+        <div class="offcanvas-header bg-light">
+            <h5 class="offcanvas-title" id="offcanvasExampleLabel">Lọc dữ liệu</h5>
+            <button type="button" class="btn-close text-reset"
+                    data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <!--end offcanvas-header-->
+        <div class="d-flex flex-column justify-content-end h-100">
+            <div class="offcanvas-body">
+                <div class="mb-4">
+                    <label for="SName"
+                           class="form-label text-muted text-uppercase fw-semibold mb-3">Tên Tag</label>
+                    @(Html.Kendo().TextBox()
+                        .Name("SName")
+                        .Placeholder(SystemVariable.placeholderTextbox)
+                        .HtmlAttributes(new { s_data_field = "SName" })
+                        )
+                </div>
+                <div class="mb-4">
+                    <label for="SCode"
+                           class="form-label text-muted text-uppercase fw-semibold mb-3">Mã Tag</label>
+                    @(Html.Kendo().TextBox()
+                        .Name("SCode")
+                        .Placeholder(SystemVariable.placeholderTextbox)
+                        .HtmlAttributes(new { s_data_field = "SCode" })
+                        )
+                </div>
+            </div>
+            <!--end offcanvas-body-->
+            <div class="offcanvas-footer border-top p-3 text-center hstack gap-2">
+                <button class="btn btn-light w-100" data-controller="Tag" data-view="Index" onclick="ClearFilter(event)">Xóa tất cả</button>
+                <button class="btn btn-success w-100" data-controller="Tag" data-view="Index" onclick="Filter(event)">Lọc</button>
+            </div>
+            <!--end offcanvas-footer-->
+        </div>
+    </div>
+    <script>
+        function onEditRow(e) {
+            e.preventDefault();
+            var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
+            openNewWindow(dataItem.Id, '@Url.Action("CreateOrUpdateWindow", "Tag")', "Cập nhật Tag", "500px");
+        }
+        function onDeleteRow(e) {
+            e.preventDefault();
+            var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
+            confirmDelete([dataItem.Id], '@Url.Action("Delete", "Tag")', "grid_Tag_Index")
+        }
+    </script>
+    <div class="row main-body">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="table-responsive table-card">
+                        @(
+                            Html.Kendo().Grid<Tag>()
+                            .Name("grid_Tag_Index")
+                            .Height("600px")
+                            .ToolBar(t =>
+                            {
+                                t.Custom().ClientTemplate(Html.Kendo().Template().AddHtml(SystemVariable.htmlSearchToolbar));
+                                t.Spacer();
+                                t.Custom().ClientTemplate(Html.Kendo().Template().AddComponent(c => c
+                                .Button()
+                                .Name("btnDelete")
+                                .Content("Xóa")
+                                .IconClass("ri-delete-bin-5-line align-bottom me-1")
+                                .HtmlAttributes(new { style = "display: none", @class = "btn-delete" })));
+                                t.Custom().ClientTemplate(Html.Kendo().Template().AddComponent(c => c
+                                .Button()
+                                .Name("btnFilter")
+                                .Content("Lọc")
+                                .IconClass("ri-filter-3-line align-bottom me-1")
+                                .HtmlAttributes(new { data_bs_toggle = "offcanvas", href = "#searchOffCanvas" })));
+                                t.Custom().ClientTemplate(Html.Kendo().Template().AddComponent(c => c
+                                .Button()
+                                .Name("btnCreate")
+                                .Content("Thêm Mới")
+                                .Icon("plus")));
+                                t.Excel().Text("Xuất Excel");
+                            })
+                            .Columns(columns =>
+                            {
+                                columns.Select().Width(28);
+                                columns.Template("<div style='text-align:center;'>#= getRecordNumber() #</div>").Width(50).ClientHeaderTemplate("<div style='text-align:center;'>#</div>");
+                                columns.Command(command =>
+                                {
+                                    command.Custom("btnEditRow").IconClass("ri-pencil-line").Text(" ")
+                                .HtmlAttributes(new { title = "Cập nhật", @class = "k-button-solid-primary" })
+                                .Click("onEditRow");
+                                    command.Custom("btnDeleteRow").IconClass("ri-delete-bin-5-line").Text(" ")
+                                .HtmlAttributes(new { title = "Xóa" })
+                                .Click("onDeleteRow");
+                                }).Width(150);
+                                columns.Bound(p => p.Id).Title("Id").Hidden().Width(100).Filterable(ftb => ftb.Multi(true).CheckAll(true).Search(true)); ;
+                                columns.Bound(p => p.Name).Title("Tên Tag").Width(120).Filterable(ftb => ftb.Multi(true).CheckAll(true).Search(true));
+                                columns.Bound(p => p.Slug).Title("Slug").Width(200).Filterable(ftb => ftb.Multi(true).CheckAll(true).Search(true));
+                                columns.Bound(p => p.Description).Title("Mô tả").Width(240).Filterable(ftb => ftb.Multi(true).CheckAll(true).Search(true));
+                                columns.Bound(p => p.CreatedAt).Title("Ngày tạo").Width(120).Format(SystemVariable.formatDateTime).Filterable(ftb => ftb.Multi(true).CheckAll(true).Search(true));
+
+                            })
+                            .Pageable(pager => pager.Input(true).Numeric(true).Refresh(true).Info(true))
+                            .Scrollable().Excel(e => e.AllPages(true))
+                            .Sortable()
+                            .Filterable()
+                            .Reorderable(reOrder => reOrder.Columns(true))
+                            .Events(e => e.DataBinding("onDataBindingRecorNumber").Change("onShowButtonToolbar"))
+                            .Selectable(selectable => selectable.Mode(GridSelectionMode.Multiple).Type(GridSelectionType.Row))
+                            .Resizable(rs => rs.Columns(true))
+                            .ColumnMenu(menu =>
+                            {
+                                menu.ComponentType("classic");
+                                menu.Filterable(true);
+                            })
+                            .DataSource(dataSource => dataSource
+                            .Ajax()
+                            .PageSize(50)
+                            .Read(r => r.Url("/api/TagApi").Type(HttpVerbs.Get)))
+                            )
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <!--end col-->
+    </div>
+
+    <script>
+        $("#grid_Tag_Index").on("click", "[id='btnCreate']", function () {
+            openNewWindow(0, '/admin/tag/create', "Tạo mới Tag", "500px");
+        });
+        $("#grid_Tag_Index").on("click", "[id='btnDelete']", function () {
+            DeleteRowInGrid('@Url.Action("DeleteRange", "Tag")', "grid_Tag_Index", "onShowButtonToolbar");
+        });
+        $("#grid_Tag_Index").on("dblclick", "tr[data-uid]", function () {
+            var grid = $("#grid_Tag_Index").data("kendoGrid");
+            var id = grid.dataSource.getByUid(this.getAttribute("data-uid")).Id;
+            openNewWindow(id, '@Url.Action("CreateOrUpdateWindow", "Tag")', "Cập nhật Tag", "500px");
+        });
+
+
+        $(document).ready(function () {
+            setAllGridsHeight();
+        });
+    </script>
+</div>

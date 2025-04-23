@@ -34,7 +34,7 @@ builder.Services.AddRateLimiter(options =>
             partitionKey: ip,
             factory: _ => new FixedWindowRateLimiterOptions
             {
-                PermitLimit = 30,                    // Cho phép tối đa 30 request
+                PermitLimit = 50,                    // Cho phép tối đa 30 request
                 Window = TimeSpan.FromSeconds(10),  // Trong mỗi 10 giây
                 QueueProcessingOrder = QueueProcessingOrder.OldestFirst,
                 QueueLimit = 0                      // Không xếp hàng
@@ -82,6 +82,21 @@ builder.Services.AddScoped<ITagService, TagService>();
 
 builder.Services.AddScoped<IRatingRepository, RatingRepository>();
 builder.Services.AddScoped<IRatingService, RatingService>();
+
+builder.Services.AddScoped<ISlugRepository<Story>, SlugRepository<Story>>();
+builder.Services.AddScoped<ISlugService<Story>, SlugService<Story>>();
+builder.Services.AddScoped<ISlugRepository<Tag>, SlugRepository<Tag>>();
+builder.Services.AddScoped<ISlugService<Tag>, SlugService<Tag>>();
+builder.Services.AddScoped<ISlugRepository<Chapter>, SlugRepository<Chapter>>();
+builder.Services.AddScoped<ISlugService<Chapter>, SlugService<Chapter>>();
+builder.Services.AddScoped<ISlugRepository<Genre>, SlugRepository<Genre>>();
+builder.Services.AddScoped<ISlugService<Genre>, SlugService<Genre>>();
+builder.Services.AddScoped<IBaseRepository<Rating>, BaseRepository<Rating>>();
+builder.Services.AddScoped<IBaseService<Rating>, BaseService<Rating>>();
+builder.Services.AddScoped<ISlugRepository<Author>, SlugRepository<Author>>();
+builder.Services.AddScoped<ISlugService<Author>, SlugService<Author>>();
+builder.Services.AddScoped<ISlugRepository<Contributor>, SlugRepository<Contributor>>();
+builder.Services.AddScoped<ISlugService<Contributor>, SlugService<Contributor>>();
 
 var app = builder.Build();
 

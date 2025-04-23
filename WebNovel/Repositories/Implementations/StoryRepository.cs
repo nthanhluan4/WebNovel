@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Kendo.Mvc.UI;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Migrations;
 using WebNovel.Data;
 using WebNovel.Models;
@@ -85,5 +86,15 @@ namespace WebNovel.Repositories.Implementations
 
         public async Task<bool> SaveChangesAsync() =>
             (await _context.SaveChangesAsync()) > 0;
+
+        public Task<DataSourceResult> GetGridAsync(DataSourceRequest request)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<List<Story>> GetAllDropdownAsync()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -1,11 +1,14 @@
-﻿namespace WebNovel.Models
+﻿using WebNovel.Services.Interfaces;
+
+namespace WebNovel.Models
 {
-    public class Chapter
+    public class Chapter : ISlugEntity
     {
         public string Id { get; set; }
         public int StoryId { get; set; }
         public long ReadCount { get; set; } = 0;
         public string Title { get; set; }
+        public string Slug { get; set; } = "";
         public int Order { get; set; }
 
         public long WordCount { get; set; }

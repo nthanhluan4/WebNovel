@@ -7,10 +7,10 @@ namespace WebNovel.Controllers.Api
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class RatingController : ControllerBase
+    public class RatingApiController : ControllerBase
     {
         private readonly IRatingService _service;
-        public RatingController(IRatingService service) => _service = service;
+        public RatingApiController(IRatingService service) => _service = service;
 
         [HttpGet]
         [AllowAnonymous]
