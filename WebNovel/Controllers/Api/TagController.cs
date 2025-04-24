@@ -18,7 +18,7 @@ public class TagController : ControllerBase
 
     [HttpPost("grid")]
     [Authorize(Roles = "Admin,Contributor")]
-    public async Task<IActionResult> GetGrid([FromBody] DataSourceRequest request) =>
+    public async Task<IActionResult> GetGrid([DataSourceRequest] DataSourceRequest request) =>
         Ok(await _service.GetAllDataSourceAsync(request));
 
     [HttpGet("dropdown")]
@@ -27,8 +27,7 @@ public class TagController : ControllerBase
 
     [HttpGet("{id:int}")]
     [AllowAnonymous]
-    public async Task<IActionResult> GetById(int id) =>
-        await _service.GetByIdAsync(id) is var r && r.Success ? Ok(r) : NotFound(r);
+    public async Task<IActionResult> GetById(int id) => Ok(await _service.GetByIdAsync(id));
 
     [HttpGet("slug/{slug}")]
     [AllowAnonymous]
@@ -48,4 +47,26 @@ public class TagController : ControllerBase
     [Authorize(Roles = "Admin")]
     public async Task<IActionResult> Delete(int id) =>
         await _service.DeleteAsync(id) is var r && r.Success ? Ok(r) : NotFound(r);
+
+
+    [HttpPost("delete-multiple")]
+    [Authorize(Roles = "Admin")]
+    public async Task<IActionResult> DeleteMultiple([FromBody] string ids)
+    {
+        var lstId = ids.Split(',').Select(s => int.Parse(s)).ToList();
+        if (lstId == null || !lstId.Any())
+            return BadRequest(new { Success = false, Message = "Không có ID nào được gửi lên" });
+
+        foreach (var id in lstId)
+        {
+            var result = await _service.DeleteAsync(id);
+            if (!result.Success)
+            {
+                // Nếu 1 cái không xóa được thì trả lỗi toàn bộ
+                return NotFound(new { Success = false, Message = $"Không tìm thấy ID: {id}" });
+            }
+        }
+
+        return Ok(new { Success = true, Message = $"Đã xóa {lstId.Count} tag" });
+    }
 }

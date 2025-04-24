@@ -1,4 +1,5 @@
-﻿using WebNovel.Models.Dtos;
+﻿using Microsoft.EntityFrameworkCore.Metadata;
+using WebNovel.Models.Dtos;
 using WebNovel.Repositories.Interfaces;
 using WebNovel.Services.Interfaces;
 
@@ -8,7 +9,7 @@ namespace WebNovel.Services.Implementations
     {
         private readonly ISlugRepository<T> _slugRepo;
 
-        public SlugService(ISlugRepository<T> slugRepo) : base(slugRepo)
+        public SlugService(ISlugRepository<T> slugRepo, IModel model) : base(slugRepo, model)
         {
             _slugRepo = slugRepo;
         }

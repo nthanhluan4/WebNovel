@@ -2,6 +2,8 @@
     ViewData["Title"] = "Tag";
     ViewData["ParentTitle"] = "Backlog";
     ViewData["ParentTitle1"] = "Nghiệp vụ";
+    var createOrUpdateURL = "/admin/tag/createorupdate";
+    var deleteApi = "/api/tag/delete-multiple";
 }
 
 <!-- start page title -->
@@ -64,12 +66,12 @@
         function onEditRow(e) {
             e.preventDefault();
             var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
-            openNewWindow(dataItem.Id, '@Url.Action("CreateOrUpdateWindow", "Tag")', "Cập nhật Tag", "500px");
+            openNewWindow(dataItem.Id, '@createOrUpdateURL', "Cập nhật Tag", "500px");
         }
         function onDeleteRow(e) {
             e.preventDefault();
             var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
-            confirmDelete([dataItem.Id], '@Url.Action("Delete", "Tag")', "grid_Tag_Index")
+            confirmDelete([dataItem.Id], '@deleteApi', "grid_Tag_Index")
         }
     </script>
     <div class="row main-body">
@@ -140,7 +142,7 @@
                             .DataSource(dataSource => dataSource
                             .Ajax()
                             .PageSize(50)
-                            .Read(r => r.Url("/api/TagApi").Type(HttpVerbs.Get)))
+                            .Read(r => r.Url("/api/tag/grid")))
                             )
                     </div>
                 </div>
@@ -152,15 +154,15 @@
 
     <script>
         $("#grid_Tag_Index").on("click", "[id='btnCreate']", function () {
-            openNewWindow(0, '/admin/tag/create', "Tạo mới Tag", "500px");
+            openNewWindow(0, '@createOrUpdateURL', "Tạo mới Tag", "500px");
         });
         $("#grid_Tag_Index").on("click", "[id='btnDelete']", function () {
-            DeleteRowInGrid('@Url.Action("DeleteRange", "Tag")', "grid_Tag_Index", "onShowButtonToolbar");
+            DeleteRowInGrid('@deleteApi', "grid_Tag_Index", "onShowButtonToolbar");
         });
         $("#grid_Tag_Index").on("dblclick", "tr[data-uid]", function () {
             var grid = $("#grid_Tag_Index").data("kendoGrid");
             var id = grid.dataSource.getByUid(this.getAttribute("data-uid")).Id;
-            openNewWindow(id, '@Url.Action("CreateOrUpdateWindow", "Tag")', "Cập nhật Tag", "500px");
+            openNewWindow(id, '@createOrUpdateURL', "Cập nhật Tag", "500px");
         });
 
 

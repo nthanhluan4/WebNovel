@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using System.Linq.Expressions;
 using WebNovel.Data;
 using WebNovel.Repositories.Interfaces;
 
@@ -27,7 +28,18 @@ namespace WebNovel.Repositories.Implementations
 
         public async Task UpdateAsync(T entity)
         {
-            _dbSet.Update(entity);
+            //_dbSet.Update(entity);
+
+            var keyProp = typeof(T).GetProperty("Id");
+            if (keyProp == null) throw new Exception("Entity phải có trường Id");
+
+            var id = keyProp.GetValue(entity);
+            var existing = await _dbSet.FindAsync(id);
+
+            if (existing == null)
+                throw new Exception($"Không tìm thấy bản ghi với Id = {id}");
+
+            _context.Entry(existing).CurrentValues.SetValues(entity);
             await _context.SaveChangesAsync();
         }
 
@@ -39,6 +51,10 @@ namespace WebNovel.Repositories.Implementations
                 _dbSet.Remove(entity);
                 await _context.SaveChangesAsync();
             }
+        }
+        public async Task<bool> ExistsAsync(Expression<Func<T, bool>> predicate)
+        {
+            return await _dbSet.AnyAsync(predicate);
         }
     }
 

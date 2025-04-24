@@ -82,7 +82,7 @@
     var record = 0; //STT lưới
     var lstOpen = ['Cần thực hiện'];
     var lstWaiting = ['Chờ ký', 'Chờ duyệt', 'Lập hồ sơ', 'Dự thầu', 'Đang thực hiện', 'Chưa đóng thầu',
-                        'BA xử lý', 'SE xử lý', 'QC xử lý', 'SE xử lý lỗi', 'Design xử lý'];
+        'BA xử lý', 'SE xử lý', 'QC xử lý', 'SE xử lý lỗi', 'Design xử lý'];
     var lstApproved = ['Đã ký', 'Đã duyệt', 'Hoàn thành', 'Bàn giao', 'Nghiệm thu', 'Có KQ LCNT', 'Đã hoàn thành'];
     var lstCancel = ['Hủy ký', 'Hủy', 'Hủy thầu', 'Đang xét thầu', 'OFF (Nghỉ, vắng mặt)'];
     var lstCanceled = [];
@@ -124,7 +124,7 @@
     }
     //------------NHÓM HÀM DRAWER--------------------
 
-   
+
 
 
     //------------NHÓM HÀM DATABOUND / EVENT--------------------
@@ -248,14 +248,14 @@
             newUrl = goToUrl;
         }
         if (url) {
-                history.pushState({ tab: tabIndex }, "", newUrl);
+            history.pushState({ tab: tabIndex }, "", newUrl);
             $.ajax({
                 url: url,
                 success: function (data) {
                     var contentElement = tabStrip.contentElement(tabIndex);
                     $(contentElement).html(data); // Đặt nội dung vào tab được chọn
                     setValidateUploadMessage();
-                   
+
                     NProgress.done();
                 },
                 error: function (jqXHR, status, err) {
@@ -712,7 +712,8 @@
                 $.ajax({
                     url: url,
                     type: "POST",
-                    data: { "Ids": selectedIDs.toString() },
+                    contentType: "application/json",
+                    data: JSON.stringify(selectedIDs.toString()),
                     cache: false,
                     //contentType: false,
                     //processData: false,
@@ -988,8 +989,87 @@
         return result;
     }
 
- 
-    function childSave(url, gridId, type, callBackFuncName) {
+    function childSaveV2(option) {
+        NProgress.start();
+        debugger
+        var modelData = getModelCreateOrUpdate('fm-data-field');
+        if (!modelData.Success) {
+            // Hiển thị các thông báo lỗi
+            createNotify.alert.error({ text: modelData.Message });
+            NProgress.done();
+            return;
+        }
+        var httpType = 'POST';
+        if (option.httpType !== undefined
+            && option.httpType != null
+            && option.httpType != '') httpType = option.httpType;
+        // Gửi dữ liệu qua AJAX
+        fetch(option.apiURL, {
+            method: httpType,
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(modelData.Data)
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.Success) {
+                    createNotify.alert.success({ text: data.Message });
+                    reloadGrid(option.gridId);
+
+                    if (option.callBackFuncName !== undefined
+                        && option.callBackFuncName != null
+                        && option.callBackFuncName != '') {
+                        if (typeof window[option.callBackFuncName] === 'function') {
+                            window[option.callBackFuncName]();
+                        }
+                    }
+                    if (option.type == "new") {
+                        clearDataOfField('fm-data-field');
+                    }
+                    else {
+                        var popUp = $("#window").data("kendoWindow");
+                        popUp.close();
+                    }
+                    NProgress.done();
+                }
+                else {
+                    createNotify.alert.error({ text: data.Message });
+                    NProgress.done();
+                }
+            })
+            .catch((jqXHR, status, err) => {
+                NProgress.done();
+                createNotify.alert.error({ text: "Xảy ra lỗi trong tiến trình." });
+                handleFailRequest(jqXHR);
+            });
+    }
+    const debouncedSaveV2 = _.throttle(childSaveV2, 3000);
+    function saveV2(event, type) {
+        event.preventDefault();
+        var button = event.target;
+        if (button.tagName === 'i') {
+            button = button.parentElement;
+        }
+        var option = {};
+        option['callBackFuncName'] = button.getAttribute('data-callback');
+        option['gridId'] = button.getAttribute('data-grid');
+        option['httpType'] = button.getAttribute('data-type');
+        option['apiURL'] = button.getAttribute('data-url');
+        option['type'] = type;
+
+        debouncedSaveV2(option);
+    }
+
+    function SaveNewV2(event) {
+        saveV2(event, 'new');
+    }
+    function SaveCloseV2(event) {
+        saveV2(event, 'close');
+    }
+
+
+    function childSave(url, gridId, type, httpType, callBackFuncName) {
         NProgress.start();
         var modelData = getModelCreateOrUpdate('fm-data-field');
         if (!modelData.Success) {
@@ -1113,7 +1193,7 @@
         })
             .then(response => response.json())
             .then(data => {
-                if (typeof callBack == 'function'){
+                if (typeof callBack == 'function') {
                     callBack(data);
                 }
                 if (data.Success) {
@@ -1161,18 +1241,11 @@
         var callBackFuncName = button.getAttribute('data-callback');
         var controller = button.getAttribute('data-controller');
         if (controller !== undefined && controller !== null && controller !== '') {
-            var view = button.getAttribute('data-view');
             var gridId = button.getAttribute('data-grid');
-            if (gridId == undefined || gridId == null || gridId == '') {
-                gridId = "grid_" + controller + "_" + view;
-            }
+            var type = button.getAttribute('data-type');
+            var apiURL = button.getAttribute('data-url');
 
-            var url = '/' + controller + '/CreateOrUpdate';
-            var api = button.getAttribute('data-api');
-            if (api !== undefined && api !== null && api !== '' && api === 'true') {
-                url = '/api/' + controller + 's/CreateOrUpdate';
-            }
-            save(url, gridId, "new", callBackFuncName);
+            save(apiURL, gridId, "new", callBackFuncName);
         }
         else {
             var url = button.getAttribute('data-url');
@@ -1209,7 +1282,7 @@
         }
 
     }
-   
+
 
     //-----------------------------------------------
 

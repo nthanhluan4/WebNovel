@@ -10,6 +10,9 @@ using WebNovel.Repositories.Interfaces;
 using WebNovel.Services.Implementations;
 using Microsoft.AspNetCore.Diagnostics;
 using WebNovel.Exceptions;
+using Newtonsoft.Json.Serialization;
+using Microsoft.EntityFrameworkCore.Metadata;
+using System.Text.Json;
 
 var builder = WebApplication.CreateBuilder(args);
 // KẾT NỐI DATABASE
@@ -52,7 +55,10 @@ builder.Services.ConfigureApplicationCookie(options =>
 });
 
 // Add services to the container.
-builder.Services.AddControllersWithViews();
+builder.Services.AddControllersWithViews().AddNewtonsoftJson(options =>
+{
+    options.SerializerSettings.ContractResolver = new DefaultContractResolver(); // PascalCase
+}); ;
 builder.Services.AddKendo();
 
 builder.Services.AddScoped<IBackgroundTaskQueue, BackgroundTaskQueue>();
@@ -97,7 +103,11 @@ builder.Services.AddScoped<ISlugRepository<Author>, SlugRepository<Author>>();
 builder.Services.AddScoped<ISlugService<Author>, SlugService<Author>>();
 builder.Services.AddScoped<ISlugRepository<Contributor>, SlugRepository<Contributor>>();
 builder.Services.AddScoped<ISlugService<Contributor>, SlugService<Contributor>>();
-
+builder.Services.AddScoped<IModel>(provider =>
+{
+    var dbContext = provider.GetRequiredService<ApplicationDbContext>();
+    return dbContext.Model;
+});
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -118,12 +128,26 @@ app.UseExceptionHandler(errorApp =>
             if (exception is DuplicateDataException dup)
             {
                 context.Response.StatusCode = StatusCodes.Status409Conflict;
-                await context.Response.WriteAsJsonAsync(new { message = dup.Message });
+                var result = JsonSerializer.Serialize(new { Success = false, Message = dup.Message },
+                        new JsonSerializerOptions
+                        {
+                            PropertyNamingPolicy = null // 👈 giữ nguyên PascalCase
+                        });
+
+                context.Response.ContentType = "application/json";
+                await context.Response.WriteAsync(result);
             }
             else
             {
                 context.Response.StatusCode = StatusCodes.Status500InternalServerError;
-                await context.Response.WriteAsJsonAsync(new { message = "Lỗi hệ thống, vui lòng thử lại sau." });
+                var result = JsonSerializer.Serialize(new { Success = false, Message = "Lỗi hệ thống, vui lòng thử lại sau." },
+                        new JsonSerializerOptions
+                        {
+                            PropertyNamingPolicy = null // 👈 giữ nguyên PascalCase
+                        });
+
+                context.Response.ContentType = "application/json";
+                await context.Response.WriteAsync(result);
             }
         }
         else
@@ -139,11 +163,11 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
-app.UseRateLimiter(); 
+app.UseRateLimiter();
 
 app.UseAuthentication();
 app.UseAuthorization();
-
+app.MapControllers();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");

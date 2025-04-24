@@ -1,5 +1,16 @@
 ﻿@model Tag
+@{
+    var action = (string)ViewData["Action"];
+    var _type = "POST";
+    var _url = "/api/Tag";
+    var _grid = "grid_Tag_Index";
+    if (action == "Update")
+    {
+        _type = "PUT";
+        _url = $"/api/Tag/{Model.Id}";
 
+    }
+}
 <div class="row form-row-info form-group-row-info">
     <div class="col-sm-12 form-column-info">
         <div class="fields-group-info">
@@ -71,11 +82,15 @@
 <div class="col-sm-12 form-column-info">
     <div class="hr hr-dotted hr-double hr10"></div>
     <div class="pull-right" style="margin-right: 10px;">
-        <button class="btn btn-sm btn-info" data-url="/api/TagApi" onclick="SaveNew(event);">
+        <button class="btn btn-sm btn-info"
+                data-url="@_url" data-type="@_type" data-grid="@_grid"
+                onclick="SaveNewV2(event);">
             <i class="ace-icon glyphicon glyphicon-floppy-open"></i>
             Lưu &amp; tạo mới
         </button>
-        <button class="btn btn-sm btn-info save-close" data-controller="Tag" data-view="Index" onclick="SaveClose(event);">
+        <button class="btn btn-sm btn-info save-close"
+                data-url="@_url" data-type="@_type" data-grid="@_grid"
+                onclick="SaveCloseV2(event);">
             <i class="ace-icon glyphicon glyphicon-floppy-save"></i>
             Lưu &amp; đóng
         </button>

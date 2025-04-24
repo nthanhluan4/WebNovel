@@ -58,7 +58,7 @@ public class StoryController : ControllerBase
     public async Task<IActionResult> GetById(int id)
     {
         var response = await _service.GetByIdAsync(id);
-        return response.Success ? Ok(response) : NotFound(response);
+        return  Ok(response);
     }
 
     /// <summary>

@@ -8,7 +8,7 @@ namespace WebNovel.Services.Interfaces
         Task<List<T>> GetAllAsync(); 
         Task<DataSourceResult> GetAllDataSourceAsync(DataSourceRequest request);
         Task<List<T>> GetDropdownDataAsync();
-        Task<ServiceResponse<T>> GetByIdAsync(int id);
+        Task<T> GetByIdAsync(int id);
         Task<ServiceResponse<T>> CreateAsync(T entity);
         Task<ServiceResponse<T>> UpdateAsync(int id, T entity);
         Task<ServiceResponse<bool>> DeleteAsync(int id);
