@@ -1,7 +1,7 @@
 ﻿@{
-    ViewData["Title"] = "DS Truyện";
-    var createOrUpdateURL = "/admin/story/createorupdate";
-    var deleteApi = "/api/story/delete-multiple";
+    ViewData["Title"] = "Tác giả";
+    var createOrUpdateURL = "/admin/author/createorupdate";
+    var deleteApi = "/api/author/delete-multiple";
 }
 
 <div class="row" id="breadcrumb">
@@ -24,8 +24,8 @@
                 <div class="card-body">
                     <div class="table-responsive table-card">
                         @(
-                            Html.Kendo().Grid<Story>()
-                            .Name("grid_Story_Index")
+                            Html.Kendo().Grid<Author>()
+                            .Name("grid_Author_Index")
                             .Height("600px")
                             .ToolBar(t =>
                             {
@@ -54,10 +54,9 @@
                                 .Click("onDeleteRow");
                                 }).Width(150);
                                 columns.Bound(p => p.Id).Title("Id").Hidden();
-                                columns.Bound(p => p.Name).Title("Tên truyện").Width(150);
+                                columns.Bound(p => p.Name).Title("Tên tác giả").Width(180);
                                 columns.Bound(p => p.Slug).Title("Slug").Width(150);
-                                columns.Bound(p => p.Description).Title("Mô tả").Width(250);
-                                columns.Bound("AuthorName").Title("Tác giả").Width(150);
+                                columns.Bound(p => p.Description).Title("Ghi chú").Width(250);
                                 columns.Bound(p => p.CreatedAt).Title("Ngày tạo").Format(SystemVariable.formatDateTime).Width(120);
                             })
                             .Pageable(p => p.Input(true).Numeric(true).Refresh(true).Info(true))
@@ -69,7 +68,7 @@
                             .Selectable(s => s.Mode(GridSelectionMode.Multiple).Type(GridSelectionType.Row))
                             .Resizable(r => r.Columns(true))
                             .ColumnMenu(menu => menu.ComponentType("classic").Filterable(true))
-                            .DataSource(dataSource => dataSource.Ajax().PageSize(50).Read(r => r.Url("/api/story/grid")))
+                            .DataSource(dataSource => dataSource.Ajax().PageSize(50).Read(r => r.Url("/api/author/grid")))
                             )
                     </div>
                 </div>
@@ -81,23 +80,23 @@
         function onEditRow(e) {
             e.preventDefault();
             var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
-            openNewWindow(dataItem.Id, '@createOrUpdateURL', "Cập nhật Truyện", "800px");
+            openNewWindow(dataItem.Id, '@createOrUpdateURL', "Cập nhật Tác giả", "700px");
         }
         function onDeleteRow(e) {
             e.preventDefault();
             var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
-            confirmDelete([dataItem.Id], '@deleteApi', "grid_Story_Index")
+            confirmDelete([dataItem.Id], '@deleteApi', "grid_Author_Index")
         }
-        $("#grid_Story_Index").on("click", "[id='btnCreate']", function () {
-            openNewWindow(0, '@createOrUpdateURL', "Tạo mới Truyện", "800px");
+        $("#grid_Author_Index").on("click", "[id='btnCreate']", function () {
+            openNewWindow(0, '@createOrUpdateURL', "Tạo mới Tác giả", "700px");
         });
-        $("#grid_Story_Index").on("click", "[id='btnDelete']", function () {
-            DeleteRowInGrid('@deleteApi', "grid_Story_Index", "onShowButtonToolbar");
+        $("#grid_Author_Index").on("click", "[id='btnDelete']", function () {
+            DeleteRowInGrid('@deleteApi', "grid_Author_Index", "onShowButtonToolbar");
         });
-        $("#grid_Story_Index").on("dblclick", "tr[data-uid]", function () {
-            var grid = $("#grid_Story_Index").data("kendoGrid");
+        $("#grid_Author_Index").on("dblclick", "tr[data-uid]", function () {
+            var grid = $("#grid_Author_Index").data("kendoGrid");
             var id = grid.dataSource.getByUid(this.getAttribute("data-uid")).Id;
-            openNewWindow(id, '@createOrUpdateURL', "Cập nhật Truyện", "800px");
+            openNewWindow(id, '@createOrUpdateURL', "Cập nhật Tác giả", "700px");
         });
     </script>
 </div>

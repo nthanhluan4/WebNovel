@@ -8,6 +8,7 @@ namespace WebNovel.Areas.Admin.Controllers
 {
     [Area("Admin")]
     [Authorize(Roles = "Admin")]
+    [Authorize]
     public class TagController : Controller
     {
         private readonly ISlugService<Tag> _service;

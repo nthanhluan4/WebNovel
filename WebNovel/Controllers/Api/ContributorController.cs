@@ -1,5 +1,6 @@
 ﻿using Kendo.Mvc.UI;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using WebNovel.Models;
 using WebNovel.Services.Interfaces;
@@ -7,11 +8,18 @@ using WebNovel.Services.Interfaces;
 [Route("api/[controller]")]
 [ApiController]
 [Authorize]
-public class StoryController : ControllerBase
+public class ContributorController : ControllerBase
 {
-    private readonly ISlugService<Story> _service;
+    private readonly UserManager<ApplicationUser> _userManager;
+    private readonly ISlugService<Contributor> _service;
 
-    public StoryController(ISlugService<Story> service) => _service = service;
+    public ContributorController(ISlugService<Contributor> service, UserManager<ApplicationUser> userManager)
+    {
+        _service = service;
+        _userManager = userManager;
+    }
+
+   
 
     [HttpGet("all")]
     [AllowAnonymous]
@@ -26,21 +34,6 @@ public class StoryController : ControllerBase
     [AllowAnonymous]
     public async Task<IActionResult> GetDropdown() => Ok(await _service.GetDropdownDataAsync());
 
-
-    [HttpGet("status-dropdown")]
-    [AllowAnonymous]
-    public async Task<IActionResult> GetStatusDropdown()
-    {
-        var statuses = new List<object>
-        {
-            new { text = "Đang ra", value = 1 },
-            new { text = "Hoàn thành", value = 2 },
-            new { text = "Tạm dừng", value = 3 }
-        };
-        return Ok(statuses);
-    }
-
-
     [HttpGet("{id:int}")]
     [AllowAnonymous]
     public async Task<IActionResult> GetById(int id) => Ok(await _service.GetByIdAsync(id));
@@ -50,13 +43,31 @@ public class StoryController : ControllerBase
     public async Task<IActionResult> GetBySlug(string slug) =>
         await _service.GetBySlugAsync(slug) is var r && r.Success ? Ok(r) : NotFound(r);
 
+    [HttpGet("types-dropdown")]
+    [AllowAnonymous]
+    public async Task<IActionResult> GetTypesDropdown()
+    {
+        var statuses = new List<object>
+        {
+            new { text = "Dịch giả", value = 1 },
+            new { text = "Converter", value = 2 },
+            new { text = "Sáng tác", value = 3 }
+        };
+        return Ok(statuses);
+    }
     [HttpPost]
     [Authorize(Roles = "Admin,Contributor")]
-    public async Task<IActionResult> Create([FromBody] Story model) => Ok(await _service.CreateAsync(model));
+    public async Task<IActionResult> Create([FromBody] Contributor model)
+    {
+        var user = await _userManager.GetUserAsync(User);
+        model.CreatedByUserId = user?.Id;
+        var result = await _service.CreateAsync(model);
+        return Ok(result);
+    }
 
     [HttpPut("{id}")]
     [Authorize(Roles = "Admin,Contributor")]
-    public async Task<IActionResult> Update(int id, [FromBody] Story model) =>
+    public async Task<IActionResult> Update(int id, [FromBody] Contributor model) =>
         await _service.UpdateAsync(id, model) is var r && r.Success ? Ok(r) : NotFound(r);
 
     [HttpDelete("{id}")]
@@ -83,6 +94,6 @@ public class StoryController : ControllerBase
             }
         }
 
-        return Ok(new { Success = true, Message = $"Đã xóa {lstId.Count} Story" });
+        return Ok(new { Success = true, Message = $"Đã xóa {lstId.Count} Contributor" });
     }
 }

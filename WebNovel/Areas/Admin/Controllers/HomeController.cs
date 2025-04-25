@@ -5,6 +5,7 @@ namespace WebNovel.Areas.Admin.Controllers
 {
     [Area("Admin")]
     [Authorize(Roles = "Admin")]
+    [Authorize]
     public class HomeController : Controller
     {
         public IActionResult Index()

@@ -1,7 +1,5 @@
 ﻿@{
     ViewData["Title"] = "Tag";
-    ViewData["ParentTitle"] = "Backlog";
-    ViewData["ParentTitle1"] = "Nghiệp vụ";
     var createOrUpdateURL = "/admin/tag/createorupdate";
     var deleteApi = "/api/tag/delete-multiple";
 }
@@ -14,8 +12,6 @@
 
             <div class="page-title-right">
                 <ol class="breadcrumb m-0">
-                    <li class="breadcrumb-item active">@ViewData["ParentTitle"] </li>
-                    <li class="breadcrumb-item active"> @ViewData["ParentTitle1"] </li>
                     <li class="breadcrumb-item active">@ViewData["Title"]</li>
                 </ol>
             </div>

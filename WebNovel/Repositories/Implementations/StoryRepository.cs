@@ -48,7 +48,7 @@ namespace WebNovel.Repositories.Implementations
 
         public async Task<List<Story>> SearchAsync(string keyword) =>
             await _context.Stories
-                .Where(s => s.Title.Contains(keyword) || s.AuthorName.Contains(keyword))
+                .Where(s => s.Name.Contains(keyword) || s.AuthorName.Contains(keyword))
                 .AsNoTracking()
                 .ToListAsync();
 

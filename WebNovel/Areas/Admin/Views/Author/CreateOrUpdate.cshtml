@@ -1,0 +1,86 @@
+﻿@model Author
+@{
+    var action = (string)ViewData["Action"] ?? (Model.Id == 0 ? "Create" : "Update");
+    var _type = "POST";
+    var _url = "/api/author";
+    var _grid = "grid_Author_Index";
+    if (action == "Update")
+    {
+        _type = "PUT";
+        _url = $"/api/author/{Model.Id}";
+    }
+}
+
+<div class="row form-row-info form-group-row-info">
+    <div class="col-sm-12 form-column-info">
+        <div class="fields-group-info">
+            <label class="control-label fields-group-label-info">Thông tin Tác giả</label>
+        </div>
+    </div>
+    <div class="col-sm-12 form-column-info">
+        <div class="control-group-info hidden">
+            @(Html.Kendo().TextBox().Name("Id").HtmlAttributes(new { style = "display: none", fm_data_field = "Id" }).Value(Model.Id.ToString()))
+        </div>
+        <div class="control-group-info">
+            <div class="col-sm-4 div-label-info">
+                <label for="Name">Tên tác giả</label>
+            </div>
+            <div class="col-sm-8 div-value-info">
+                @(Html.Kendo().TextBox()
+                    .Name("Name")
+                    .Placeholder(SystemVariable.placeholderRequired)
+                    .HtmlAttributes(new { @class = "required-field", fm_data_field = "Name" })
+                    .Value(Model.Name))
+            </div>
+        </div>
+        <div class="control-group-info">
+            <div class="col-sm-4 div-label-info">
+                <label for="Slug">Slug</label>
+            </div>
+            <div class="col-sm-8 div-value-info">
+                @(Html.Kendo().TextBox()
+                    .Name("Slug")
+                    .Placeholder(SystemVariable.placeholderRequired)
+                    .HtmlAttributes(new { @class = "required-field", fm_data_field = "Slug" })
+                    .Value(Model.Slug))
+            </div>
+        </div>
+        <div class="control-group-info">
+            <div class="col-sm-4 div-label-info">
+                <label for="Description">Ghi chú</label>
+            </div>
+            <div class="col-sm-8 div-value-info">
+                @(Html.Kendo().TextArea()
+                    .Name("Description")
+                    .Placeholder(SystemVariable.placeholderTextbox)
+                    .Size(ComponentSize.Large)
+                    .FillMode(FillMode.Solid)
+                    .Resize(TextAreaResize.Vertical)
+                    .Overflow(TextAreaOverflow.Scroll)
+                    .Rows(2)
+                    .HtmlAttributes(new { fm_data_field = "Description", style = "width: 100%;height: auto !important;" })
+                    .Value(Model.Description))
+            </div>
+        </div>
+        <div class="control-group-info hidden">
+            @(Html.Kendo().DatePicker()
+                .Name("CreatedAt")
+                .HtmlAttributes(new { fm_data_field = "CreatedAt", style = "display: none" })
+                .Value(Model.CreatedAt))
+        </div>
+    </div>
+</div>
+<div class="col-sm-12 form-column-info">
+    <div class="hr hr-dotted hr-double hr10"></div>
+    <div class="pull-right" style="margin-right: 10px;">
+        <button class="btn btn-sm btn-info" data-url="@_url" data-type="@_type" data-grid="@_grid" onclick="SaveNewV2(event);">
+            <i class="ace-icon glyphicon glyphicon-floppy-open"></i>
+            Lưu &amp; tạo mới
+        </button>
+        <button class="btn btn-sm btn-info save-close" data-url="@_url" data-type="@_type" data-grid="@_grid" onclick="SaveCloseV2(event);">
+            <i class="ace-icon glyphicon glyphicon-floppy-save"></i>
+            Lưu &amp; đóng
+        </button>
+    </div>
+    <div class="clearfix hr10"></div>
+</div>

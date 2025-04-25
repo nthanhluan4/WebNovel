@@ -10,6 +10,7 @@ namespace WebNovel.Controllers.Api
 {
     [ApiController]
     [Route("api/[controller]")]
+[Authorize]
     public class ChapterApiController : ControllerBase
     {
         private readonly IChapterService _service;

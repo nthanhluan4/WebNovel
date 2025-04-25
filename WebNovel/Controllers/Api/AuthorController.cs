@@ -7,11 +7,11 @@ using WebNovel.Services.Interfaces;
 [Route("api/[controller]")]
 [ApiController]
 [Authorize]
-public class StoryController : ControllerBase
+public class AuthorController : ControllerBase
 {
-    private readonly ISlugService<Story> _service;
+    private readonly ISlugService<Author> _service;
 
-    public StoryController(ISlugService<Story> service) => _service = service;
+    public AuthorController(ISlugService<Author> service) => _service = service;
 
     [HttpGet("all")]
     [AllowAnonymous]
@@ -26,21 +26,6 @@ public class StoryController : ControllerBase
     [AllowAnonymous]
     public async Task<IActionResult> GetDropdown() => Ok(await _service.GetDropdownDataAsync());
 
-
-    [HttpGet("status-dropdown")]
-    [AllowAnonymous]
-    public async Task<IActionResult> GetStatusDropdown()
-    {
-        var statuses = new List<object>
-        {
-            new { text = "Đang ra", value = 1 },
-            new { text = "Hoàn thành", value = 2 },
-            new { text = "Tạm dừng", value = 3 }
-        };
-        return Ok(statuses);
-    }
-
-
     [HttpGet("{id:int}")]
     [AllowAnonymous]
     public async Task<IActionResult> GetById(int id) => Ok(await _service.GetByIdAsync(id));
@@ -52,11 +37,11 @@ public class StoryController : ControllerBase
 
     [HttpPost]
     [Authorize(Roles = "Admin,Contributor")]
-    public async Task<IActionResult> Create([FromBody] Story model) => Ok(await _service.CreateAsync(model));
+    public async Task<IActionResult> Create([FromBody] Author model) => Ok(await _service.CreateAsync(model));
 
     [HttpPut("{id}")]
     [Authorize(Roles = "Admin,Contributor")]
-    public async Task<IActionResult> Update(int id, [FromBody] Story model) =>
+    public async Task<IActionResult> Update(int id, [FromBody] Author model) =>
         await _service.UpdateAsync(id, model) is var r && r.Success ? Ok(r) : NotFound(r);
 
     [HttpDelete("{id}")]
@@ -83,6 +68,6 @@ public class StoryController : ControllerBase
             }
         }
 
-        return Ok(new { Success = true, Message = $"Đã xóa {lstId.Count} Story" });
+        return Ok(new { Success = true, Message = $"Đã xóa {lstId.Count} Author" });
     }
 }

@@ -6,6 +6,7 @@ using WebNovel.Services.Interfaces;
 
 [Route("api/[controller]")]
 [ApiController]
+[Authorize]
 public class TagController : ControllerBase
 {
     private readonly ISlugService<Tag> _service;
