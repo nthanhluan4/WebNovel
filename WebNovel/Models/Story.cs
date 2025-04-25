@@ -38,6 +38,8 @@ namespace WebNovel.Models
 
         public long ReadCount { get; set; } = 0;
 
+        public bool IsPublic { get; set; } = true;
+        public DateTime? PostedAt { get; set; } = null;
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
         public DateTime UpdatedAt { get; set; } = DateTime.UtcNow;
         [StringLength(450)]

@@ -15,18 +15,21 @@ namespace WebNovel.Services.Implementations
         private readonly IStoryService _storyService;
         private readonly IBackgroundTaskQueue _taskQueue;
         private readonly ILogger<ChapterService> _logger;
+        private readonly IBaseService<ChapterContent> _contentService;
 
         public ChapterService(IChapterRepository repository,
             IChapterStorageService storageService,
             IStoryService storyService,
             IBackgroundTaskQueue taskQueue,
-            ILogger<ChapterService> logger)
+            ILogger<ChapterService> logger,
+            IBaseService<ChapterContent> chapterContentService)
         {
             _repository = repository;
             _storageService = storageService;
             _storyService = storyService;
             _taskQueue = taskQueue;
             _logger = logger;
+            _contentService = chapterContentService;
         }
 
         public async Task<List<Chapter>> GetByStoryIdAsync(int storyId) => await _repository.GetByStoryIdAsync(storyId);
@@ -40,12 +43,21 @@ namespace WebNovel.Services.Implementations
         {
             //chapter.WordCount = content.Length;
             chapter.WordCount = TextUtils.CountWords(content);
-            chapter.IsStoredInFile = content.Length >= 5000;
-            chapter.FilePath = await _storageService.SaveContentAsync(chapter.Id, content);
+
+            //chapter.IsStoredInFile = content.Length >= 5000;
+            //chapter.FilePath = await _storageService.SaveContentAsync(chapter.Id, content);
+            chapter.IsStoredInFile = false;
+            chapter.FilePath = null;
             chapter.CreatedAt = DateTime.UtcNow;
             chapter.UpdatedAt = DateTime.UtcNow;
 
             await _repository.AddAsync(chapter);
+            await _contentService.CreateAsync(new ChapterContent()
+            {
+                ChapterId = chapter.Id,
+                Content = chapter.Content
+            });
+
             _taskQueue.QueueBackgroundTask(async token =>
             {
                 try
@@ -64,11 +76,18 @@ namespace WebNovel.Services.Implementations
         public async Task<bool> UpdateAsync(Chapter chapter, string content)
         {
             chapter.UpdatedAt = DateTime.UtcNow;
-            chapter.WordCount = content.Length;
-            chapter.IsStoredInFile = content.Length >= 5000;
-            chapter.FilePath = await _storageService.SaveContentAsync(chapter.Id, content);
+            chapter.WordCount = TextUtils.CountWords(content);
+            //chapter.IsStoredInFile = content.Length >= 5000;
+            //chapter.FilePath = await _storageService.SaveContentAsync(chapter.Id, content);
+
 
             await _repository.UpdateAsync(chapter);
+
+            await _contentService.UpdateAsync(chapter.Id, new ChapterContent()
+            {
+                ChapterId = chapter.Id,
+                Content = chapter.Content
+            });
             _taskQueue.QueueBackgroundTask(async token =>
             {
                 try

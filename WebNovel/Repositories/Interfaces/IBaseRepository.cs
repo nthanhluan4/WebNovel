@@ -6,6 +6,7 @@ namespace WebNovel.Repositories.Interfaces
     {
         IQueryable<T> Query();
         Task<T?> GetByIdAsync(int id);
+        Task<T?> GetByIdAsync(string id);
         Task AddAsync(T entity);
         Task UpdateAsync(T entity);
         Task DeleteAsync(int id);

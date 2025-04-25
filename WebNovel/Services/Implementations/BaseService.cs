@@ -3,6 +3,7 @@ using Kendo.Mvc.UI;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 using WebNovel.Exceptions;
+using WebNovel.Models;
 using WebNovel.Models.Dtos;
 using WebNovel.Repositories.Interfaces;
 using WebNovel.Services.Interfaces;
@@ -35,7 +36,7 @@ namespace WebNovel.Services.Implementations
         {
             return await _repo.GetByIdAsync(id);
             //return item == null
-            //    ? ServiceResponse<T>.Fail("Item not found")
+            //    ? ServiceResponse<T>.Fail("Không tìm thấy dữ liệu.")
             //    : ServiceResponse<T>.Ok(item);
         }
 
@@ -43,24 +44,31 @@ namespace WebNovel.Services.Implementations
         {
             await EnsureNoDuplicate(entity);
             await _repo.AddAsync(entity);
-            return ServiceResponse<T>.Ok(entity, "Created successfully");
+            return ServiceResponse<T>.Ok(entity, "Thêm mới dữ liệu thành công.");
         }
 
         public async Task<ServiceResponse<T>> UpdateAsync(int id, T entity)
         {
             var existing = await _repo.GetByIdAsync(id);
-            if (existing == null) return ServiceResponse<T>.Fail("Item not found");
+            if (existing == null) return ServiceResponse<T>.Fail("Không tìm thấy dữ liệu.");
             await EnsureNoDuplicate(entity, id);
             await _repo.UpdateAsync(entity);
-            return ServiceResponse<T>.Ok(entity, "Updated successfully");
+            return ServiceResponse<T>.Ok(entity, "Cập nhật dữ liệu thành công.");
         }
-
+        public async Task<ServiceResponse<T>> UpdateAsync(string id, T entity)
+        {
+            var existing = await _repo.GetByIdAsync(id);
+            if (existing == null) return ServiceResponse<T>.Fail("Không tìm thấy dữ liệu.");
+            //await EnsureNoDuplicate(entity, id);
+            await _repo.UpdateAsync(entity);
+            return ServiceResponse<T>.Ok(entity, "Cập nhật dữ liệu thành công.");
+        }
         public async Task<ServiceResponse<bool>> DeleteAsync(int id)
         {
             var existing = await _repo.GetByIdAsync(id);
-            if (existing == null) return ServiceResponse<bool>.Fail("Item not found");
+            if (existing == null) return ServiceResponse<bool>.Fail("Không tìm thấy dữ liệu.");
             await _repo.DeleteAsync(id);
-            return ServiceResponse<bool>.Ok(true, "Deleted successfully");
+            return ServiceResponse<bool>.Ok(true, "Xóa dữ liệu thành công.");
         }
 
         public async Task<List<T>> GetAllAsync()
@@ -97,6 +105,7 @@ namespace WebNovel.Services.Implementations
                     throw new DuplicateDataException($"Dữ liệu [{field}: '{value}'] đã có trong hệ thống.");
             }
         }
+
     }
 
 }

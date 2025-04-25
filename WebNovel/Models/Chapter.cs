@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using WebNovel.Services.Interfaces;
 
 namespace WebNovel.Models
@@ -15,15 +16,21 @@ namespace WebNovel.Models
         public string Slug { get; set; } = "";
         public int Order { get; set; }
 
-        public long WordCount { get; set; }
+        public long WordCount { get; set; } = 0;
         public bool IsStoredInFile { get; set; }
         [StringLength(500)]
         public string? FilePath { get; set; }
-
+        public DateTime? PostedAt { get; set; } = null;
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
         public DateTime UpdatedAt { get; set; } = DateTime.UtcNow;
+        public bool IsPublic { get; set; } = true;
 
-        [StringLength(50)]
+        [StringLength(450)]
         public string CreatedByUserId { get; set; }
+
+        public int ContributorId { get; set; }
+
+        [NotMapped]
+        public string Content { get; set; }
     }
 }

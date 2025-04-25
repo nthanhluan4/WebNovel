@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 using WebNovel.Models;
@@ -10,19 +11,24 @@ namespace WebNovel.Controllers.Api
 {
     [ApiController]
     [Route("api/[controller]")]
-[Authorize]
-    public class ChapterApiController : ControllerBase
+    [Authorize]
+    public class ChapterController : ControllerBase
     {
         private readonly IChapterService _service;
         private readonly IBackgroundTaskQueue _taskQueue;
-        private readonly ILogger<ChapterApiController> _logger;
+        private readonly ILogger<ChapterController> _logger;
+        private readonly UserManager<ApplicationUser> _userManager;
 
 
-        public ChapterApiController(IChapterService service, IBackgroundTaskQueue taskQueue, ILogger<ChapterApiController> logger)
+        public ChapterController(IChapterService service, 
+            IBackgroundTaskQueue taskQueue, 
+            ILogger<ChapterController> logger,
+            UserManager<ApplicationUser> userManager)
         {
             _service = service;
             _taskQueue = taskQueue;
             _logger = logger;
+            _userManager = userManager;
         }
 
         [HttpGet("story/{storyId:int}")]
@@ -58,22 +64,18 @@ namespace WebNovel.Controllers.Api
 
         [Authorize(Roles = "Poster,Admin")]
         [HttpPost]
-        public async Task<IActionResult> Create([FromBody] ChapterCreateModel model)
+        public async Task<IActionResult> Create([FromBody] Chapter model)
         {
-            var chapter = new Chapter
-            {
-                StoryId = model.StoryId,
-                Title = model.Title,
-                Order = model.Order,
-                CreatedByUserId = User.FindFirstValue(ClaimTypes.NameIdentifier) ?? ""
-            };
-            var result = await _service.CreateAsync(chapter, model.Content);
-            return result ? Ok(chapter) : BadRequest();
+            var user = await _userManager.GetUserAsync(User);
+            model.CreatedByUserId = user?.Id;
+            model.Id = Guid.NewGuid().ToString();
+            var result = await _service.CreateAsync(model, model.Content);
+            return result ? Ok(model) : BadRequest();
         }
 
         [Authorize(Roles = "Poster,Admin")]
         [HttpPut("{id}")]
-        public async Task<IActionResult> Update(string id, [FromBody] ChapterCreateModel model)
+        public async Task<IActionResult> Update(string id, [FromBody] Chapter model)
         {
             var chapter = await _service.GetByIdAsync(id);
             if (chapter == null || chapter.Id != id) return BadRequest();

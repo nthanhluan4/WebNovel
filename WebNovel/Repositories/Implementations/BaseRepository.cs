@@ -19,7 +19,8 @@ namespace WebNovel.Repositories.Implementations
         public IQueryable<T> Query() => _dbSet.AsQueryable();
 
         public async Task<T?> GetByIdAsync(int id) => await _dbSet.FindAsync(id);
-
+        public async Task<T?> GetByIdAsync(string id) => await _dbSet.FindAsync(id);
+        
         public async Task AddAsync(T entity)
         {
             _dbSet.Add(entity);
@@ -56,6 +57,8 @@ namespace WebNovel.Repositories.Implementations
         {
             return await _dbSet.AnyAsync(predicate);
         }
+
+       
     }
 
 }

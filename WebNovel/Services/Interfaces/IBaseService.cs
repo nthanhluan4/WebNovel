@@ -1,4 +1,5 @@
 ﻿using Kendo.Mvc.UI;
+using WebNovel.Models;
 using WebNovel.Models.Dtos;
 
 namespace WebNovel.Services.Interfaces
@@ -11,6 +12,7 @@ namespace WebNovel.Services.Interfaces
         Task<T> GetByIdAsync(int id);
         Task<ServiceResponse<T>> CreateAsync(T entity);
         Task<ServiceResponse<T>> UpdateAsync(int id, T entity);
+        Task<ServiceResponse<T>> UpdateAsync(string id, T entity);
         Task<ServiceResponse<bool>> DeleteAsync(int id);
     }
 

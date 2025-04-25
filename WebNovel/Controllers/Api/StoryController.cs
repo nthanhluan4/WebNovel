@@ -1,5 +1,6 @@
 ﻿using Kendo.Mvc.UI;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using WebNovel.Models;
 using WebNovel.Services.Interfaces;
@@ -10,8 +11,13 @@ using WebNovel.Services.Interfaces;
 public class StoryController : ControllerBase
 {
     private readonly ISlugService<Story> _service;
+    private readonly UserManager<ApplicationUser> _userManager;
 
-    public StoryController(ISlugService<Story> service) => _service = service;
+    public StoryController(ISlugService<Story> service, UserManager<ApplicationUser> userManager)
+    {
+        _service = service;
+        _userManager = userManager;
+    }
 
     [HttpGet("all")]
     [AllowAnonymous]
@@ -52,7 +58,13 @@ public class StoryController : ControllerBase
 
     [HttpPost]
     [Authorize(Roles = "Admin,Contributor")]
-    public async Task<IActionResult> Create([FromBody] Story model) => Ok(await _service.CreateAsync(model));
+    public async Task<IActionResult> Create([FromBody] Story model)
+    {
+        var user = await _userManager.GetUserAsync(User);
+        model.CreatedByUserId = user?.Id;
+        var result = await _service.CreateAsync(model);
+        return Ok(result);
+    }
 
     [HttpPut("{id}")]
     [Authorize(Roles = "Admin,Contributor")]

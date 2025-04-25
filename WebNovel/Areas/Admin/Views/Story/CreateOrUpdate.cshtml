@@ -10,6 +10,15 @@
         _type = "PUT";
         _url = $"/api/story/{Model.Id}";
     }
+
+    var lstTag = new List<string>();
+    var lstGenre = new List<string>();
+
+    if (!string.IsNullOrEmpty(Model.Tags))
+    {
+        lstTag = Model.Tags.Split(',').ToList();
+    }
+
 }
 
 <div class="row form-row-info form-group-row-info">
@@ -127,7 +136,7 @@
                     {
                         source.Read(read => read.Url("/api/tag/dropdown").Type(HttpVerbs.Get));
                     })
-                    .Value(Model.Tags)
+                    .Value(lstTag)
                     .HtmlAttributes(new { fm_data_field = "Tags" }))
             </div>
         </div>
@@ -187,7 +196,7 @@
                     {
                         source.Read(read => read.Url("/api/contributor/dropdown").Type(HttpVerbs.Get));
                     })
-                    .Value(Model.ContributorType?.ToString())
+                    .Value(Model.ContributorId.ToString())
                     .HtmlAttributes(new { fm_data_field = "ContributorId" }))
             </div>
         </div>
@@ -199,6 +208,12 @@
                 .HtmlAttributes(new { fm_data_field = "CreatedAt", style = "display: none" })
                 .Value(Model.CreatedAt)
                 )
+        </div>
+        <div class="control-group-info hidden">
+            @(Html.Kendo().TextBox()
+                .Name("CreatedByUserId")
+                .HtmlAttributes(new { style = "display: none", fm_data_field = "CreatedByUserId" })
+                .Value(Model.CreatedByUserId ?? "no-user"))
         </div>
 
     </div>
