@@ -1,9 +1,13 @@
-﻿using WebNovel.Models;
+﻿using Kendo.Mvc.UI;
+using WebNovel.Models;
 
 namespace WebNovel.Services.Interfaces
 {
     public interface IChapterService
     {
+        Task<List<Chapter>> GetAllAsync();
+        Task<DataSourceResult> GetAllDataSourceAsync(DataSourceRequest request);
+        Task<List<Chapter>> GetDropdownDataAsync();
         Task<List<Chapter>> GetByStoryIdAsync(int storyId);
         Task<Chapter?> GetByIdAsync(string id);
         Task<Chapter?> GetByOrderAsync(int storyId, int order);

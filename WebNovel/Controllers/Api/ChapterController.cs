@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Kendo.Mvc.UI;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
@@ -29,6 +30,18 @@ namespace WebNovel.Controllers.Api
             _logger = logger;
             _userManager = userManager;
         }
+        [HttpGet("all")]
+        [AllowAnonymous]
+        public async Task<IActionResult> GetAll() => Ok(await _service.GetAllAsync());
+
+        [HttpPost("grid")]
+        [Authorize(Roles = "Admin,Contributor")]
+        public async Task<IActionResult> GetGrid([DataSourceRequest] DataSourceRequest request) =>
+            Ok(await _service.GetAllDataSourceAsync(request));
+
+        [HttpGet("dropdown")]
+        [AllowAnonymous]
+        public async Task<IActionResult> GetDropdown() => Ok(await _service.GetDropdownDataAsync());
 
         [HttpGet("story/{storyId:int}")]
         public async Task<IActionResult> GetByStory(int storyId)
@@ -75,7 +88,9 @@ namespace WebNovel.Controllers.Api
             model.CreatedByUserId = user?.Id;
             model.Id = Guid.NewGuid().ToString();
             var result = await _service.CreateAsync(model, model.Content);
-            return result ? Ok(model) : BadRequest();
+
+            return result == true ? Ok(ServiceResponse<Chapter>.Ok(model, "Thêm mới dữ liệu thành công."))
+                                    : Ok(ServiceResponse<Chapter>.Fail("Thêm thất bại."));
         }
 
         [Authorize(Roles = "Poster,Admin")]
@@ -87,8 +102,15 @@ namespace WebNovel.Controllers.Api
 
             chapter.Title = model.Title;
             chapter.Order = model.Order;
+            chapter.StoryId = model.StoryId;
+            chapter.ContributorId = model.ContributorId;
+            chapter.PostedAt = model.PostedAt;
+            chapter.IsPublic = model.IsPublic;
+            chapter.ReadCount = model.ReadCount;
+
             var result = await _service.UpdateAsync(chapter, model.Content);
-            return result ? Ok(chapter) : BadRequest();
+            return result == true ? Ok(ServiceResponse<Chapter>.Ok(model, "Thêm mới dữ liệu thành công."))
+                            : Ok(ServiceResponse<Chapter>.Fail("Thêm thất bại."));
         }
 
         [Authorize(Roles = "Admin")]
@@ -97,6 +119,28 @@ namespace WebNovel.Controllers.Api
         {
             var result = await _service.DeleteAsync(id);
             return result ? Ok() : NotFound();
+        }
+
+
+        [HttpPost("delete-multiple")]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> DeleteMultiple([FromBody] string ids)
+        {
+            var lstId = ids.Split(',').ToList();
+            if (lstId == null || !lstId.Any())
+                return BadRequest(new { Success = false, Message = "Không có ID nào được gửi lên" });
+
+            foreach (var id in lstId)
+            {
+                var result = await _service.DeleteAsync(id);
+                if (!result)
+                {
+                    // Nếu 1 cái không xóa được thì trả lỗi toàn bộ
+                    return NotFound(new { Success = false, Message = $"Không tìm thấy ID: {id}" });
+                }
+            }
+
+            return Ok(new { Success = true, Message = $"Đã xóa {lstId.Count} tag" });
         }
     }
 

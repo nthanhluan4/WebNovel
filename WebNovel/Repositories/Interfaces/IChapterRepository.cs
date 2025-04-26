@@ -4,6 +4,7 @@ namespace WebNovel.Repositories.Interfaces
 {
     public interface IChapterRepository
     {
+        Task<List<Chapter>> GetAllAsync();
         Task<List<Chapter>> GetByStoryIdAsync(int storyId);
         Task<Chapter?> GetByIdAsync(string id);
         Task<Chapter?> GetByOrderAsync(int storyId, int order);

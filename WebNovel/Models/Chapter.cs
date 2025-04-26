@@ -9,6 +9,7 @@ namespace WebNovel.Models
         [StringLength(450)]
         public string Id { get; set; }
         public int StoryId { get; set; }
+
         public long ReadCount { get; set; } = 0;
         [StringLength(200)]
         public string? Title { get; set; }
@@ -31,6 +32,9 @@ namespace WebNovel.Models
         public int ContributorId { get; set; }
 
         [NotMapped]
-        public string Content { get; set; }
+        public string? Content { get; set; }
+        [NotMapped]
+        public string? StoryName { get; set; }
+
     }
 }

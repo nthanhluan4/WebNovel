@@ -5,10 +5,12 @@
     var _type = "POST";
     var _url = "/api/Chapter";
     var _grid = "grid_Chapter_Index";
+    var _slug = "Tự động sinh";
     if (action == "Update")
     {
         _type = "PUT";
         _url = $"/api/Chapter/{Model.Id}";
+        _slug = Model.Slug;
     }
 }
 
@@ -29,7 +31,25 @@
                 .Value(Model.Id)
                 )
         </div>
-
+        <!-- StoryId -->
+        <div class="control-group-info">
+            <div class="col-sm-4 div-label-info">
+                <label for="ContributorId">Truyện</label>
+            </div>
+            <div class="col-sm-8 div-value-info">
+                @(Html.Kendo().DropDownList()
+                    .Name("StoryId")
+                    .OptionLabel("-- Chọn Truyện --")
+                    .DataTextField("Name")
+                    .DataValueField("Id")
+                    .DataSource(source =>
+                    {
+                        source.Read(read => read.Url("/api/story/dropdown").Type(HttpVerbs.Get));
+                    })
+                    .Value(Model.StoryId.ToString())
+                    .HtmlAttributes(new { @class = "required-field", fm_data_field = "StoryId" }))
+            </div>
+        </div>
         <!-- Title -->
         <div class="control-group-info">
             <div class="col-sm-4 div-label-info">
@@ -55,7 +75,22 @@
                     .Name("Slug")
                     .Placeholder(SystemVariable.placeholderRequired)
                     .HtmlAttributes(new { @class = "required-field", fm_data_field = "Slug" })
-                    .Value(Model.Slug)
+                    .Enable(true)
+                    .Value(_slug)
+                    )
+            </div>
+        </div>
+        <div class="control-group-info">
+            <div class="col-sm-4 div-label-info">
+                <label displayfield="WordCount" for="WordCount">Số lượng từ</label>
+            </div>
+            <div class="col-sm-8 div-value-info">
+                @(Html.Kendo().TextBox()
+                    .Name("WordCount")
+                    .Placeholder(SystemVariable.placeholderRequired)
+                    .HtmlAttributes(new { fm_data_field = "WordCount" })
+                    .Enable(false)
+                    .Value(Model.WordCount.ToString())
                     )
             </div>
         </div>
@@ -128,15 +163,6 @@
                 .Name("CreatedAt")
                 .HtmlAttributes(new { fm_data_field = "CreatedAt", style = "display: none" })
                 .Value(Model.CreatedAt)
-                )
-        </div>
-
-        <!-- Hidden StoryId -->
-        <div class="control-group-info hidden">
-            @(Html.Kendo().TextBox()
-                .Name("StoryId")
-                .HtmlAttributes(new { style = "display: none", fm_data_field = "StoryId" })
-                .Value(Model.StoryId.ToString())
                 )
         </div>
 

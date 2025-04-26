@@ -27,17 +27,31 @@ namespace WebNovel.Repositories.Implementations
         public async Task AddAsync(Chapter chapter)
         {
             var maxOrder = await _context.Chapters
-                            .Where(c => c.StoryId == chapter.StoryId)
-                            .MaxAsync(c => (int?)c.Order) ?? 1;
-            chapter.Order = maxOrder;
-            chapter.Slug = $"chuong-{maxOrder}";
+                .Where(c => c.StoryId == chapter.StoryId)
+                .Select(c => (int?)c.Order)
+                .MaxAsync() ?? 0;
+            chapter.Order = maxOrder + 1;
+            chapter.Slug = $"chuong-{chapter.Order}";
+
             await _context.Chapters.AddAsync(chapter);
+            await _context.ChapterContents.AddAsync(new ChapterContent()
+            {
+                Content = chapter.Content,
+                ChapterId = chapter.Id,
+            });
         }
 
-        public Task UpdateAsync(Chapter chapter)
+        public async Task UpdateAsync(Chapter chapter)
         {
             _context.Chapters.Update(chapter);
-            return Task.CompletedTask;
+
+            var chapterContent = await _context.ChapterContents.FirstOrDefaultAsync(s => s.ChapterId == chapter.Id);
+            if(chapterContent != null)
+            {
+                chapterContent.Content = chapter.Content;
+                _context.ChapterContents.Update(chapterContent);
+            }
+            //return Task.CompletedTask;
         }
 
         public async Task DeleteAsync(string id)
@@ -79,6 +93,11 @@ namespace WebNovel.Repositories.Implementations
             return await _context.Chapters
                 .Where(c => c.StoryId == storyId)
                 .SumAsync(c => (long?)c.WordCount) ?? 0;
+        }
+
+        public async Task<List<Chapter>> GetAllAsync()
+        {
+            return await _context.Chapters.AsNoTracking().ToListAsync();
         }
     }
 }

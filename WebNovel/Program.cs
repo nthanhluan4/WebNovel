@@ -103,8 +103,6 @@ builder.Services.AddScoped<ISlugRepository<Author>, SlugRepository<Author>>();
 builder.Services.AddScoped<ISlugService<Author>, SlugService<Author>>();
 builder.Services.AddScoped<ISlugRepository<Contributor>, SlugRepository<Contributor>>();
 builder.Services.AddScoped<ISlugService<Contributor>, SlugService<Contributor>>();
-builder.Services.AddScoped<IBaseRepository<ChapterContent>, BaseRepository<ChapterContent>>();
-builder.Services.AddScoped<IBaseService<ChapterContent>, IBaseService<ChapterContent>>();
 builder.Services.AddScoped<IModel>(provider =>
 {
     var dbContext = provider.GetRequiredService<ApplicationDbContext>();

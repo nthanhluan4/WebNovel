@@ -14,7 +14,7 @@ namespace WebNovel.Utils
 
             var matches = Regex.Matches(
                 content,
-                @"\\b[\\p{L}\\p{N}]+(?:[-'][\\p{L}\\p{N}]+)?\\b",
+                @"\b[\p{L}\p{N}]+(?:[-'][\p{L}\p{N}]+)?\b",
                 RegexOptions.Multiline
             );
 
