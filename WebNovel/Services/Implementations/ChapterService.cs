@@ -43,13 +43,13 @@ namespace WebNovel.Services.Implementations
         {
             //chapter.WordCount = content.Length;
             chapter.WordCount = TextUtils.CountWords(content);
-
+           
             //chapter.IsStoredInFile = content.Length >= 5000;
             //chapter.FilePath = await _storageService.SaveContentAsync(chapter.Id, content);
             chapter.IsStoredInFile = false;
             chapter.FilePath = null;
             chapter.CreatedAt = DateTime.UtcNow;
-            chapter.UpdatedAt = DateTime.UtcNow;
+            chapter.UpdatedAt = DateTime.UtcNow;        
 
             await _repository.AddAsync(chapter);
             await _contentService.CreateAsync(new ChapterContent()
@@ -75,19 +75,38 @@ namespace WebNovel.Services.Implementations
 
         public async Task<bool> UpdateAsync(Chapter chapter, string content)
         {
-            chapter.UpdatedAt = DateTime.UtcNow;
-            chapter.WordCount = TextUtils.CountWords(content);
-            //chapter.IsStoredInFile = content.Length >= 5000;
-            //chapter.FilePath = await _storageService.SaveContentAsync(chapter.Id, content);
+            var existing = await _repository.GetByIdAsync(chapter.Id);
+            if (existing == null) return false;
 
+            // Map fields cần cập nhật
+            existing.Title = chapter.Title;
+            existing.Slug = chapter.Slug;
+            existing.UpdatedAt = DateTime.UtcNow;
+            existing.IsPublic = chapter.IsPublic;
+            //existing.IsStoredInFile = chapter.IsStoredInFile;
+            //existing.FilePath = chapter.FilePath;
+            existing.PostedAt = chapter.PostedAt;
+            chapter.WordCount = TextUtils.CountWords(content);
+            existing.ContributorId = chapter.ContributorId;
 
             await _repository.UpdateAsync(chapter);
-
-            await _contentService.UpdateAsync(chapter.Id, new ChapterContent()
+            //Cập nhật chapterContent
+            var lstContent = await _contentService.GetAllAsync();
+            var chapterContent = lstContent.FirstOrDefault(s => s.ChapterId == chapter.Id);
+            if (chapterContent == null)
             {
-                ChapterId = chapter.Id,
-                Content = chapter.Content
-            });
+                await _contentService.CreateAsync(new ChapterContent()
+                {
+                    ChapterId = chapter.Id,
+                    Content = chapter.Content
+                });
+            }
+            else
+            {
+                chapterContent.Content = chapter.Content;
+                await _contentService.UpdateAsync(chapter.Id, chapterContent);
+            }
+
             _taskQueue.QueueBackgroundTask(async token =>
             {
                 try
@@ -115,10 +134,11 @@ namespace WebNovel.Services.Implementations
                 try
                 {
                     await _storyService.UpdateStatsAsync(chapter.StoryId);
+                    await _storyService.UpdateChapterRatePerWeekAsync(chapter.StoryId);
                 }
                 catch (Exception ex)
                 {
-                    _logger.LogError(ex, $"Không thể cập nhật thông tin stats (Số chương, Số chữ) của truyện [{chapter.StoryId}].");
+                    _logger.LogError(ex, $"Không thể cập nhật thông tin stats (Số chương, Số chữ), tỉ lệ ra chương/tuần của truyện [{chapter.StoryId}].");
                 }
             });
             return await _repository.SaveChangesAsync();
@@ -134,7 +154,7 @@ namespace WebNovel.Services.Implementations
             await _repository.UpdateAsync(chapter);
             await _repository.SaveChangesAsync();
 
-            await _storyService.IncreaseReadCountAsync(chapter.StoryId); // 👉 gọi logic bên StoryService
+            await _storyService.IncreaseReadCountAsync(chapter.StoryId); 
         }
 
     }

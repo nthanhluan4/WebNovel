@@ -1,0 +1,171 @@
+﻿@model WebNovel.Models.Chapter
+
+@{
+    var action = (string)ViewData["Action"];
+    var _type = "POST";
+    var _url = "/api/Chapter";
+    var _grid = "grid_Chapter_Index";
+    if (action == "Update")
+    {
+        _type = "PUT";
+        _url = $"/api/Chapter/{Model.Id}";
+    }
+}
+
+<div class="row form-row-info form-group-row-info">
+    <div class="col-sm-12 form-column-info">
+        <div class="fields-group-info">
+            <label class="control-label fields-group-label-info">Thông tin Chapter</label>
+        </div>
+    </div>
+
+    <div class="col-sm-12 form-column-info">
+        <!-- Hidden Id -->
+        <div class="control-group-info hidden">
+            @(Html.Kendo().TextBox()
+                .Name("Id")
+                .Placeholder(SystemVariable.placeholderRequired)
+                .HtmlAttributes(new { style = "display: none", fm_data_field = "Id" })
+                .Value(Model.Id)
+                )
+        </div>
+
+        <!-- Title -->
+        <div class="control-group-info">
+            <div class="col-sm-4 div-label-info">
+                <label displayfield="Title" for="Title">Tiêu đề chương</label>
+            </div>
+            <div class="col-sm-8 div-value-info">
+                @(Html.Kendo().TextBox()
+                    .Name("Title")
+                    .Placeholder(SystemVariable.placeholderRequired)
+                    .HtmlAttributes(new { @class = "required-field", fm_data_field = "Title" })
+                    .Value(Model.Title)
+                    )
+            </div>
+        </div>
+
+        <!-- Slug -->
+        <div class="control-group-info">
+            <div class="col-sm-4 div-label-info">
+                <label displayfield="Slug" for="Slug">Slug</label>
+            </div>
+            <div class="col-sm-8 div-value-info">
+                @(Html.Kendo().TextBox()
+                    .Name("Slug")
+                    .Placeholder(SystemVariable.placeholderRequired)
+                    .HtmlAttributes(new { @class = "required-field", fm_data_field = "Slug" })
+                    .Value(Model.Slug)
+                    )
+            </div>
+        </div>
+
+        <!-- Order -->
+        <div class="control-group-info">
+            <div class="col-sm-4 div-label-info">
+                <label displayfield="Order" for="Order">Thứ tự</label>
+            </div>
+            <div class="col-sm-8 div-value-info">
+                @(Html.Kendo().NumericTextBox<int>()
+                    .Name("Order")
+                    .HtmlAttributes(new { fm_data_field = "Order" })
+                    .Value(Model.Order)
+                    )
+            </div>
+        </div>
+
+        <!-- Read Count -->
+        <div class="control-group-info">
+            <div class="col-sm-4 div-label-info">
+                <label displayfield="ReadCount" for="ReadCount">Lượt đọc</label>
+            </div>
+            <div class="col-sm-8 div-value-info">
+                @(Html.Kendo().NumericTextBox<long>()
+                    .Name("ReadCount")
+                    .HtmlAttributes(new { fm_data_field = "ReadCount" })
+                    .Value(Model.ReadCount)
+                    )
+            </div>
+        </div>
+
+        <!-- Content -->
+        <div class="control-group-info">
+            <div class="col-sm-4 div-label-info">
+                <label displayfield="Content" for="Content">Nội dung chương</label>
+            </div>
+            <div class="col-sm-8 div-value-info">
+                @(Html.Kendo().TextArea()
+                    .Name("Content")
+                    .Placeholder(SystemVariable.placeholderTextbox)
+                    .Size(ComponentSize.Large)
+                    .FillMode(FillMode.Solid)
+                    .Resize(TextAreaResize.Vertical)
+                    .Overflow(TextAreaOverflow.Scroll)
+                    .Rows(10)
+                    .HtmlAttributes(new { fm_data_field = "Content", style = "width: 100%; height: auto !important;" })
+                    .Value(Model.Content)
+                    )
+            </div>
+        </div>
+
+        <!-- IsPublic -->
+        <div class="control-group-info">
+            <div class="col-sm-4 div-label-info">
+                <label displayfield="IsPublic" for="IsPublic">Công khai</label>
+            </div>
+            <div class="col-sm-8 div-value-info">
+                @(Html.Kendo().CheckBox()
+                    .Name("IsPublic")
+                    .HtmlAttributes(new { fm_data_field = "IsPublic" })
+                    .Checked(Model.IsPublic)
+                    )
+            </div>
+        </div>
+
+        <!-- Hidden CreatedAt -->
+        <div class="control-group-info hidden">
+            @(Html.Kendo().DatePicker()
+                .Name("CreatedAt")
+                .HtmlAttributes(new { fm_data_field = "CreatedAt", style = "display: none" })
+                .Value(Model.CreatedAt)
+                )
+        </div>
+
+        <!-- Hidden StoryId -->
+        <div class="control-group-info hidden">
+            @(Html.Kendo().TextBox()
+                .Name("StoryId")
+                .HtmlAttributes(new { style = "display: none", fm_data_field = "StoryId" })
+                .Value(Model.StoryId.ToString())
+                )
+        </div>
+
+        <!-- Hidden CreatedByUserId -->
+        <div class="control-group-info hidden">
+            @(Html.Kendo().TextBox()
+                .Name("CreatedByUserId")
+                .HtmlAttributes(new { style = "display: none", fm_data_field = "CreatedByUserId" })
+                .Value(Model.CreatedByUserId)
+                )
+        </div>
+    </div>
+</div>
+
+<div class="col-sm-12 form-column-info">
+    <div class="hr hr-dotted hr-double hr10"></div>
+    <div class="pull-right" style="margin-right: 10px;">
+        <button class="btn btn-sm btn-info"
+                data-url="@_url" data-type="@_type" data-grid="@_grid"
+                onclick="SaveNewV2(event);">
+            <i class="ace-icon glyphicon glyphicon-floppy-open"></i>
+            Lưu &amp; tạo mới
+        </button>
+        <button class="btn btn-sm btn-info save-close"
+                data-url="@_url" data-type="@_type" data-grid="@_grid"
+                onclick="SaveCloseV2(event);">
+            <i class="ace-icon glyphicon glyphicon-floppy-save"></i>
+            Lưu &amp; đóng
+        </button>
+    </div>
+    <div class="clearfix hr10"></div>
+</div>

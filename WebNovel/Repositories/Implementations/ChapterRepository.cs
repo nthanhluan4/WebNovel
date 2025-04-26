@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using System.Linq;
 using WebNovel.Data;
 using WebNovel.Models;
 using WebNovel.Repositories.Interfaces;
@@ -23,7 +24,15 @@ namespace WebNovel.Repositories.Implementations
         public async Task<Chapter?> GetByOrderAsync(int storyId, int order) =>
             await _context.Chapters.FirstOrDefaultAsync(c => c.StoryId == storyId && c.Order == order);
 
-        public async Task AddAsync(Chapter chapter) => await _context.Chapters.AddAsync(chapter);
+        public async Task AddAsync(Chapter chapter)
+        {
+            var maxOrder = await _context.Chapters
+                            .Where(c => c.StoryId == chapter.StoryId)
+                            .MaxAsync(c => (int?)c.Order) ?? 1;
+            chapter.Order = maxOrder;
+            chapter.Slug = $"chuong-{maxOrder}";
+            await _context.Chapters.AddAsync(chapter);
+        }
 
         public Task UpdateAsync(Chapter chapter)
         {
@@ -34,7 +43,28 @@ namespace WebNovel.Repositories.Implementations
         public async Task DeleteAsync(string id)
         {
             var chapter = await _context.Chapters.FindAsync(id);
-            if (chapter != null) _context.Chapters.Remove(chapter);
+            var orderDeleted = 0;
+            var storyId = 0;
+            if (chapter != null)
+            {
+                orderDeleted = chapter.Order;
+                storyId = chapter.StoryId;
+                _context.Chapters.Remove(chapter);
+            }
+            var chapterContent = await _context.ChapterContents.FirstOrDefaultAsync(s => s.ChapterId == id);
+            if (chapterContent != null) _context.ChapterContents.Remove(chapterContent);
+            if (storyId != 0)
+            {
+                var chaptersToUpdate = await _context.Chapters
+                .Where(c => c.StoryId == storyId && c.Order > orderDeleted)
+                .ToListAsync();
+                foreach (var c in chaptersToUpdate)
+                {
+                    c.Order--;
+                }
+
+                await _context.SaveChangesAsync();
+            }
         }
 
         public async Task<bool> SaveChangesAsync() => (await _context.SaveChangesAsync()) > 0;

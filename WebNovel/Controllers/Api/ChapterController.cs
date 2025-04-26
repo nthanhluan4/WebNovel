@@ -19,9 +19,8 @@ namespace WebNovel.Controllers.Api
         private readonly ILogger<ChapterController> _logger;
         private readonly UserManager<ApplicationUser> _userManager;
 
-
-        public ChapterController(IChapterService service, 
-            IBackgroundTaskQueue taskQueue, 
+        public ChapterController(IChapterService service,
+            IBackgroundTaskQueue taskQueue,
             ILogger<ChapterController> logger,
             UserManager<ApplicationUser> userManager)
         {
@@ -33,13 +32,19 @@ namespace WebNovel.Controllers.Api
 
         [HttpGet("story/{storyId:int}")]
         public async Task<IActionResult> GetByStory(int storyId)
-            => Ok(await _service.GetByStoryIdAsync(storyId));
+        {
+            var lstChapter = await _service.GetByStoryIdAsync(storyId);
+            var result = lstChapter.Where(s => s.IsPublic == true);
+            return Ok(result);
+        }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(string id)
         {
             var chapter = await _service.GetByIdAsync(id);
-            return chapter == null ? NotFound() : Ok(chapter);
+            if (chapter == null || chapter.IsPublic == false)
+                return NotFound();
+            return Ok(chapter);
         }
 
         [HttpGet("{id}/content")]
