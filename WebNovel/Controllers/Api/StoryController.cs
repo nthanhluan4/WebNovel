@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using WebNovel.Models;
+using WebNovel.Services.Implementations;
 using WebNovel.Services.Interfaces;
 
 [Route("api/[controller]")]
@@ -11,12 +12,16 @@ using WebNovel.Services.Interfaces;
 public class StoryController : ControllerBase
 {
     private readonly ISlugService<Story> _service;
+    private readonly IStoryService _baseService;
     private readonly UserManager<ApplicationUser> _userManager;
 
-    public StoryController(ISlugService<Story> service, UserManager<ApplicationUser> userManager)
+    public StoryController(ISlugService<Story> service, 
+        UserManager<ApplicationUser> userManager,
+        IStoryService baseService)
     {
         _service = service;
         _userManager = userManager;
+        _baseService = baseService;
     }
 
     [HttpGet("all")]
@@ -25,8 +30,12 @@ public class StoryController : ControllerBase
 
     [HttpPost("grid")]
     [Authorize(Roles = "Admin,Contributor")]
-    public async Task<IActionResult> GetGrid([DataSourceRequest] DataSourceRequest request) =>
-        Ok(await _service.GetAllDataSourceAsync(request));
+    public async Task<IActionResult> GetGrid([DataSourceRequest] DataSourceRequest request)
+    {
+        return Ok(await _baseService.GetDataSourceAsync(request));
+        //return Ok(await _service.GetAllDataSourceAsync(request));
+    }
+        
 
     [HttpGet("dropdown")]
     [AllowAnonymous]

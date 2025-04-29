@@ -5,9 +5,6 @@ namespace WebNovel.Repositories.Interfaces
 {
     public interface IStoryRepository
     {
-        Task<DataSourceResult> GetGridAsync(DataSourceRequest request);
-        Task<List<Story>> GetAllDropdownAsync();
-
         Task<List<Story>> GetAllAsync();
         Task<Story?> GetByIdAsync(int id);
         Task<Story?> GetBySlugAsync(string slug);
@@ -23,8 +20,16 @@ namespace WebNovel.Repositories.Interfaces
         Task<int> CountChaptersAsync(int storyId);
         Task<long> SumWordsAsync(int storyId);
 
-
-
         Task<bool> SaveChangesAsync();
+
+
+        //Bổ sung
+        Task<List<Story>> GetRandomStoriesAsync(int count);
+        Task<List<Story>> GetTopVotedStoriesAsync(int count);
+        Task<List<Story>> GetTopReadStoriesAsync(int count, string period);
+        Task<List<Story>> GetNewStoriesAsync(int count);
+        Task<List<Story>> GetNewChapterStoriesAsync(int count);
+        Task<List<Story>> GetStoriesByStatusAsync(string status);
+        Task<DataSourceResult> GetDataSourceAsync(DataSourceRequest request);
     }
 }

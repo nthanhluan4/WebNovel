@@ -36,8 +36,11 @@ namespace WebNovel.Controllers.Api
 
         [HttpPost("grid")]
         [Authorize(Roles = "Admin,Contributor")]
-        public async Task<IActionResult> GetGrid([DataSourceRequest] DataSourceRequest request) =>
-            Ok(await _service.GetAllDataSourceAsync(request));
+        public async Task<IActionResult> GetGrid([DataSourceRequest] DataSourceRequest request)
+        {
+            //Ok(await _service.GetAllDataSourceAsync(request));
+            return Ok(await _service.GetDataSourceAsync(request));
+        }
 
         [HttpGet("dropdown")]
         [AllowAnonymous]
@@ -61,15 +64,17 @@ namespace WebNovel.Controllers.Api
         }
 
         [HttpGet("{id}/content")]
+        [AllowAnonymous]
         public async Task<IActionResult> GetContent(string id)
         {
+            var user = await _userManager.GetUserAsync(User);
             var chapter = await _service.GetByIdAsync(id);
             if (chapter == null) return NotFound();
             _taskQueue.QueueBackgroundTask(async token =>
             {
                 try
                 {
-                    await _service.IncreaseReadCountAsync(chapter.Id);
+                    await _service.IncreaseReadCountAsync(chapter.Id, user?.Id);
                 }
                 catch (Exception ex)
                 {

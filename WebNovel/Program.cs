@@ -60,9 +60,15 @@ builder.Services.AddControllersWithViews().AddNewtonsoftJson(options =>
     options.SerializerSettings.ContractResolver = new DefaultContractResolver(); // PascalCase
 }); ;
 builder.Services.AddKendo();
+builder.Services.AddMemoryCache();
+builder.Services.AddAntiforgery(options =>
+{
+    options.HeaderName = "X-CSRF-TOKEN"; // Header name để kiểm tra token
+});
 
-builder.Services.AddScoped<IBackgroundTaskQueue, BackgroundTaskQueue>();
-builder.Services.AddScoped<QueuedHostedService>();
+builder.Services.AddSingleton<IBackgroundTaskQueue, BackgroundTaskQueue>();
+//builder.Services.AddScoped<QueuedHostedService>();
+builder.Services.AddHostedService<QueuedHostedService>();
 
 //builder.Services.AddScoped<IUserRepository, UserRepository>();
 //builder.Services.AddScoped<IUserService, UserService>();
@@ -88,6 +94,14 @@ builder.Services.AddScoped<ITagService, TagService>();
 
 builder.Services.AddScoped<IRatingRepository, RatingRepository>();
 builder.Services.AddScoped<IRatingService, RatingService>();
+
+builder.Services.AddScoped<IStoryVoteRepository, StoryVoteRepository>();
+builder.Services.AddScoped<IStoryVoteService, StoryVoteService>();
+
+builder.Services.AddScoped<IChapterReadByDateRepository, ChapterReadByDateRepository>();
+builder.Services.AddScoped<IUserChapterReadRepository, UserChapterReadRepository>();
+builder.Services.AddScoped<IChapterReadingService, ChapterReadingService>();
+
 
 builder.Services.AddScoped<ISlugRepository<Story>, SlugRepository<Story>>();
 builder.Services.AddScoped<ISlugService<Story>, SlugService<Story>>();
@@ -152,7 +166,7 @@ app.UseExceptionHandler(errorApp =>
         }
         else
         {
-            context.Response.Redirect("/Home/Error");
+            //context.Response.Redirect("/Home/Error");
         }
     });
 });

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WebNovel.Data;
 
@@ -11,9 +12,11 @@ using WebNovel.Data;
 namespace WebNovel.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250429031222_updateVotes")]
+    partial class updateVotes
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -339,30 +342,6 @@ namespace WebNovel.Migrations
                     b.ToTable("ChapterContents");
                 });
 
-            modelBuilder.Entity("WebNovel.Models.ChapterReadByDate", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("ChapterId")
-                        .IsRequired()
-                        .HasMaxLength(450)
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<long>("ReadCount")
-                        .HasColumnType("bigint");
-
-                    b.Property<DateTime>("ReadDate")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("ChapterReadByDates");
-                });
-
             modelBuilder.Entity("WebNovel.Models.Contributor", b =>
                 {
                     b.Property<int>("Id")
@@ -531,9 +510,6 @@ namespace WebNovel.Migrations
                     b.Property<bool>("IsPublic")
                         .HasColumnType("bit");
 
-                    b.Property<DateTime?>("LastChapterUpdatedAt")
-                        .HasColumnType("datetime2");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(200)
@@ -583,33 +559,6 @@ namespace WebNovel.Migrations
                     b.ToTable("Stories");
                 });
 
-            modelBuilder.Entity("WebNovel.Models.StoryVote", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("StoryId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasMaxLength(450)
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<long>("VoteCount")
-                        .HasColumnType("bigint");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("StoryVotes");
-                });
-
             modelBuilder.Entity("WebNovel.Models.Tag", b =>
                 {
                     b.Property<int>("Id")
@@ -640,35 +589,6 @@ namespace WebNovel.Migrations
                         .IsUnique();
 
                     b.ToTable("Tags");
-                });
-
-            modelBuilder.Entity("WebNovel.Models.UserChapterRead", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("ChapterId")
-                        .IsRequired()
-                        .HasMaxLength(450)
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<DateTime>("ReadAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("StoryId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasMaxLength(450)
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("UserChapterReads");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

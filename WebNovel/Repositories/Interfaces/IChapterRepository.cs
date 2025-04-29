@@ -1,4 +1,5 @@
-﻿using WebNovel.Models;
+﻿using Kendo.Mvc.UI;
+using WebNovel.Models;
 
 namespace WebNovel.Repositories.Interfaces
 {
@@ -16,5 +17,6 @@ namespace WebNovel.Repositories.Interfaces
         Task<long> SumWordsAsync(int storyId);
 
         Task<bool> SaveChangesAsync();
+        Task<DataSourceResult> GetDataSourceAsync(DataSourceRequest request);
     }
 }

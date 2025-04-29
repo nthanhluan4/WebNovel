@@ -30,13 +30,16 @@ namespace WebNovel.Models
         [StringLength(400)]
         public string? CoverUrl { get; set; }
 
-        public int TotalChapters { get; set; }
-        public long TotalWords { get; set; }
-        public long ViewCount { get; set; }
-        public int FollowCount { get; set; }
-        public double Rating { get; set; }
+        public long ViewCount { get; set; } = 0;
+        public int FollowCount { get; set; } = 0;
+        public double Rating { get; set; } = 0;
+
 
         public long ReadCount { get; set; } = 0;
+        public long TotalVotes { get; set; } = 0;
+        public long TotalWords { get; set; } = 0;
+        public int TotalChapters { get; set; } = 0;
+        public DateTime? LastChapterUpdatedAt { get; set; }
 
         public bool IsPublic { get; set; } = true;
         public DateTime? PostedAt { get; set; } = null;

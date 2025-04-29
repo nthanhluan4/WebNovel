@@ -1,4 +1,5 @@
-﻿@{
+﻿@using WebNovel.Models.Dtos
+@{
     ViewData["Title"] = "DS Truyện";
     var createOrUpdateURL = "/admin/story/createorupdate";
     var deleteApi = "/api/story/delete-multiple";
@@ -24,7 +25,7 @@
                 <div class="card-body">
                     <div class="table-responsive table-card">
                         @(
-                            Html.Kendo().Grid<Story>()
+                            Html.Kendo().Grid<StoryDto>()
                             .Name("grid_Story_Index")
                             .Height("600px")
                             .ToolBar(t =>
@@ -52,12 +53,20 @@
                                     command.Custom("btnDeleteRow").IconClass("ri-delete-bin-5-line").Text(" ")
                                 .HtmlAttributes(new { title = "Xóa" })
                                 .Click("onDeleteRow");
-                                }).Width(150);
+                                }).Width(80);
                                 columns.Bound(p => p.Id).Title("Id").Hidden();
-                                columns.Bound(p => p.Name).Title("Tên truyện").Width(150);
-                                columns.Bound(p => p.Slug).Title("Slug").Width(150);
-                                columns.Bound(p => p.Description).Title("Mô tả").Width(250);
-                                columns.Bound("AuthorName").Title("Tác giả").Width(150);
+                                columns.Bound(p => p.Title).Title("Tên truyện").Width(250);
+                                columns.Bound(p => p.Description).Title("Mô tả").Width(150);
+                                columns.Bound(p => p.AuthorName).Title("Tác giả").Width(150);
+                                columns.Bound(p => p.GenreNames).Title("Thể loại").Width(150);
+                                columns.Bound(p => p.TagNames).Title("Tags").Width(150);
+                                columns.Bound(p => p.Status).Title("Tình trạng").Width(150);
+                                columns.Bound(p => p.ContributorName).Title("Người đóng góp").Width(150);
+                                columns.Bound(p => p.TotalChapters).Title("SL Chương").Width(100);
+                                columns.Bound(p => p.TotalWords).Title("SL Chữ").Width(100);
+                                columns.Bound(p => p.TotalVotes).Title("Đề cử").Width(100);
+                                columns.Bound(p => p.ReadCount).Title("Lượt đọc").Width(100);
+                                columns.Bound(p => p.FollowCount).Title("Lưu trữ").Width(100);
                                 columns.Bound(p => p.CreatedAt).Title("Ngày tạo").Format(SystemVariable.formatDateTime).Width(120);
                             })
                             .Pageable(p => p.Input(true).Numeric(true).Refresh(true).Info(true))

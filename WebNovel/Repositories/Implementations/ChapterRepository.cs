@@ -1,8 +1,13 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Kendo.Mvc.Extensions;
+using Kendo.Mvc.UI;
+using Microsoft.EntityFrameworkCore;
+using System;
 using System.Linq;
 using WebNovel.Data;
 using WebNovel.Models;
+using WebNovel.Models.Dtos;
 using WebNovel.Repositories.Interfaces;
+using WebNovel.Utils;
 
 namespace WebNovel.Repositories.Implementations
 {
@@ -98,6 +103,25 @@ namespace WebNovel.Repositories.Implementations
         public async Task<List<Chapter>> GetAllAsync()
         {
             return await _context.Chapters.AsNoTracking().ToListAsync();
+        }
+        public async Task<DataSourceResult> GetDataSourceAsync(DataSourceRequest request)
+        {
+            var query = from cha in _context.Chapters
+                        join sto in _context.Stories on cha.StoryId equals sto.Id
+                        select new ChapterDto()
+                        {
+                            Id = sto.Id,
+                            Title = cha.Title,
+                            StoryName = sto.Name,
+                            WordCount = cha.WordCount,
+                            ReadCount = cha.ReadCount,
+                            Order = cha.Order,
+                            CreatedAt = cha.CreatedAt,
+                            UpdatedAt = cha.UpdatedAt,
+                            IsPublic = cha.IsPublic,
+                        }; 
+
+            return await query.ToDataSourceResultAsync(request);
         }
     }
 }

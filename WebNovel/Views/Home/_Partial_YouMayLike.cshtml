@@ -1,0 +1,26 @@
+﻿@model List<Story>
+
+@foreach(var story in Model)
+{
+    <div class="product product-widget pt-0">
+        <figure class="product-media">
+            <a href="/truyen/@story.Slug">
+                <img src="/uploads/@story.Slug/@story.CoverUrl" alt="@story.Name"
+                     width="300" height="338">
+            </a>
+        </figure>
+        <div class="product-details">
+            <h4 class="product-name">
+                <a href="/truyen/@story.Slug">@story.Name</a>
+            </h4>
+            <div class="product-price">
+                <ins class="new-price">@story.TotalChapters chương</ins>
+            </div>
+            <div class="sold-by">
+                <a href="vendor-wcfm-store-product-grid.html">@story.AuthorName</a>
+            </div>
+        </div>
+    </div>
+
+}
+

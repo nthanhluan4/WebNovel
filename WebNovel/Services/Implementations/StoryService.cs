@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using Kendo.Mvc.UI;
+using Microsoft.EntityFrameworkCore.Migrations;
 using WebNovel.Models;
 using WebNovel.Repositories.Implementations;
 using WebNovel.Repositories.Interfaces;
@@ -80,8 +81,10 @@ namespace WebNovel.Services.Implementations
             var rate = Math.Round(chapters.Count / totalWeeks, 2);
 
             var story = await _repository.GetByIdAsync(storyId);
+
             if (story != null)
             {
+                story.LastChapterUpdatedAt = DateTime.UtcNow;
                 story.ChapterRatePerWeek = rate;
                 story.UpdatedAt = DateTime.UtcNow;
                 await _repository.UpdateAsync(story);
@@ -98,6 +101,76 @@ namespace WebNovel.Services.Implementations
             story.ReadCount++;
             await _repository.UpdateAsync(story);
             await _repository.SaveChangesAsync();
+        }
+
+        public Task<List<Story>> GetRandomStoriesAsync(int count)
+        {
+            return _repository.GetRandomStoriesAsync(count);
+        }
+
+        public Task<List<Story>> GetTopVotedStoriesAsync(int count)
+        {
+            return _repository.GetTopVotedStoriesAsync(count);
+        }
+
+        public Task<List<Story>> GetTopReadStoriesAsync(int count, string period)
+        {
+            return _repository.GetTopReadStoriesAsync(count, period);
+        }
+
+        public Task<List<Story>> GetNewStoriesAsync(int count)
+        {
+            return _repository.GetNewStoriesAsync(count);
+        }
+
+        public Task<List<Story>> GetNewChapterStoriesAsync(int count)
+        {
+            return _repository.GetNewChapterStoriesAsync(count);
+        }
+
+        public Task<List<Story>> GetStoriesByStatusAsync(string status)
+        {
+            return _repository.GetStoriesByStatusAsync(status);
+        }
+
+        public async Task UpdateStoryByChapterAction(int storyId, string chapterAction = "Create")
+        {
+            var wordCount = await _repository.SumWordsAsync(storyId);
+            var chapters = await _chapterRepository.GetByStoryIdAsync(storyId);
+            var chapterCount = chapters?.Count;
+
+            var story = await _repository.GetByIdAsync(storyId);
+            if (story != null)
+            {
+                story.TotalChapters = chapterCount ?? 0;
+                story.TotalWords = wordCount;
+                switch (chapterAction)
+                {
+                    case "Create":
+                        story.LastChapterUpdatedAt = DateTime.Now;
+                        if (chapters.Count == 0) return;
+                        var firstDate = chapters.Min(c => c.CreatedAt);
+                        var now = DateTime.UtcNow;
+                        var totalWeeks = (now - firstDate).TotalDays / 7.0;
+                        if (totalWeeks < 1) totalWeeks = 1;
+
+                        var rate = Math.Round(chapters.Count / totalWeeks, 2);
+                        story.ChapterRatePerWeek = rate;
+                        story.LastChapterUpdatedAt = DateTime.Now;
+                        break;
+                    case "Update":
+                        break;
+                    case "Delete":
+                        break;
+                }
+                await _repository.UpdateAsync(story);
+                await _repository.SaveChangesAsync();
+            }
+        }
+
+        public async Task<DataSourceResult> GetDataSourceAsync(DataSourceRequest request)
+        {
+            return await _repository.GetDataSourceAsync(request);
         }
     }
 }
