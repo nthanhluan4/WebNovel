@@ -38,7 +38,7 @@ namespace WebNovel.Controllers.Api
         [Authorize(Roles = "Admin,Contributor")]
         public async Task<IActionResult> GetGrid([DataSourceRequest] DataSourceRequest request)
         {
-            //Ok(await _service.GetAllDataSourceAsync(request));
+            //return Ok(await _service.GetAllDataSourceAsync(request));
             return Ok(await _service.GetDataSourceAsync(request));
         }
 

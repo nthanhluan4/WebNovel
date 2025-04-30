@@ -37,7 +37,7 @@ builder.Services.AddRateLimiter(options =>
             partitionKey: ip,
             factory: _ => new FixedWindowRateLimiterOptions
             {
-                PermitLimit = 50,                    // Cho phép tối đa 30 request
+                PermitLimit = 200,                    // Cho phép tối đa 30 request
                 Window = TimeSpan.FromSeconds(10),  // Trong mỗi 10 giây
                 QueueProcessingOrder = QueueProcessingOrder.OldestFirst,
                 QueueLimit = 0                      // Không xếp hàng

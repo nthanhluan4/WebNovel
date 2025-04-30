@@ -110,7 +110,7 @@ namespace WebNovel.Repositories.Implementations
                         join sto in _context.Stories on cha.StoryId equals sto.Id
                         select new ChapterDto()
                         {
-                            Id = sto.Id,
+                            Id = cha.Id,
                             Title = cha.Title,
                             StoryName = sto.Name,
                             WordCount = cha.WordCount,
