@@ -49,7 +49,7 @@
              ".doc", ".docx", ".pdf"
         };
         public static readonly string[] validationUpdateImage = new string[] {
-             ".jpg", ".jepg", ".png"
+             ".jpg", ".jepg", ".png", ".webp"
         };
         public static readonly string[] validationUpdateDefault = new string[] {
             ".jpg", ".jepg", ".png",

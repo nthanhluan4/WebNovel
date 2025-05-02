@@ -25,6 +25,7 @@ namespace WebNovel.Areas.Admin.Controllers
             return View();
         }
 
+       
         public async Task<IActionResult> CreateOrUpdate(int id = 0)
         {
             ViewData["Action"] = "Create";
@@ -37,6 +38,13 @@ namespace WebNovel.Areas.Admin.Controllers
             ViewData["Action"] = "Update";
             return PartialView("CreateOrUpdate", model);
         }
+
+        public async Task<IActionResult> DetailAsync(int id)
+        {
+            var model = await _service.GetByIdAsync(id);
+            return View("Detail", model);
+        }
+
     }
 
 }

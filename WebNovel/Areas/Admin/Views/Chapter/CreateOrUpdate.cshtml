@@ -2,6 +2,7 @@
 
 @{
     var action = (string)ViewData["Action"];
+    var storyId = (int)ViewData["StoryId"];
     var _type = "POST";
     var _url = "/api/Chapter";
     var _grid = "grid_Chapter_Index";
@@ -42,11 +43,12 @@
                     .OptionLabel("-- Chọn Truyện --")
                     .DataTextField("Name")
                     .DataValueField("Id")
+                    .Enable(storyId == 0 ? true : false)
                     .DataSource(source =>
                     {
                         source.Read(read => read.Url("/api/story/dropdown").Type(HttpVerbs.Get));
                     })
-                    .Value(Model.StoryId.ToString())
+                    .Value(storyId.ToString())
                     .HtmlAttributes(new { @class = "required-field", fm_data_field = "StoryId" }))
             </div>
         </div>

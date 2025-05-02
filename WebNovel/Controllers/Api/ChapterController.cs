@@ -42,6 +42,13 @@ namespace WebNovel.Controllers.Api
             return Ok(await _service.GetDataSourceAsync(request));
         }
 
+        [HttpPost("gridbystory/{storyId:int}")]
+        [Authorize(Roles = "Admin,Contributor")]
+        public async Task<IActionResult> GetGridByStory(int storyId, [DataSourceRequest] DataSourceRequest request)
+        {
+            return Ok(await _service.GetDataSourceByStoryAsync(storyId, request));
+        }
+
         [HttpGet("dropdown")]
         [AllowAnonymous]
         public async Task<IActionResult> GetDropdown() => Ok(await _service.GetDropdownDataAsync());

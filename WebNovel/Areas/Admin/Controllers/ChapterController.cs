@@ -35,9 +35,11 @@ namespace WebNovel.Areas.Admin.Controllers
         {
             return View();
         }
-        public async Task<IActionResult> CreateOrUpdate(string? id)
+        public async Task<IActionResult> CreateOrUpdate(string id, [FromQuery] int? storyId)
         {
             ViewData["Action"] = "Create";
+            ViewData["StoryId"] = storyId ?? 0;
+
             if (string.IsNullOrEmpty(id) || id == "0")
                 return PartialView("CreateOrUpdate", new Chapter());
 

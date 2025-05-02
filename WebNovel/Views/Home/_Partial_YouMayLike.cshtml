@@ -1,11 +1,51 @@
 ﻿@model List<Story>
+<style>
+    .product-price {
+        align-items: baseline;
+        font-size: 1.6rem;
+        font-weight: 400;
+        letter-spacing: -0.05em;
+        line-height: 1.6;
+        transition: visibility 0.4s, opacity 0.4s;
+    }
 
+    .intro-wrapper .product-price {
+        margin-bottom: 0.8rem;
+        font-size: 1.3rem;
+    }
+
+    .product-price .new-price {
+        color: #33333394;
+        text-decoration: none;
+    }
+
+    .btn.genre {
+        display: inline-block;
+        font-weight: 100;
+        font-size: 1rem;
+        padding: 0.5em 1em 0.4em 1em;
+        color: #000;
+    }
+
+    .btn-outline.genre{
+        border: 1px solid #799b5a;
+    }
+
+    .btn-outline.genre {
+        pointer-events: none;
+    }
+
+    .product-media img {
+        width: auto;
+        height: 100px;
+    }
+</style>
 @foreach(var story in Model)
 {
     <div class="product product-widget pt-0">
         <figure class="product-media">
             <a href="/truyen/@story.Slug">
-                <img src="/uploads/@story.Slug/@story.CoverUrl" alt="@story.Name"
+                <img src="/uploads/story_cover/@story.CoverUrl" alt="@story.Name"
                      width="300" height="338">
             </a>
         </figure>
@@ -16,8 +56,8 @@
             <div class="product-price">
                 <ins class="new-price">@story.TotalChapters chương</ins>
             </div>
-            <div class="sold-by">
-                <a href="vendor-wcfm-store-product-grid.html">@story.AuthorName</a>
+            <div class="btn-wrap ">
+                <span class="btn genre btn-success btn-outline btn-ellipse">Tiên hiệp</span>
             </div>
         </div>
     </div>

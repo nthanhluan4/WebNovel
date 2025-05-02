@@ -18,5 +18,7 @@ namespace WebNovel.Repositories.Interfaces
 
         Task<bool> SaveChangesAsync();
         Task<DataSourceResult> GetDataSourceAsync(DataSourceRequest request);
+        Task<DataSourceResult> GetDataSourceByStoryAsync(int storyId, DataSourceRequest request);
     }
+    
 }

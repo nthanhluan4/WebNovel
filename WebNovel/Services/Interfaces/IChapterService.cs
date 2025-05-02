@@ -19,5 +19,6 @@ namespace WebNovel.Services.Interfaces
         //Tăng lượt đọc cho chương
         Task IncreaseReadCountAsync(string chapterId, string? userId);
         Task<DataSourceResult> GetDataSourceAsync(DataSourceRequest request);
+        Task<DataSourceResult> GetDataSourceByStoryAsync(int storyId, DataSourceRequest request);
     }
 }

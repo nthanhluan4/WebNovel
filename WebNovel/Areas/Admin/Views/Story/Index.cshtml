@@ -55,7 +55,7 @@
                                 .Click("onDeleteRow");
                                 }).Width(80);
                                 columns.Bound(p => p.Id).Title("Id").Hidden();
-                                columns.Bound(p => p.Title).Title("Tên truyện").Width(250);
+                                columns.Bound(p => p.Title).Title("Tên truyện").ClientTemplate("<div><a href='/admin/story/detail?id=#=Id#'>#=Title#</a></div>").Width(250);
                                 columns.Bound(p => p.Description).Title("Mô tả").Width(150);
                                 columns.Bound(p => p.AuthorName).Title("Tác giả").Width(150);
                                 columns.Bound(p => p.GenreNames).Title("Thể loại").Width(150);
@@ -106,7 +106,7 @@
         $("#grid_Story_Index").on("dblclick", "tr[data-uid]", function () {
             var grid = $("#grid_Story_Index").data("kendoGrid");
             var id = grid.dataSource.getByUid(this.getAttribute("data-uid")).Id;
-            openNewWindow(id, '@createOrUpdateURL', "Cập nhật Truyện", "800px");
+            window.open("/admin/story/detail?id=" + id);
         });
     </script>
 </div>

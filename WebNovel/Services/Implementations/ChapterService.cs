@@ -136,7 +136,10 @@ namespace WebNovel.Services.Implementations
         {
             return await _repository.GetDataSourceAsync(request);
         }
-
+        public async Task<DataSourceResult> GetDataSourceByStoryAsync(int storyId, DataSourceRequest request)
+        {
+            return await _repository.GetDataSourceByStoryAsync(storyId, request);
+        }
     }
 
 }

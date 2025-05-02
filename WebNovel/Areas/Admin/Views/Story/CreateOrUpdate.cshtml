@@ -87,14 +87,35 @@
         <!-- CoverUrl -->
         <div class="control-group-info">
             <div class="col-sm-4 div-label-info">
-                <label for="CoverUrl">Ảnh bìa (URL)</label>
+                <label for="CoverUrl">Ảnh bìa (URL) (Tối đa 2Mb)</label>
             </div>
             <div class="col-sm-8 div-value-info">
-                @(Html.Kendo().TextBox()
+                @(Html.Kendo().Upload()
                     .Name("CoverUrl")
-                    .Placeholder("Nhập link ảnh bìa")
+                    .TemplateId("fileTemplate")
+                    .Multiple(false)
+                    .Events(e => e.Success("onUploadSuccess").Select("onUploadSelect"))
                     .HtmlAttributes(new { fm_data_field = "CoverUrl" })
-                    .Value(Model.CoverUrl))
+                    .Async(a => a
+                    .Save("Story_Upload_Save", "Upload")
+                    .Remove("Story_Upload_Remove", "Upload")
+                    .AutoUpload(true)
+                    .ChunkSize(40000000000) //40Gb
+                    )
+                    .Validation(validation => validation.MaxFileSize(2097152) //2Mb
+                                .AllowedExtensions(SystemVariable.validationUpdateImage))
+                    .Files(files =>
+                    {
+                        if (!string.IsNullOrEmpty(Model.CoverUrl))
+                        {
+                            var lstFile = Model.CoverUrl.Split(",");
+                            foreach (var file in lstFile)
+                            {
+                                files.Add().Name(file);
+                            }
+                        }
+                    })
+                    )
             </div>
         </div>
 

@@ -68,82 +68,84 @@
                     <div class="table-responsive table-card">
                         @(
                             Html.Kendo().Grid<ChapterDto>()
-                                .Name("grid_Chapter_Index")
-                                .Height("600px")
-                                .ToolBar(t =>
+                            .Name("grid_Chapter_Index")
+                            .Height("600px")
+                            .ToolBar(t =>
+                            {
+                                t.Custom().ClientTemplate(Html.Kendo().Template().AddHtml(SystemVariable.htmlSearchToolbar));
+                                t.Spacer();
+                                t.Custom().ClientTemplate(Html.Kendo().Template().AddComponent(c => c
+                                .Button()
+                                .Name("btnDelete")
+                                .Content("Xóa")
+                                .IconClass("ri-delete-bin-5-line align-bottom me-1")
+                                .HtmlAttributes(new { style = "display: none", @class = "btn-delete" })
+                                ));
+                                t.Custom().ClientTemplate(Html.Kendo().Template().AddComponent(c => c
+                                .Button()
+                                .Name("btnFilter")
+                                .Content("Lọc")
+                                .IconClass("ri-filter-3-line align-bottom me-1")
+                                .HtmlAttributes(new { data_bs_toggle = "offcanvas", href = "#searchOffCanvas" })
+                                ));
+                                t.Custom().ClientTemplate(Html.Kendo().Template().AddComponent(c => c
+                                .Button()
+                                .Name("btnCreate")
+                                .Content("Thêm mới")
+                                .Icon("plus")
+                                ));
+                                t.Excel().Text("Xuất Excel");
+                            })
+                            .Columns(columns =>
+                            {
+                                columns.Select().Width(28);
+                                columns.Template("<div style='text-align:center;'>#= getRecordNumber() #</div>")
+                                .Width(50)
+                                .ClientHeaderTemplate("<div style='text-align:center;'>#</div>");
+                                columns.Command(command =>
                                 {
-                                    t.Custom().ClientTemplate(Html.Kendo().Template().AddHtml(SystemVariable.htmlSearchToolbar));
-                                    t.Spacer();
-                                    t.Custom().ClientTemplate(Html.Kendo().Template().AddComponent(c => c
-                                    .Button()
-                                    .Name("btnDelete")
-                                    .Content("Xóa")
-                                    .IconClass("ri-delete-bin-5-line align-bottom me-1")
-                                    .HtmlAttributes(new { style = "display: none", @class = "btn-delete" })
-                                    ));
-                                    t.Custom().ClientTemplate(Html.Kendo().Template().AddComponent(c => c
-                                    .Button()
-                                    .Name("btnFilter")
-                                    .Content("Lọc")
-                                    .IconClass("ri-filter-3-line align-bottom me-1")
-                                    .HtmlAttributes(new { data_bs_toggle = "offcanvas", href = "#searchOffCanvas" })
-                                    ));
-                                    t.Custom().ClientTemplate(Html.Kendo().Template().AddComponent(c => c
-                                    .Button()
-                                    .Name("btnCreate")
-                                    .Content("Thêm mới")
-                                    .Icon("plus")
-                                    ));
-                                    t.Excel().Text("Xuất Excel");
-                                })
-                                .Columns(columns =>
-                                {
-                                    columns.Select().Width(28);
-                                    columns.Template("<div style='text-align:center;'>#= getRecordNumber() #</div>")
-                                    .Width(50)
-                                    .ClientHeaderTemplate("<div style='text-align:center;'>#</div>");
-                                    columns.Command(command =>
-                                    {
-                                        command.Custom("btnEditRow").IconClass("ri-pencil-line").Text(" ")
-                                    .HtmlAttributes(new { title = "Cập nhật", @class = "k-button-solid-primary" })
-                                    .Click("onEditRow");
-                                        command.Custom("btnDeleteRow").IconClass("ri-delete-bin-5-line").Text(" ")
-                                    .HtmlAttributes(new { title = "Xóa" })
-                                    .Click("onDeleteRow");
-                                    }).Width(150);
-                                    columns.Bound(p => p.Id).Title("Id").Hidden().Width(100).Filterable(ftb => ftb.Multi(true).CheckAll(true).Search(true));
-                                    columns.Bound(p => p.Title).Title("Tiêu đề chương").Width(200).Filterable(ftb => ftb.Multi(true).CheckAll(true).Search(true));
-                                    columns.Bound(p => p.Order).Title("Thứ tự").Width(80).Filterable(ftb => ftb.Multi(true).CheckAll(true).Search(true));
-                                    columns.Bound(p => p.WordCount).Title("SL Từ").Width(100).Filterable(ftb => ftb.Multi(true).CheckAll(true).Search(true));
-                                    columns.Bound(p => p.ReadCount).Title("Lượt đọc").Width(100).Filterable(ftb => ftb.Multi(true).CheckAll(true).Search(true));
-                                    columns.Bound(p => p.IsPublic).Title("Công khai").Width(80)
-                                    .ClientTemplate("#= IsPublic ? 'Hiện' : 'Ẩn' #")
-                                    .Filterable(ftb => ftb.Multi(true).CheckAll(true).Search(true));
-                                    columns.Bound(p => p.CreatedAt).Title("Ngày tạo").Width(150)
-                                    .Format(SystemVariable.formatDateTime)
-                                    .Filterable(ftb => ftb.Multi(true).CheckAll(true).Search(true));
-                                })
-                                .Pageable(pager => pager.Input(true).Numeric(true).Refresh(true).Info(true))
-                                .Scrollable()
-                                .Excel(e => e.AllPages(true))
-                                .Sortable()
-                                .Filterable()
-                                .Reorderable(reOrder => reOrder.Columns(true))
-                                .Events(e => e.DataBinding("onDataBindingRecorNumber").Change("onShowButtonToolbar"))
-                                .Selectable(selectable => selectable.Mode(GridSelectionMode.Multiple).Type(GridSelectionType.Row))
-                                .Resizable(rs => rs.Columns(true))
-                                .ColumnMenu(menu =>
-                                {
-                                    menu.ComponentType("classic");
-                                    menu.Filterable(true);
-                                })
-                                .DataSource(dataSource => dataSource
-                                .Ajax()
-                                .PageSize(50)
-                                .Read(r => r.Url("/api/chapter/grid"))
-                                .Group(g => g.Add(m => m.StoryName))
-                                .Sort(s => { s.Add(m => m.Order).Descending(); })
-                                )
+                                    command.Custom("btnEditRow").IconClass("ri-pencil-line").Text(" ")
+                                .HtmlAttributes(new { title = "Cập nhật", @class = "k-button-solid-primary" })
+                                .Click("onEditRow");
+                                    command.Custom("btnDeleteRow").IconClass("ri-delete-bin-5-line").Text(" ")
+                                .HtmlAttributes(new { title = "Xóa" })
+                                .Click("onDeleteRow");
+                                }).Width(150);
+                                columns.Bound(p => p.Id).Title("Id").Hidden().Width(100).Filterable(ftb => ftb.Multi(true).CheckAll(true).Search(true));
+                                columns.Bound(p => p.Title).Title("Tiêu đề chương").Width(200).Filterable(ftb => ftb.Multi(true).CheckAll(true).Search(true));
+                                columns.Bound(p => p.Order).Title("Thứ tự").Width(80).Filterable(ftb => ftb.Multi(true).CheckAll(true).Search(true));
+                                columns.Bound(p => p.StoryName).Title("Truyện").Width(100).Filterable(ftb => ftb.Multi(true).CheckAll(true).Search(true));
+                                columns.Bound(p => p.WordCount).Title("SL Từ").Width(100).Filterable(ftb => ftb.Multi(true).CheckAll(true).Search(true));
+                                columns.Bound(p => p.ReadCount).Title("Lượt đọc").Width(100).Filterable(ftb => ftb.Multi(true).CheckAll(true).Search(true));
+                                columns.Bound(p => p.IsPublic).Title("Công khai").Width(80)
+                                .ClientTemplate("#= IsPublic ? 'Hiện' : 'Ẩn' #")
+                                .Filterable(ftb => ftb.Multi(true).CheckAll(true).Search(true));
+                                columns.Bound(p => p.CreatedAt).Title("Ngày tạo").Width(150)
+                                .Format(SystemVariable.formatDateTime)
+                                .Filterable(ftb => ftb.Multi(true).CheckAll(true).Search(true));
+                            })
+                            .Pageable(pager => pager.Input(true).Numeric(true).Refresh(true).Info(true))
+                            .Scrollable()
+                            .Excel(e => e.AllPages(true))
+                            .Sortable()
+                            .Filterable()
+                            .Groupable(true)
+                            .Reorderable(reOrder => reOrder.Columns(true))
+                            .Events(e => e.DataBinding("onDataBindingRecorNumber").Change("onShowButtonToolbar"))
+                            .Selectable(selectable => selectable.Mode(GridSelectionMode.Multiple).Type(GridSelectionType.Row))
+                            .Resizable(rs => rs.Columns(true))
+                            .ColumnMenu(menu =>
+                            {
+                                menu.ComponentType("classic");
+                                menu.Filterable(true);
+                            })
+                            .DataSource(dataSource => dataSource
+                            .Ajax()
+                            .PageSize(50)
+                            .Read(r => r.Url("/api/chapter/grid"))
+                            .Group(g => g.Add(m => m.StoryName))
+                            .Sort(s => { s.Add(m => m.Order).Descending(); })
+                            )
                             )
                     </div>
                 </div>
