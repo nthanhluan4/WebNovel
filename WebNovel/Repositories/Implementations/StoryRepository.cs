@@ -1,4 +1,5 @@
-﻿using Kendo.Mvc.Extensions;
+﻿using Azure.Core;
+using Kendo.Mvc.Extensions;
 using Kendo.Mvc.UI;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Migrations;
@@ -13,10 +14,12 @@ namespace WebNovel.Repositories.Implementations
     public class StoryRepository : IStoryRepository
     {
         private readonly ApplicationDbContext _context;
+        private readonly ILookupRepository _lookupRepo;
 
-        public StoryRepository(ApplicationDbContext context)
+        public StoryRepository(ApplicationDbContext context, ILookupRepository lookupRepo)
         {
             _context = context;
+            _lookupRepo = lookupRepo;
         }
 
         public async Task<List<Story>> GetAllAsync() =>
@@ -95,24 +98,92 @@ namespace WebNovel.Repositories.Implementations
             throw new NotImplementedException();
         }
 
-        public async Task<List<Story>> GetRandomStoriesAsync(int count)
+        public async Task<List<StoryDto>> GetRandomStoriesAsync(int count)
         {
-            return await _context.Stories
-                .OrderBy(x => Guid.NewGuid())
+            // 1) Lấy trước list Id ngẫu nhiên
+            var randomIds = await _context.Stories
+                .AsNoTracking()
+                .OrderBy(s => Guid.NewGuid())   // SQL Server sẽ translate thành NEWID()
+                .Select(s => s.Id)
+                .Take(count)
+                .ToListAsync();
+
+            // 2) Load đầy đủ dữ liệu cho những Id đó
+            var allGenres = await _lookupRepo.GetAllGenresAsync();
+            var allTags = await _lookupRepo.GetAllTagsAsync();
+
+            var query = from sto in _context.Stories
+                        join aut in _context.Authors on sto.AuthorId equals aut.Id
+                        join con in _context.Contributors on sto.ContributorId equals con.Id
+                        where randomIds.Contains(sto.Id)
+                        select new StoryDto
+                        {
+                            Id = sto.Id,
+                            Title = sto.Name,
+                            AuthorName = aut.Name,
+                            Slug = sto.Slug,
+                            CoverUrl = sto.CoverUrl,
+                            ContributorName = con.Name,
+                            GenreNames = GetDataHelper.ConvertIdsToNames(sto.GenreIds, allGenres),
+                            TagNames = GetDataHelper.ConvertIdsToNames(sto.Tags, allTags),
+                            Description = sto.Description,
+                            TotalChapters = sto.TotalChapters,
+                            TotalWords = sto.TotalWords,
+                            TotalVotes = sto.TotalVotes,
+                            ReadCount = sto.ReadCount,
+                            ViewCount = sto.ViewCount,
+                            FollowCount = sto.FollowCount,
+                            Status = GetDataHelper.ConvertStoryStatusToNames(sto.Status),
+                            Rating = sto.Rating,
+                            CreatedAt = sto.CreatedAt
+                        };
+
+            var stories = await query
+                .AsNoTracking()
+                .ToListAsync();
+
+            return stories;
+        }
+
+        public async Task<List<StoryDto>> GetTopVotedStoriesAsync(int count)
+        {
+            var allGenres = await _lookupRepo.GetAllGenresAsync();
+            var allTags = await _lookupRepo.GetAllTagsAsync();
+
+            var query = from sto in _context.Stories.AsNoTracking()
+                        join aut in _context.Authors on sto.AuthorId equals aut.Id
+                        join con in _context.Contributors on sto.ContributorId equals con.Id
+                        orderby sto.TotalVotes descending
+                        select new StoryDto
+                        {
+                            Id = sto.Id,
+                            Title = sto.Name,
+                            AuthorName = aut.Name,
+                            Slug = sto.Slug,
+                            CoverUrl = sto.CoverUrl,
+                            ContributorName = con.Name,
+                            GenreNames = GetDataHelper.ConvertIdsToNames(sto.GenreIds, allGenres),
+                            TagNames = GetDataHelper.ConvertIdsToNames(sto.Tags, allTags),
+                            Description = sto.Description,
+                            TotalChapters = sto.TotalChapters,
+                            TotalWords = sto.TotalWords,
+                            TotalVotes = sto.TotalVotes,
+                            ReadCount = sto.ReadCount,
+                            ViewCount = sto.ViewCount,
+                            FollowCount = sto.FollowCount,
+                            Status = GetDataHelper.ConvertStoryStatusToNames(sto.Status),
+                            Rating = sto.Rating,
+                            CreatedAt = sto.CreatedAt,
+                        };
+
+            return await query
                 .Take(count)
                 .ToListAsync();
         }
 
-        public async Task<List<Story>> GetTopVotedStoriesAsync(int count)
+        public async Task<List<StoryDto>> GetTopReadStoriesAsync(int count, string period)
         {
-            return await _context.Stories
-                .OrderByDescending(x => x.TotalVotes)
-                .Take(count)
-                .ToListAsync();
-        }
-
-        public async Task<List<Story>> GetTopReadStoriesAsync(int count, string period)
-        {
+            // Bước 1: xác định fromDate
             DateTime fromDate = period.ToLower() switch
             {
                 "week" => DateTime.UtcNow.AddDays(-7),
@@ -121,81 +192,184 @@ namespace WebNovel.Repositories.Implementations
                 _ => DateTime.UtcNow.AddMonths(-1)
             };
 
-            // Step 1: Lấy tổng lượt đọc mỗi chương từ ngày fromDate
-            var chapterReadQuery = await _context.ChapterReadByDates
+            // Bước 2: group reads theo chapter, rồi map lên story và lấy top IDs
+            var chapterReads = await _context.ChapterReadByDates
                 .Where(x => x.ReadDate >= fromDate)
                 .GroupBy(x => x.ChapterId)
-                .Select(g => new
-                {
-                    ChapterId = g.Key,
-                    TotalReads = g.Sum(x => x.ReadCount)
-                })
+                .Select(g => new { ChapterId = g.Key, TotalReads = g.Sum(x => x.ReadCount) })
                 .ToListAsync();
 
-            // Step 2: Join ChapterId -> Chapter -> StoryId
             var topStoryIds = await _context.Chapters
-                .Where(c => chapterReadQuery.Select(x => x.ChapterId).Contains(c.Id))
-                .GroupJoin(chapterReadQuery,
-                    chapter => chapter.Id,
-                    read => read.ChapterId,
-                    (chapter, readGroup) => new
-                    {
-                        chapter.StoryId,
-                        TotalReads = readGroup.Sum(rg => rg.TotalReads)
-                    })
+                .Where(c => chapterReads.Select(r => r.ChapterId).Contains(c.Id))
+                .GroupJoin(chapterReads,
+                    c => c.Id,
+                    r => r.ChapterId,
+                    (c, rg) => new { c.StoryId, Reads = rg.Sum(x => x.TotalReads) })
                 .GroupBy(x => x.StoryId)
-                .Select(g => new
-                {
-                    StoryId = g.Key,
-                    TotalReads = g.Sum(x => x.TotalReads)
-                })
+                .Select(g => new { StoryId = g.Key, TotalReads = g.Sum(x => x.Reads) })
                 .OrderByDescending(x => x.TotalReads)
                 .Take(count)
                 .Select(x => x.StoryId)
                 .ToListAsync();
 
-            // Step 3: Lấy danh sách Story tương ứng
-            var stories = await _context.Stories
-                .Where(s => topStoryIds.Contains(s.Id))
-                .ToListAsync();
+            // Bước 3: project ra StoryDto
+            var allGenres = await _lookupRepo.GetAllGenresAsync();
+            var allTags = await _lookupRepo.GetAllTagsAsync();
 
-            // Optional: Sort lại đúng thứ tự topStoryIds
-            stories = stories.OrderBy(s => topStoryIds.IndexOf(s.Id)).ToList();
+            var dtoQuery = from sto in _context.Stories.AsNoTracking()
+                           join aut in _context.Authors on sto.AuthorId equals aut.Id
+                           join con in _context.Contributors on sto.ContributorId equals con.Id
+                           where topStoryIds.Contains(sto.Id)
+                           select new StoryDto
+                           {
+                               Id = sto.Id,
+                               Title = sto.Name,
+                               AuthorName = aut.Name,
+                               Slug = sto.Slug,
+                               CoverUrl = sto.CoverUrl,
+                               ContributorName = con.Name,
+                               GenreNames = GetDataHelper.ConvertIdsToNames(sto.GenreIds, allGenres),
+                               TagNames = GetDataHelper.ConvertIdsToNames(sto.Tags, allTags),
+                               Description = sto.Description,
+                               TotalChapters = sto.TotalChapters,
+                               TotalWords = sto.TotalWords,
+                               TotalVotes = sto.TotalVotes,
+                               ReadCount = sto.ReadCount,
+                               ViewCount = sto.ViewCount,
+                               FollowCount = sto.FollowCount,
+                               Status = GetDataHelper.ConvertStoryStatusToNames(sto.Status),
+                               Rating = sto.Rating,
+                               CreatedAt = sto.CreatedAt,
+                           };
 
-            return stories;
+            var list = await dtoQuery.ToListAsync();
+
+            // Giữ đúng thứ tự topStoryIds
+            var orderMap = topStoryIds
+                .Select((id, idx) => (id, idx))
+                .ToDictionary(x => x.id, x => x.idx);
+            list.Sort((a, b) => orderMap[a.Id].CompareTo(orderMap[b.Id]));
+
+            return list;
+        }
+
+        public async Task<List<StoryDto>> GetNewStoriesAsync(int count)
+        {
+            var allGenres = await _lookupRepo.GetAllGenresAsync();
+            var allTags = await _lookupRepo.GetAllTagsAsync();
+
+            return await (
+                from sto in _context.Stories.AsNoTracking()
+                join aut in _context.Authors on sto.AuthorId equals aut.Id
+                join con in _context.Contributors on sto.ContributorId equals con.Id
+                orderby sto.CreatedAt descending
+                select new StoryDto
+                {
+                    Id = sto.Id,
+                    Title = sto.Name,
+                    AuthorName = aut.Name,
+                    Slug = sto.Slug,
+                    CoverUrl = sto.CoverUrl,
+                    ContributorName = con.Name,
+                    GenreNames = GetDataHelper.ConvertIdsToNames(sto.GenreIds, allGenres),
+                    TagNames = GetDataHelper.ConvertIdsToNames(sto.Tags, allTags),
+                    Description = sto.Description,
+                    TotalChapters = sto.TotalChapters,
+                    TotalWords = sto.TotalWords,
+                    TotalVotes = sto.TotalVotes,
+                    ReadCount = sto.ReadCount,
+                    ViewCount = sto.ViewCount,
+                    FollowCount = sto.FollowCount,
+                    Status = GetDataHelper.ConvertStoryStatusToNames(sto.Status),
+                    Rating = sto.Rating,
+                    CreatedAt = sto.CreatedAt,
+                }
+            )
+            .Take(count)
+            .ToListAsync();
         }
 
 
-        public async Task<List<Story>> GetNewStoriesAsync(int count)
+
+        public async Task<List<StoryDto>> GetNewChapterStoriesAsync(int count)
         {
-            return await _context.Stories
-                .OrderByDescending(x => x.CreatedAt)
-                .Take(count)
-                .ToListAsync();
+            var allGenres = await _lookupRepo.GetAllGenresAsync();
+            var allTags = await _lookupRepo.GetAllTagsAsync();
+
+            return await (
+                from sto in _context.Stories.AsNoTracking()
+                join aut in _context.Authors on sto.AuthorId equals aut.Id
+                join con in _context.Contributors on sto.ContributorId equals con.Id
+                orderby sto.LastChapterUpdatedAt descending
+                select new StoryDto
+                {
+                    Id = sto.Id,
+                    Title = sto.Name,
+                    AuthorName = aut.Name,
+                    Slug = sto.Slug,
+                    CoverUrl = sto.CoverUrl,
+                    ContributorName = con.Name,
+                    GenreNames = GetDataHelper.ConvertIdsToNames(sto.GenreIds, allGenres),
+                    TagNames = GetDataHelper.ConvertIdsToNames(sto.Tags, allTags),
+                    Description = sto.Description,
+                    TotalChapters = sto.TotalChapters,
+                    TotalWords = sto.TotalWords,
+                    TotalVotes = sto.TotalVotes,
+                    ReadCount = sto.ReadCount,
+                    ViewCount = sto.ViewCount,
+                    FollowCount = sto.FollowCount,
+                    Status = GetDataHelper.ConvertStoryStatusToNames(sto.Status),
+                    Rating = sto.Rating,
+                    CreatedAt = sto.CreatedAt,
+                }
+            )
+            .Take(count)
+            .ToListAsync();
         }
 
-        public async Task<List<Story>> GetNewChapterStoriesAsync(int count)
+        public async Task<List<StoryDto>> GetStoriesByStatusAsync(string status)
         {
-            return await _context.Stories
-                .OrderByDescending(x => x.LastChapterUpdatedAt) // Giả định có trường LastChapterUpdatedAt
-                .Take(count)
-                .ToListAsync();
-        }
+            var allGenres = await _lookupRepo.GetAllGenresAsync();
+            var allTags = await _lookupRepo.GetAllTagsAsync();
 
-        public async Task<List<Story>> GetStoriesByStatusAsync(string status)
-        {
-            return await _context.Stories
-                .Where(x => x.Status == status)
-                .OrderByDescending(x => x.CreatedAt)
-                .ToListAsync();
+            return await (
+                from sto in _context.Stories.AsNoTracking()
+                join aut in _context.Authors on sto.AuthorId equals aut.Id
+                join con in _context.Contributors on sto.ContributorId equals con.Id
+                where sto.Status == status
+                orderby sto.CreatedAt descending
+                select new StoryDto
+                {
+                    Id = sto.Id,
+                    Title = sto.Name,
+                    AuthorName = aut.Name,
+                    Slug = sto.Slug,
+                    CoverUrl = sto.CoverUrl,
+                    ContributorName = con.Name,
+                    GenreNames = GetDataHelper.ConvertIdsToNames(sto.GenreIds, allGenres),
+                    TagNames = GetDataHelper.ConvertIdsToNames(sto.Tags, allTags),
+                    Description = sto.Description,
+                    TotalChapters = sto.TotalChapters,
+                    TotalWords = sto.TotalWords,
+                    TotalVotes = sto.TotalVotes,
+                    ReadCount = sto.ReadCount,
+                    ViewCount = sto.ViewCount,
+                    FollowCount = sto.FollowCount,
+                    Status = GetDataHelper.ConvertStoryStatusToNames(sto.Status),
+                    Rating = sto.Rating,
+                    CreatedAt = sto.CreatedAt,
+                }
+            )
+            .ToListAsync();
         }
 
         public async Task<DataSourceResult> GetDataSourceAsync(DataSourceRequest request)
         {
             // Lấy toàn bộ genre và tag trước để tránh query lặp
-            var allGenres = await _context.Genres.ToDictionaryAsync(g => g.Id, g => g.Name);
-            var allTags = await _context.Tags.ToDictionaryAsync(t => t.Id, t => t.Name);
-
+            //var allGenres = await _context.Genres.ToDictionaryAsync(g => g.Id, g => g.Name);
+            //var allTags = await _context.Tags.ToDictionaryAsync(t => t.Id, t => t.Name);
+            var allGenres = await _lookupRepo.GetAllGenresAsync();
+            var allTags = await _lookupRepo.GetAllTagsAsync();
 
             var query = from sto in _context.Stories
                         join aut in _context.Authors on sto.AuthorId equals aut.Id
@@ -205,6 +379,8 @@ namespace WebNovel.Repositories.Implementations
                             Id = sto.Id,
                             Title = sto.Name,
                             AuthorName = aut.Name,
+                            Slug = sto.Slug,
+                            CoverUrl = sto.CoverUrl,
                             ContributorName = con.Name,
                             GenreNames = GetDataHelper.ConvertIdsToNames(sto.GenreIds, allGenres),
                             TagNames = GetDataHelper.ConvertIdsToNames(sto.Tags, allTags),

@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using WebNovel.Models;
+using WebNovel.Repositories.Implementations;
 using WebNovel.Services.Interfaces;
 
 [Route("api/[controller]")]
@@ -10,8 +11,13 @@ using WebNovel.Services.Interfaces;
 public class TagController : ControllerBase
 {
     private readonly ISlugService<Tag> _service;
+    private readonly CachedLookupRepository _cachedLookup;
 
-    public TagController(ISlugService<Tag> service) => _service = service;
+    public TagController(ISlugService<Tag> service, CachedLookupRepository cachedLookup)
+    {
+        _service = service;
+        _cachedLookup = cachedLookup;
+    }
 
     [HttpGet("all")]
     [AllowAnonymous]
@@ -37,13 +43,21 @@ public class TagController : ControllerBase
 
     [HttpPost]
     [Authorize(Roles = "Admin,Contributor")]
-    public async Task<IActionResult> Create([FromBody] Tag model) => Ok(await _service.CreateAsync(model));
+    public async Task<IActionResult> Create([FromBody] Tag model)
+    {
+        var result = await _service.CreateAsync(model);
+        _cachedLookup.RemoveTagCache();
+        return Ok(result);
+    }
 
     [HttpPut("{id}")]
     [Authorize(Roles = "Admin,Contributor")]
-    public async Task<IActionResult> Update(int id, [FromBody] Tag model) =>
-        await _service.UpdateAsync(id, model) is var r && r.Success ? Ok(r) : NotFound(r);
-
+    public async Task<IActionResult> Update(int id, [FromBody] Tag model)
+    {
+        var result = await _service.UpdateAsync(id, model);
+        _cachedLookup.RemoveTagCache();
+        return Ok(result);
+    }
     [HttpDelete("{id}")]
     [Authorize(Roles = "Admin")]
     public async Task<IActionResult> Delete(int id) =>
@@ -67,6 +81,7 @@ public class TagController : ControllerBase
                 return NotFound(new { Success = false, Message = $"Không tìm thấy ID: {id}" });
             }
         }
+        _cachedLookup.RemoveTagCache();
 
         return Ok(new { Success = true, Message = $"Đã xóa {lstId.Count} tag" });
     }

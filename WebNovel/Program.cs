@@ -13,6 +13,7 @@ using WebNovel.Exceptions;
 using Newtonsoft.Json.Serialization;
 using Microsoft.EntityFrameworkCore.Metadata;
 using System.Text.Json;
+using Microsoft.Extensions.Caching.Memory;
 
 var builder = WebApplication.CreateBuilder(args);
 // KẾT NỐI DATABASE
@@ -37,7 +38,7 @@ builder.Services.AddRateLimiter(options =>
             partitionKey: ip,
             factory: _ => new FixedWindowRateLimiterOptions
             {
-                PermitLimit = 200,                    // Cho phép tối đa 30 request
+                PermitLimit = 2000,                    // Cho phép tối đa 30 request
                 Window = TimeSpan.FromSeconds(10),  // Trong mỗi 10 giây
                 QueueProcessingOrder = QueueProcessingOrder.OldestFirst,
                 QueueLimit = 0                      // Không xếp hàng
@@ -117,6 +118,17 @@ builder.Services.AddScoped<ISlugRepository<Author>, SlugRepository<Author>>();
 builder.Services.AddScoped<ISlugService<Author>, SlugService<Author>>();
 builder.Services.AddScoped<ISlugRepository<Contributor>, SlugRepository<Contributor>>();
 builder.Services.AddScoped<ISlugService<Contributor>, SlugService<Contributor>>();
+// Đăng ký repo gốc
+builder.Services.AddScoped<LookupRepository>();
+builder.Services.AddScoped<CachedLookupRepository>();
+// Đăng ký ILookupRepository thành decorator, 
+// inject LookupRepository vào CachedLookupRepository
+builder.Services.AddScoped<ILookupRepository>(sp =>
+    new CachedLookupRepository(
+        inner: sp.GetRequiredService<LookupRepository>(),
+        cache: sp.GetRequiredService<IMemoryCache>()
+    )
+);
 builder.Services.AddScoped<IModel>(provider =>
 {
     var dbContext = provider.GetRequiredService<ApplicationDbContext>();

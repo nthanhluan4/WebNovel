@@ -4,6 +4,8 @@
     {
         public int Id { get; set; }
         public string Title { get; set; } = null!;
+        public string Slug { get; set; } = null!;
+        public string CoverUrl { get; set; } = null!;
         public string? Description { get; set; }
         public string? AuthorName { get; set; }
         public string? ContributorName { get; set; }

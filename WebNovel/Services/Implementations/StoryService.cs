@@ -1,6 +1,7 @@
 ﻿using Kendo.Mvc.UI;
 using Microsoft.EntityFrameworkCore.Migrations;
 using WebNovel.Models;
+using WebNovel.Models.Dtos;
 using WebNovel.Repositories.Implementations;
 using WebNovel.Repositories.Interfaces;
 using WebNovel.Services.Interfaces;
@@ -103,32 +104,32 @@ namespace WebNovel.Services.Implementations
             await _repository.SaveChangesAsync();
         }
 
-        public Task<List<Story>> GetRandomStoriesAsync(int count)
+        public Task<List<StoryDto>> GetRandomStoriesAsync(int count)
         {
             return _repository.GetRandomStoriesAsync(count);
         }
 
-        public Task<List<Story>> GetTopVotedStoriesAsync(int count)
+        public Task<List<StoryDto>> GetTopVotedStoriesAsync(int count)
         {
             return _repository.GetTopVotedStoriesAsync(count);
         }
 
-        public Task<List<Story>> GetTopReadStoriesAsync(int count, string period)
+        public Task<List<StoryDto>> GetTopReadStoriesAsync(int count, string period)
         {
             return _repository.GetTopReadStoriesAsync(count, period);
         }
 
-        public Task<List<Story>> GetNewStoriesAsync(int count)
+        public Task<List<StoryDto>> GetNewStoriesAsync(int count)
         {
             return _repository.GetNewStoriesAsync(count);
         }
 
-        public Task<List<Story>> GetNewChapterStoriesAsync(int count)
+        public Task<List<StoryDto>> GetNewChapterStoriesAsync(int count)
         {
             return _repository.GetNewChapterStoriesAsync(count);
         }
 
-        public Task<List<Story>> GetStoriesByStatusAsync(string status)
+        public Task<List<StoryDto>> GetStoriesByStatusAsync(string status)
         {
             return _repository.GetStoriesByStatusAsync(status);
         }

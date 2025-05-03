@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
 using System.Diagnostics;
 using WebNovel.Models;
+using WebNovel.Models.Dtos;
 using WebNovel.Services.Interfaces;
 
 namespace WebNovel.Controllers
@@ -30,7 +31,7 @@ namespace WebNovel.Controllers
         {
             ViewBag.AntiForgeryToken = _antiforgery.GetAndStoreTokens(HttpContext).RequestToken;
             var cacheKey = "TopVotedStories";
-            if (!_cache.TryGetValue(cacheKey, out List<Story> stories))
+            if (!_cache.TryGetValue(cacheKey, out List<StoryDto> stories))
             {
                 stories = await _storyService.GetRandomStoriesAsync(4);
                 _cache.Set(cacheKey, stories, TimeSpan.FromMinutes(5)); // Cache 5 phút

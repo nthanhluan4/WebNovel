@@ -1,9 +1,10 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@using WebNovel.Models.Dtos
+@{
+    ViewData["Title"] = "Trang chủ";
     // Layout = "_HomeLayout";
     Layout = "_AppLayout";
     var token = ViewBag.AntiForgeryToken as string;
-    var lstRandom = (List<Story>)ViewBag.RandomStories;
+    var lstRandom = (List<StoryDto>)ViewBag.RandomStories;
 }
 <input type="hidden" id="RequestVerificationToken" value="@token" />
 

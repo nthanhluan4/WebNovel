@@ -1,5 +1,6 @@
 ﻿using Kendo.Mvc.UI;
 using WebNovel.Models;
+using WebNovel.Models.Dtos;
 
 namespace WebNovel.Services.Interfaces
 {
@@ -25,12 +26,12 @@ namespace WebNovel.Services.Interfaces
         Task UpdateStoryByChapterAction(int storyId, string chapterAction = "Create");
 
 
-        Task<List<Story>> GetRandomStoriesAsync(int count);
-        Task<List<Story>> GetTopVotedStoriesAsync(int count);
-        Task<List<Story>> GetTopReadStoriesAsync(int count, string period); // week, month, year
-        Task<List<Story>> GetNewStoriesAsync(int count);
-        Task<List<Story>> GetNewChapterStoriesAsync(int count);
-        Task<List<Story>> GetStoriesByStatusAsync(string status);
+        Task<List<StoryDto>> GetRandomStoriesAsync(int count);
+        Task<List<StoryDto>> GetTopVotedStoriesAsync(int count);
+        Task<List<StoryDto>> GetTopReadStoriesAsync(int count, string period);
+        Task<List<StoryDto>> GetNewStoriesAsync(int count);
+        Task<List<StoryDto>> GetNewChapterStoriesAsync(int count);
+        Task<List<StoryDto>> GetStoriesByStatusAsync(string status);
         Task<DataSourceResult> GetDataSourceAsync(DataSourceRequest request);
     }
 }

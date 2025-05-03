@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using WebNovel.Models;
+using WebNovel.Repositories.Implementations;
+using WebNovel.Repositories.Interfaces;
 using WebNovel.Services.Interfaces;
 
 [Route("api/[controller]")]
@@ -10,8 +12,13 @@ using WebNovel.Services.Interfaces;
 public class GenreController : ControllerBase
 {
     private readonly ISlugService<Genre> _service;
+    private readonly CachedLookupRepository _cachedLookup;
 
-    public GenreController(ISlugService<Genre> service) => _service = service;
+    public GenreController(ISlugService<Genre> service, CachedLookupRepository cachedLookup)
+    {
+        _service = service;
+        _cachedLookup = cachedLookup;
+    }
 
     [HttpGet("all")]
     [AllowAnonymous]
@@ -37,12 +44,21 @@ public class GenreController : ControllerBase
 
     [HttpPost]
     [Authorize(Roles = "Admin,Contributor")]
-    public async Task<IActionResult> Create([FromBody] Genre model) => Ok(await _service.CreateAsync(model));
+    public async Task<IActionResult> Create([FromBody] Genre model)
+    {
+        var result = await _service.CreateAsync(model);
+        _cachedLookup.RemoveTagCache();
+        return Ok(result);
+    }
 
     [HttpPut("{id}")]
     [Authorize(Roles = "Admin,Contributor")]
-    public async Task<IActionResult> Update(int id, [FromBody] Genre model) =>
-        await _service.UpdateAsync(id, model) is var r && r.Success ? Ok(r) : NotFound(r);
+    public async Task<IActionResult> Update(int id, [FromBody] Genre model)
+    {
+        var result = await _service.UpdateAsync(id, model);
+        _cachedLookup.RemoveTagCache();
+        return Ok(result);
+    }
 
     [HttpDelete("{id}")]
     [Authorize(Roles = "Admin")]
@@ -67,7 +83,7 @@ public class GenreController : ControllerBase
                 return NotFound(new { Success = false, Message = $"Không tìm thấy ID: {id}" });
             }
         }
-
+        _cachedLookup.RemoveTagCache();
         return Ok(new { Success = true, Message = $"Đã xóa {lstId.Count} Genre" });
     }
 }
