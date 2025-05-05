@@ -28,7 +28,7 @@
         color: #000;
     }
 
-    .btn-outline.genre{
+    .btn-outline.genre {
         border: 1px solid #799b5a;
     }
 
@@ -40,8 +40,10 @@
         width: 75px;
         height: 100px;
     }
+
+   
 </style>
-@foreach(var story in Model)
+@foreach (var story in Model)
 {
     <div class="product product-widget pt-0">
         <figure class="product-media">
@@ -61,7 +63,7 @@
                 @{
                     var genres = story.GenreNames.Split(',').Select(s => s.Trim()).ToList();
                     //var tags = story.TagNames.Split(',').Select(s => s.Trim()).ToList();
-                    foreach(var gen in genres)
+                    foreach (var gen in genres)
                     {
                         <span class="btn genre btn-success btn-outline btn-ellipse">@gen</span>
                     }

@@ -1,0 +1,55 @@
+﻿@using WebNovel.Models.Dtos
+@model List<StoryDto>
+
+@foreach (var story in Model)
+{
+    <div class="grid-item product-wrap all-story-cover" title="@story.Title">
+        <div class="product product-simple text-center">
+            <figure class="product-media">
+                <a href="/truyen/@story.Slug">
+                    <img class="" src="/uploads/story_cover/@story.CoverUrl" alt="@story.Title"
+                         width="300" height="338" />
+                </a>
+                <div class="product-action-vertical">
+                    <a href="/truyen/@story.Slug/yeu-thich" class="btn-product-icon btn-wishlist"
+                       title="Yêu thích"><i class="w-icon-heart"></i></a>
+                </div>
+                <div class="product-action">
+                    <a href="/truyen/@story.Slug" class="btn-product" title="@story.Title">
+                        Xem chi tiết
+                    </a>
+                </div>
+            </figure>
+            <div class="product-details">
+                <h4 class="product-name">
+                    <a href="/truyen/@story.Slug">@story.Title</a>
+                </h4>
+                <div class="product-pa-wrapper">
+                    <div class="product-price mb-1">
+                        @{
+                            var genres = story.GenreNames.Split(',').Select(s => s.Trim()).ToList();
+                            foreach (var gen in genres)
+                            {
+                                <span class="btn genre btn-success btn-outline btn-ellipse">@gen</span>
+                            }
+                        }
+                    </div>
+                    <div class="product-action">
+                        <a href="/truyen/@story.Slug/danh-gia" class="btn-cart btn-product btn-link btn-underline">
+                            Xem đánh giá
+                        </a>
+                    </div>
+                </div>
+
+                <div class="ratings-container">
+                    <div class="ratings-full">
+                        <span class="ratings" style="width: 100%;"></span>
+                        <span class="tooltiptext tooltip-top"></span>
+                    </div>
+                    <a href="/truyen/@story.Slug/binh-luan" class="rating-reviews">(12 bình luận)</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End of Story Wrap -->
+}

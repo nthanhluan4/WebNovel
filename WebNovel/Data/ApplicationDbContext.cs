@@ -21,6 +21,7 @@ namespace WebNovel.Data
         public DbSet<ChapterContent> ChapterContents { get; set; }
         public DbSet<ChapterReadByDate> ChapterReadByDates { get; set; }
         public DbSet<UserChapterRead> UserChapterReads { get; set; }
+        public DbSet<News> News { get; set; }
         
         protected override void OnModelCreating(ModelBuilder builder)
         {
