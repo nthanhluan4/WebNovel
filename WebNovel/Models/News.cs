@@ -21,7 +21,8 @@ namespace WebNovel.Models
         public string? CategoryName { get; set; }
         [StringLength(450)]
         public string AuthorId { get; set; }
-        public ApplicationUser Author { get; set; }
+        [NotMapped]
+        public string? AuthorName { get; set; }
 
         public DateTime? PublishedAt { get; set; }
         public bool IsPublished { get; set; } = false;

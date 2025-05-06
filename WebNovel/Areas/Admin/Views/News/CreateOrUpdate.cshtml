@@ -1,0 +1,163 @@
+﻿@model News
+@{
+    var action = (string)ViewData["Action"] ?? (Model.Id == 0 ? "Create" : "Update");
+    var _type = "POST";
+    var _url = "/api/news";
+    var _grid = "grid_News_Index";
+    if (action == "Update")
+    {
+        _type = "PUT";
+        _url = $"/api/news/{Model.Id}";
+    }
+}
+
+<div class="row form-row-info form-group-row-info">
+    <div class="col-sm-12 form-column-info">
+        <div class="fields-group-info">
+            <label class="control-label fields-group-label-info">Thông tin Tin tức</label>
+        </div>
+    </div>
+    <div class="col-sm-12 form-column-info">
+        <div class="control-group-info hidden">
+            @(Html.Kendo().TextBox().Name("Id").HtmlAttributes(new { style = "display: none", fm_data_field = "Id" }).Value(Model.Id.ToString()))
+        </div>
+
+        <div class="control-group-info">
+            <div class="col-sm-4 div-label-info"><label for="Title">Tiêu đề</label></div>
+            <div class="col-sm-8 div-value-info">
+                @(Html.Kendo().TextBox().Name("Title")
+                    .Placeholder(SystemVariable.placeholderRequired)
+                    .HtmlAttributes(new { @class = "required-field", fm_data_field = "Title" })
+                    .Value(Model.Title))
+            </div>
+        </div>
+
+        <div class="control-group-info">
+            <div class="col-sm-4 div-label-info"><label for="Slug">Slug</label></div>
+            <div class="col-sm-8 div-value-info">
+                @(Html.Kendo().TextBox().Name("Slug")
+                    .Placeholder(SystemVariable.placeholderRequired)
+                    .HtmlAttributes(new { @class = "required-field", fm_data_field = "Slug" })
+                    .Value(Model.Slug))
+            </div>
+        </div>
+
+        <div class="control-group-info">
+            <div class="col-sm-4 div-label-info"><label for="ShortDescription">Mô tả ngắn</label></div>
+            <div class="col-sm-8 div-value-info">
+                @(Html.Kendo().TextArea().Name("ShortDescription")
+                    .Placeholder(SystemVariable.placeholderTextbox)
+                    .HtmlAttributes(new { fm_data_field = "ShortDescription", style = "width: 100%" })
+                    .Rows(3).Value(Model.ShortDescription))
+            </div>
+        </div>
+
+        <div class="control-group-info">
+            <div class="col-sm-4 div-label-info"><label for="Content">Nội dung</label></div>
+            <div class="col-sm-8 div-value-info">
+                @(Html.Kendo().TextArea().Name("Content")
+                    .HtmlAttributes(new { fm_data_field = "Content", style = "width: 100%; height: 150px;" })
+                    .Rows(10).Value(Model.Content))
+            </div>
+        </div>
+
+        <div class="control-group-info">
+            <div class="col-sm-4 div-label-info"><label for="CoverUrl">Ảnh bìa</label></div>
+            <div class="col-sm-8 div-value-info">
+                @(Html.Kendo().TextBox().Name("CoverUrl")
+                    .HtmlAttributes(new { fm_data_field = "CoverUrl", placeholder = "https://..." })
+                    .Value(Model.CoverUrl))
+            </div>
+        </div>
+
+        <div class="control-group-info">
+            <div class="col-sm-4 div-label-info"><label for="CategoryId">Danh mục</label></div>
+            <div class="col-sm-8 div-value-info">
+                @*       @(Html.Kendo().DropDownList()
+                .Name("CategoryId")
+                .OptionLabel("Chọn danh mục")
+                .DataTextField("Text").DataValueField("Value")
+                .BindTo((IEnumerable<SelectListItem>)ViewBag.CategoryList)
+                .Value(Model.CategoryId.ToString())
+                .HtmlAttributes(new { fm_data_field = "CategoryId" })) *@
+
+                @(Html.Kendo().TextBox().Name("CategoryId")
+                    .Placeholder(SystemVariable.placeholderTextbox)
+                    .HtmlAttributes(new { fm_data_field = "CategoryId" })
+                    .Value(Model.CategoryId.ToString()))
+            </div>
+        </div>
+
+
+        <div class="control-group-info">
+            <div class="col-sm-4 div-label-info"><label for="IsPublished">Xuất bản</label></div>
+            <div class="col-sm-8 div-value-info">
+                @(Html.Kendo().CheckBox().Name("IsPublished").Checked(Model.IsPublished).HtmlAttributes(new { fm_data_field = "IsPublished" }))
+            </div>
+        </div>
+
+        <div class="control-group-info">
+            <div class="col-sm-4 div-label-info"><label for="PublishedAt">Ngày xuất bản</label></div>
+            <div class="col-sm-8 div-value-info">
+                @(Html.Kendo().DateTimePicker().Name("PublishedAt")
+                    .Value(Model.PublishedAt)
+                    .HtmlAttributes(new { fm_data_field = "PublishedAt" }))
+            </div>
+        </div>
+
+        <div class="control-group-info">
+            <div class="col-sm-4 div-label-info"><label for="IsPinned">Ghim</label></div>
+            <div class="col-sm-8 div-value-info">
+                @(Html.Kendo().CheckBox().Name("IsPinned").Checked(Model.IsPinned).HtmlAttributes(new { fm_data_field = "IsPinned" }))
+            </div>
+        </div>
+
+        <div class="control-group-info">
+            <div class="col-sm-4 div-label-info"><label for="PinnedAt">Ngày ghim</label></div>
+            <div class="col-sm-8 div-value-info">
+                @(Html.Kendo().DateTimePicker().Name("PinnedAt")
+                    .Value(Model.PinnedAt)
+                    .HtmlAttributes(new { fm_data_field = "PinnedAt" }))
+            </div>
+        </div>
+
+        <div class="control-group-info">
+            <div class="col-sm-4 div-label-info"><label for="PinnedPosition">Vị trí ghim</label></div>
+            <div class="col-sm-8 div-value-info">
+                @(Html.Kendo().NumericTextBox()
+                    .Name("PinnedPosition")
+                    .Value(Model.PinnedPosition)
+                    .HtmlAttributes(new { fm_data_field = "PinnedPosition" }))
+            </div>
+        </div>
+        <div class="control-group-info hidden">
+            @(Html.Kendo().TextBox().Name("AuthorId")
+                .Placeholder(SystemVariable.placeholderTextbox)
+                .HtmlAttributes(new { fm_data_field = "AuthorId", style = "display: none" })
+                .Value(Model.AuthorId ?? "author_default"))
+        </div>
+
+        <div class="control-group-info hidden">
+            @(Html.Kendo().DateTimePicker().Name("CreatedAt")
+                .HtmlAttributes(new { fm_data_field = "CreatedAt", style = "display: none" })
+                .Value(Model.CreatedAt))
+        </div>
+    </div>
+</div>
+<script>
+    autoSlugify('Title', 'Slug');
+</script>
+<div class="col-sm-12 form-column-info">
+    <div class="hr hr-dotted hr-double hr10"></div>
+    <div class="pull-right" style="margin-right: 10px;">
+        <button class="btn btn-sm btn-info" data-url="@_url" data-type="@_type" data-grid="@_grid" onclick="SaveNewV2(event);">
+            <i class="ace-icon glyphicon glyphicon-floppy-open"></i>
+            Lưu &amp; tạo mới
+        </button>
+        <button class="btn btn-sm btn-info save-close" data-url="@_url" data-type="@_type" data-grid="@_grid" onclick="SaveCloseV2(event);">
+            <i class="ace-icon glyphicon glyphicon-floppy-save"></i>
+            Lưu &amp; đóng
+        </button>
+    </div>
+    <div class="clearfix hr10"></div>
+</div>

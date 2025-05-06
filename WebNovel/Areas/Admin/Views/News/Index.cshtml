@@ -1,0 +1,114 @@
+﻿@{
+    ViewData["Title"] = "Tin tức";
+    var createOrUpdateURL = "/admin/news/createorupdate";
+    var deleteApi = "/api/news/delete-multiple";
+}
+
+<div class="row" id="breadcrumb">
+    <div class="col-12">
+        <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+            <h4 class="mb-sm-0">@ViewData["Title"]</h4>
+            <div class="page-title-right">
+                <ol class="breadcrumb m-0">
+                    <li class="breadcrumb-item active">@ViewData["Title"]</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="main-content">
+    <div class="row main-body">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="table-responsive table-card">
+                        @(
+                            Html.Kendo().Grid<News>()
+                            .Name("grid_News_Index")
+                            .Height("600px")
+                            .ToolBar(t =>
+                            {
+                                t.Custom().ClientTemplate(Html.Kendo().Template().AddHtml(SystemVariable.htmlSearchToolbar));
+                                t.Spacer();
+                                t.Custom().ClientTemplate(Html.Kendo().Template().AddComponent(c => c
+                                .Button().Name("btnDelete").Content("Xóa")
+                                .IconClass("ri-delete-bin-5-line align-bottom me-1")
+                                .HtmlAttributes(new { style = "display: none", @class = "btn-delete" })));
+                                t.Custom().ClientTemplate(Html.Kendo().Template().AddComponent(c => c
+                                .Button().Name("btnCreate").Content("Thêm Mới").Icon("plus")));
+                                t.Excel().Text("Xuất Excel");
+                            })
+                            .Columns(columns =>
+                            {
+                                columns.Select().Width(28);
+                                columns.Template("<div style='text-align:center;'>#= getRecordNumber() #</div>")
+                                .Width(50).ClientHeaderTemplate("<div style='text-align:center;'>#</div>");
+                                columns.Command(command =>
+                                {
+                                    command.Custom("btnEditRow").IconClass("ri-pencil-line").Text(" ")
+                                .HtmlAttributes(new { title = "Cập nhật", @class = "k-button-solid-primary" })
+                                .Click("onEditRow");
+                                    command.Custom("btnDeleteRow").IconClass("ri-delete-bin-5-line").Text(" ")
+                                .HtmlAttributes(new { title = "Xóa" })
+                                .Click("onDeleteRow");
+                                }).Width(150);
+
+                                columns.Bound(p => p.Id).Title("Id").Hidden();
+                                columns.Bound(p => p.Title).Title("Tiêu đề").Width(200);
+                                columns.Bound(p => p.Slug).Title("Slug").Width(150);
+                                columns.Bound(p => p.ShortDescription).Title("Mô tả ngắn").Width(250);
+                                columns.Bound(p => p.Content).Title("Nội dung").Width(300);
+                                columns.Bound(p => p.CoverUrl).Title("Ảnh bìa").Width(200);
+                                columns.Bound(p => p.CategoryName).Title("Danh mục").Width(150);
+                                columns.Bound(p => p.AuthorName).Title("Tác giả").Width(150);
+                                columns.Bound(p => p.IsPublished).Title("Đã xuất bản").Width(100);
+                                columns.Bound(p => p.PublishedAt).Title("Ngày xuất bản").Format(SystemVariable.formatDateTime).Width(130);
+                                columns.Bound(p => p.ViewCount).Title("Lượt xem").Width(100);
+                                columns.Bound(p => p.IsPinned).Title("Ghim").Width(80);
+                                columns.Bound(p => p.PinnedAt).Title("Ngày ghim").Format(SystemVariable.formatDateTime).Width(130);
+                                columns.Bound(p => p.PinnedPosition).Title("Vị trí ghim").Width(100);
+                                columns.Bound(p => p.CreatedAt).Title("Ngày tạo").Format(SystemVariable.formatDateTime).Width(130);
+                                columns.Bound(p => p.UpdatedAt).Title("Cập nhật lúc").Format(SystemVariable.formatDateTime).Width(130);
+                            })
+                            .Pageable(p => p.Input(true).Numeric(true).Refresh(true).Info(true))
+                            .Scrollable().Excel(e => e.AllPages(true))
+                            .Sortable()
+                            .Filterable()
+                            .Reorderable(r => r.Columns(true))
+                            .Events(e => e.DataBinding("onDataBindingRecorNumber").Change("onShowButtonToolbar"))
+                            .Selectable(s => s.Mode(GridSelectionMode.Multiple).Type(GridSelectionType.Row))
+                            .Resizable(r => r.Columns(true))
+                            .ColumnMenu(menu => menu.ComponentType("classic").Filterable(true))
+                            .DataSource(dataSource => dataSource.Ajax().PageSize(50).Read(r => r.Url("/api/news/grid")))
+                            )
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function onEditRow(e) {
+            e.preventDefault();
+            var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
+            openNewWindow(dataItem.Id, '@createOrUpdateURL', "Cập nhật Tin tức", "900px");
+        }
+        function onDeleteRow(e) {
+            e.preventDefault();
+            var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
+            confirmDelete([dataItem.Id], '@deleteApi', "grid_News_Index");
+        }
+        $("#grid_News_Index").on("click", "[id='btnCreate']", function () {
+            openNewWindow(0, '@createOrUpdateURL', "Tạo mới Tin tức", "900px");
+        });
+        $("#grid_News_Index").on("click", "[id='btnDelete']", function () {
+            DeleteRowInGrid('@deleteApi', "grid_News_Index", "onShowButtonToolbar");
+        });
+        $("#grid_News_Index").on("dblclick", "tr[data-uid]", function () {
+            var grid = $("#grid_News_Index").data("kendoGrid");
+            var id = grid.dataSource.getByUid(this.getAttribute("data-uid")).Id;
+            openNewWindow(id, '@createOrUpdateURL', "Cập nhật Tin tức", "900px");
+        });
+    </script>
+</div>

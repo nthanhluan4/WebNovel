@@ -22,9 +22,9 @@ namespace WebNovel.Services.Implementations
             return ServiceResponse<List<News>>.Ok(list);
         }
 
-        Task<List<News>> INewsService.GetPinnedAsync()
+        async Task<List<News>> INewsService.GetPinnedAsync()
         {
-            throw new NotImplementedException();
+            return await _newsRepo.GetPinnedAsync();
         }
     }
 

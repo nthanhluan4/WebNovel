@@ -128,6 +128,29 @@
 
 
     //------------NHÓM HÀM DATABOUND / EVENT--------------------
+    function toSlug(str) {
+        return str
+            .normalize('NFD')
+            .replace(/[\u0300-\u036f]/g, '')
+            .replace(/đ/g, 'd').replace(/Đ/g, 'D')
+            .toLowerCase()
+            .trim()
+            .replace(/[^a-z0-9\s-]/g, '-')
+            .replace(/\s+/g, '-')
+            .replace(/-+/g, '-');
+    }
+
+    // Hàm gắn tự động slug
+    function autoSlugify(inputFieldId, slugFieldId) {
+        const input = document.getElementById(inputFieldId);
+        const slug = document.getElementById(slugFieldId);
+        if (!input || !slug) return;
+
+        input.addEventListener('input', function () {
+            slug.value = toSlug(this.value);
+        });
+    }
+
     function onDataBoundComboboxId(e) {
         if (this.value() == '0')
             this.value('');

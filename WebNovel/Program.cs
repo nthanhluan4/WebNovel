@@ -103,6 +103,8 @@ builder.Services.AddScoped<IChapterReadByDateRepository, ChapterReadByDateReposi
 builder.Services.AddScoped<IUserChapterReadRepository, UserChapterReadRepository>();
 builder.Services.AddScoped<IChapterReadingService, ChapterReadingService>();
 
+builder.Services.AddScoped<INewsRepository, NewsRepository>();
+builder.Services.AddScoped<INewsService, NewsService>();
 
 builder.Services.AddScoped<ISlugRepository<Story>, SlugRepository<Story>>();
 builder.Services.AddScoped<ISlugService<Story>, SlugService<Story>>();
@@ -118,6 +120,8 @@ builder.Services.AddScoped<ISlugRepository<Author>, SlugRepository<Author>>();
 builder.Services.AddScoped<ISlugService<Author>, SlugService<Author>>();
 builder.Services.AddScoped<ISlugRepository<Contributor>, SlugRepository<Contributor>>();
 builder.Services.AddScoped<ISlugService<Contributor>, SlugService<Contributor>>();
+builder.Services.AddScoped<ISlugRepository<News>, SlugRepository<News>>();
+builder.Services.AddScoped<ISlugService<News>, SlugService<News>>();
 // Đăng ký repo gốc
 builder.Services.AddScoped<LookupRepository>();
 builder.Services.AddScoped<CachedLookupRepository>();
