@@ -5,7 +5,9 @@
     Layout = "_AppLayout";
     var token = ViewBag.AntiForgeryToken as string;
     var lstRandom = (List<StoryDto>)ViewBag.RandomStories;
+    var lstNews = (List<News>)ViewBag.News;
 }
+
 <style>
     .intro-section {
         padding-bottom: 3.6rem;
@@ -37,73 +39,71 @@
                                 }">
                         <div class="swiper-wrapper row gutter-no cols-1">
                             <div class="swiper-slide banner banner-fixed intro-slide intro-slide1 br-sm"
-                                 style="background-image: url(assets/images/demos/demo4/slides/slide-1.jpg); background-color: #3D434B;">
+                                 style="background-image: url(uploads/news_cover/@lstNews[0].CoverUrl); background-color: #3D434B;">
                                 <div class="banner-content y-50">
                                     <div class="slide-animate" data-animation-options="{
-                                                    'name': 'fadeInRightShorter', 'duration': '1s'
-                                                }">
-                                        <h5 class="banner-subtitle text-uppercase text-primary font-weight-bolder ls-25">
-                                            Best Sellers
+                                                        'name': 'fadeInRightShorter', 'duration': '1s'
+                                                    }">
+                                        <h5 class="banner-subtitle text-uppercase text-secondary font-weight-bolder ls-25">
+                                            Bảng xếp hạng
                                         </h5>
-                                        <h3 class="banner-title text-capitalize text-white ls-25 lh-1 mb-3">
-                                            New
-                                            Lifestyle Collection
+                                        <h3 class="banner-title text-capitalize ls-25 lh-1 mb-3">
+                                            @lstNews[0].Title
                                         </h3>
                                         <div class="banner-price-info text-white text-uppercase font-weight-normal">
-                                            <strong>Up To 10%</strong> Discount
+                                            <strong>Top 1</strong> Vớt Thi Nhân
                                         </div>
-                                        <a href="shop-banner-sidebar.html"
-                                           class="btn btn-white btn-outline btn-rounded">Shop Now</a>
+                                        <a href="/tin-tuc/@lstNews[0].Slug"
+                                           class="btn btn-outline btn-rounded">Xem chi tiết</a>
                                     </div>
                                 </div>
                             </div>
                             <!-- End of Intro Slide 1 -->
                             <div class="swiper-slide banner banner-fixed intro-slide intro-slide2 br-sm"
-                                 style="background-image: url(assets/images/demos/demo4/slides/slide-2.jpg); background-color: #fff;">
+                                 style="background-image: url(uploads/news_cover/@lstNews[1].CoverUrl); background-color: #fff;">
                                 <div class="banner-content y-50">
                                     <div class="slide-animate" data-animation-options="{
                                                     'name': 'fadeInDownShorter', 'duration': '1s'
                                                 }">
                                         <h5 class="banner-subtitle text-primary text-uppercase font-weight-bolder ls-25">
-                                            New Arrivals
+                                            Bảng xếp hạng
                                         </h5>
                                         <h3 class="banner-title font-weight-normal text-uppercase ls-25 lh-1">
-                                            Comfortable<strong class="text-capitalize"> Royale Remix</strong>
+                                            @lstNews[1].Title
                                         </h3>
                                         <div class="banner-price-info text-uppercase text-default ls-25">
-                                            Starting At<strong class="text-secondary"> $250.99</strong>
+                                            Top 1<strong class="text-secondary"> Vớt Thi Nhân</strong>
                                         </div>
-                                        <a href="shop-banner-sidebar.html" class="btn btn-dark btn-rounded">
-                                            Shop
-                                            Now
+                                        <a href="/tin-tuc/@lstNews[1].Slug" class="btn btn-dark btn-rounded">
+                                            Xem chi tiết
                                         </a>
                                     </div>
                                 </div>
                             </div>
                             <!-- End of Intro Slide 2 -->
                             <div class="swiper-slide banner banner-fixed intro-slide intro-slide3 br-sm"
-                                 style="background-image: url(assets/images/demos/demo4/slides/slide-3.jpg); background-color: #37363E;">
+                                 style="background-image: url(uploads/news_cover/@lstNews[2].CoverUrl); background-color: #37363E;">
                                 <div class="banner-content x-50 w-100 text-center">
                                     <h5 class="banner-subtitle text-uppercase font-weight-normal text-light slide-animate"
                                         data-animation-options="{
                                                     'name': 'fadeInDownShorter', 'duration': '1s'
                                                 }">
-                                        Financing Offer
+                                        Bảng xếp hạng
                                     </h5>
                                     <h3 class="banner-title text-white ls-25 mb-1 slide-animate"
                                         data-animation-options="{
                                                     'name': 'fadeInDownShorter', 'duration': '1s', 'delay': '.4s'
                                                 }">
-                                        Camera, Phone and Tools
+                                        @lstNews[2].Title
                                     </h3>
                                     <div class="banner-price-info text-capitalize font-weight-normal text-light ls-25 slide-animate"
                                          data-animation-options="{'name': 'fadeInDownShorter', 'duration': '1s', 'delay': '.6s'}">
-                                        <strong class="text-secondary">35% Off</strong> Discount
+                                        <strong class="text-secondary">Top 1</strong> Vớt Thi Nhân
                                     </div>
-                                    <a href="shop-banner-sidebar.html"
+                                    <a href="/tin-tuc/@lstNews[2].Slug"
                                        class="btn btn-white btn-link btn-underline btn-icon-right slide-animate"
                                        data-animation-options="{'name': 'fadeInDownShorter', 'duration': '1s', 'delay': '.8s'}">
-                                        Shop Now<i class="w-icon-long-arrow-right"></i>
+                                        Xem chi tiết<i class="w-icon-long-arrow-right"></i>
                                     </a>
                                 </div>
                             </div>
@@ -154,3 +154,8 @@
     <!-- End of Container -->
 </section>
 <!-- End of Grey Section -->
+<script>
+    $(document).ready(function () {
+        $("#genre-dropdown").addClass("show-dropdown");
+    });
+</script>

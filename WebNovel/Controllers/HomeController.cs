@@ -4,6 +4,7 @@ using Microsoft.Extensions.Caching.Memory;
 using System.Diagnostics;
 using WebNovel.Models;
 using WebNovel.Models.Dtos;
+using WebNovel.Services.Implementations;
 using WebNovel.Services.Interfaces;
 
 namespace WebNovel.Controllers
@@ -13,15 +14,19 @@ namespace WebNovel.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly IStoryService _storyService;
+        private readonly INewsService _newsService;
+
         private readonly IAntiforgery _antiforgery;
         private readonly IMemoryCache _cache;
         public HomeController(ILogger<HomeController> logger,
-            IStoryService storyService, 
+            IStoryService storyService,
+            INewsService newsService,
             IAntiforgery antiforgery,
             IMemoryCache cache)
         {
             _logger = logger;
             _storyService = storyService;
+            _newsService = newsService;
             _antiforgery = antiforgery;
             _cache = cache;
         }
@@ -36,7 +41,11 @@ namespace WebNovel.Controllers
                 stories = await _storyService.GetRandomStoriesAsync(4);
                 _cache.Set(cacheKey, stories, TimeSpan.FromMinutes(5)); // Cache 5 phút
             }
+            var news = await _newsService.GetPinnedAsync();
+
             ViewBag.RandomStories = stories;
+            ViewBag.News = news;
+
             return View();
         }
 

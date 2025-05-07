@@ -379,7 +379,7 @@ function refreshCallbacks() {
 }
 
 function clearFields() {
-    leadImg.src = "assets/images/users/user-dummy-img.jpg";
+    leadImg.src = "~/assets/images/users/user-dummy-img.jpg";
     leadNameField.value = "";
     company_nameField.value = "";
     dateField.value = "";

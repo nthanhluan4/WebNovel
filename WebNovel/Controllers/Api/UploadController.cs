@@ -20,6 +20,26 @@ namespace WebNovel.Controllers.Api
         {
             return View();
         }
+
+        [Authorize(Roles = "Admin,Contributor")]
+        public async Task<ActionResult> News_Upload_Save(string metaData)
+        {
+            var files = Request.Form.Files;
+            if (metaData == null)
+            {
+                return await Save(files);
+            }
+            var fileBlob = Upload_Save(files, metaData, "news_cover");
+            return Json(fileBlob);
+
+        }
+        [Authorize(Roles = "Admin,Contributor")]
+        public ActionResult News_Upload_Remove(string[] fileNames)
+        {
+            Upload_Remove(fileNames, "news_cover");
+            return Content("");
+        }
+
         [Authorize(Roles = "Admin,Contributor")]
         public async Task<ActionResult> Story_Upload_Save(string metaData)
         {

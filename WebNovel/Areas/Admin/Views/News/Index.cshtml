@@ -110,5 +110,14 @@
             var id = grid.dataSource.getByUid(this.getAttribute("data-uid")).Id;
             openNewWindow(id, '@createOrUpdateURL', "Cập nhật Tin tức", "900px");
         });
+
+        function initToastUIEditor(editorId, options, onPasteCallback) {
+            var editor = new toastui.Editor({
+                el: document.querySelector(editorId),
+                ...options,
+            });
+            return editor;
+        }
+
     </script>
 </div>

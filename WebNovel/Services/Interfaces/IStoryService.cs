@@ -9,6 +9,7 @@ namespace WebNovel.Services.Interfaces
         Task<List<Story>> GetAllAsync();
         Task<Story?> GetByIdAsync(int id);
         Task<Story?> GetBySlugAsync(string slug);
+        Task<StoryDto?> GetStoryDtoBySlugAsync(string slug);
         Task<List<Story>> GetByGenreAsync(int genreId);
         Task<List<Story>> GetByAuthorIdAsync(int authorId);
         Task<List<Story>> GetByContributorIdAsync(int contributorId);

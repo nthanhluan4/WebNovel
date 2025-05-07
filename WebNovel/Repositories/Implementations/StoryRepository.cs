@@ -31,6 +31,41 @@ namespace WebNovel.Repositories.Implementations
         public async Task<Story?> GetBySlugAsync(string slug) =>
             await _context.Stories.AsNoTracking().FirstOrDefaultAsync(s => s.Slug == slug);
 
+        public async Task<StoryDto?> GetStoryDtoBySlugAsync(string slug)
+        {
+            var allGenres = await _lookupRepo.GetAllGenresAsync();
+            var allTags = await _lookupRepo.GetAllTagsAsync();
+
+            var query = from sto in _context.Stories.AsNoTracking()
+                        join aut in _context.Authors on sto.AuthorId equals aut.Id
+                        join con in _context.Contributors on sto.ContributorId equals con.Id
+                        where sto.Slug == slug
+                        select new StoryDto
+                        {
+                            Id = sto.Id,
+                            Title = sto.Name,
+                            AuthorName = aut.Name,
+                            Slug = sto.Slug,
+                            CoverUrl = sto.CoverUrl,
+                            ContributorName = con.Name,
+                            GenreNames = GetDataHelper.ConvertIdsToNames(sto.GenreIds, allGenres),
+                            TagNames = GetDataHelper.ConvertIdsToNames(sto.Tags, allTags),
+                            Description = sto.Description,
+                            TotalChapters = sto.TotalChapters,
+                            TotalWords = sto.TotalWords,
+                            TotalVotes = sto.TotalVotes,
+                            ReadCount = sto.ReadCount,
+                            ViewCount = sto.ViewCount,
+                            FollowCount = sto.FollowCount,
+                            Status = GetDataHelper.ConvertStoryStatusToNames(sto.Status),
+                            Rating = sto.Rating,
+                            CreatedAt = sto.CreatedAt,
+                        };
+
+            return await query.FirstOrDefaultAsync();
+        }
+
+
         public async Task<List<Story>> GetByGenreAsync(int genreId)
         {
             var idStr = "," + genreId.ToString() + ",";

@@ -47,26 +47,53 @@
             <div class="col-sm-8 div-value-info">
                 @(Html.Kendo().TextArea().Name("ShortDescription")
                     .Placeholder(SystemVariable.placeholderTextbox)
-                    .HtmlAttributes(new { fm_data_field = "ShortDescription", style = "width: 100%" })
-                    .Rows(3).Value(Model.ShortDescription))
+                    .HtmlAttributes(new { fm_data_field = "ShortDescription", style = "width: 100%; height: 74px;" })
+                    .Rows(10).Value(Model.ShortDescription))
             </div>
         </div>
 
         <div class="control-group-info">
             <div class="col-sm-4 div-label-info"><label for="Content">Nội dung</label></div>
-            <div class="col-sm-8 div-value-info">
-                @(Html.Kendo().TextArea().Name("Content")
-                    .HtmlAttributes(new { fm_data_field = "Content", style = "width: 100%; height: 150px;" })
-                    .Rows(10).Value(Model.Content))
+            @* <div class="col-sm-8 div-value-info">
+            @(Html.Kendo().TextArea().Name("Content")
+            .HtmlAttributes(new { fm_data_field = "Content", style = "width: 100%; height: 150px;" })
+            .Rows(10).Value(Model.Content))
+            </div> *@
+        </div>
+        <div class="control-group-info">
+            <div class="col-sm-12 div-value-info">
+                <div id="ContentEditor" spellcheck="false" style="resize: vertical; overflow: auto; min-height: 250px; max-height: 800px;"></div>
             </div>
         </div>
-
         <div class="control-group-info">
             <div class="col-sm-4 div-label-info"><label for="CoverUrl">Ảnh bìa</label></div>
             <div class="col-sm-8 div-value-info">
-                @(Html.Kendo().TextBox().Name("CoverUrl")
-                    .HtmlAttributes(new { fm_data_field = "CoverUrl", placeholder = "https://..." })
-                    .Value(Model.CoverUrl))
+                @(Html.Kendo().Upload()
+                    .Name("CoverUrl")
+                    .TemplateId("fileTemplate")
+                    .Multiple(false)
+                    .Events(e => e.Success("onUploadSuccess").Select("onUploadSelect"))
+                    .HtmlAttributes(new { fm_data_field = "CoverUrl" })
+                    .Async(a => a
+                    .Save("News_Upload_Save", "Upload")
+                    .Remove("News_Upload_Remove", "Upload")
+                    .AutoUpload(true)
+                    .ChunkSize(40000000000) //40Gb
+                    )
+                    .Validation(validation => validation.MaxFileSize(2097152) //2Mb
+                    .AllowedExtensions(SystemVariable.validationUpdateImage))
+                    .Files(files =>
+                    {
+                        if (!string.IsNullOrEmpty(Model.CoverUrl))
+                        {
+                            var lstFile = Model.CoverUrl.Split(",");
+                            foreach (var file in lstFile)
+                            {
+                                files.Add().Name(file);
+                            }
+                        }
+                    })
+                    )
             </div>
         </div>
 
@@ -146,15 +173,138 @@
 </div>
 <script>
     autoSlugify('Title', 'Slug');
+
+    var editorOptionsCreate = {
+        height: '180px',
+        initialEditType: 'wysiwyg',
+        previewStyle: 'vertical',
+        language: 'vn',
+        spellcheck: false, // Tắt kiểm tra chính tả
+        customStyle: ' .toastui-editor { resize: vertical; overflow: auto; }',
+        hooks: {
+            addImageBlobHook: async (blob, callback) => {
+                var formData = new FormData();
+                formData.append('file', blob);
+
+                try {
+                    await fetch('/api/editorimagebrowser/upload', {
+                        method: 'POST',
+                        body: formData
+                    })
+                        .then(response => response.json())
+                        .then(data => {
+                            callback(result.imageUrl, 'Image Alt Text');
+                        })
+                        .catch((jqXHR, status, err) => {
+                            createNotify.alert.error({ text: "Xảy ra lỗi trong tiến trình. " + err });
+                            handleFailRequest(jqXHR);
+                        });
+
+                } catch (error) {
+                    createNotify.alert.error({ text: "Xảy ra lỗi trong tiến trình. " + error });
+                }
+            }
+        }
+    };
+
+    var editorCreateIds = ['#ContentEditor'];
+    var editorCreates = editorCreateIds.map(id => initToastUIEditor(id, editorOptionsCreate, function () { }));
+    editorCreates[0].setHTML(@Html.Raw(Json.Serialize(Model.Content)));
+
+    function saveNews(event) {
+        var apiUrl = '@_url';
+        var apiType = '@_type';
+        var gridId = '@_grid';
+
+        var files = $("#CoverUrl").data("kendoUpload").getFiles();
+        var fileName = [];
+        if (files.length != 0) {
+            for (var i = 0; i < files.length; i++) {
+                fileName.push(files[i].name);
+            }
+        }
+
+        var model = {
+            Id: parseInt($("#Id").val()) || 0,
+            Title: $("#Title").val(),
+            Slug: $("#Slug").val(),
+            ShortDescription: $("#ShortDescription").val(),
+            Content: editorCreates[0].getHTML(),
+            CoverUrl: fileName.toString(),
+            CategoryId: $("#CategoryId").val(),
+            IsPublished: $("#IsPublished").is(":checked"),
+            PublishedAt: $("#PublishedAt").data("kendoDateTimePicker").value(),
+            IsPinned: $("#IsPinned").is(":checked"),
+            PinnedAt: $("#PinnedAt").data("kendoDateTimePicker").value(),
+            PinnedPosition: $("#PinnedPosition").data("kendoNumericTextBox").value(),
+            AuthorId: $("#AuthorId").val(),
+            CreatedAt: $("#CreatedAt").data("kendoDateTimePicker").value()
+        };
+        var errorMess = [];
+        var isError = false;
+        if (!model.Title || model.Title.trim() === '') errorMess.push("Vui lòng nhập tiêu đề.");
+        if (!model.Slug || model.Slug.trim() === '') errorMess.push("Slug không được để trống.");
+        if (!model.Content || model.Content.trim() === '' || model.Content === "<p><br></p>") errorMess.push("Nội dung không được để trống.");
+
+        if (errorMess.length > 0) {
+            createNotify.alert.error({ text: errorMess.join("\n") });
+            return;
+        }
+
+        if (isError) {
+            createNotify.alert.error({ text: errorMess.join("\r\n") });
+            return false;
+        }
+        fetch(apiUrl, {
+            method: apiType,
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(model)
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success || data.Success) {
+                    createNotify.alert.success({ text: data.message || data.Message });
+
+                    if (event === 'new') {
+                        // Reset form nếu là Lưu & tạo mới
+                        $("#Id").val('0');
+                        $("#Title").val('');
+                        $("#Slug").val('');
+                        $("#ShortDescription").val('');
+                        editorCreates[0].setHTML('<p><br></p>');
+                        $("#CoverUrl").val('');
+                        $("#CategoryId").val('');
+                        $("#IsPublished").prop('checked', false);
+                        $("#PublishedAt").data("kendoDateTimePicker").value(null);
+                        $("#IsPinned").prop('checked', false);
+                        $("#PinnedAt").data("kendoDateTimePicker").value(null);
+                        $("#PinnedPosition").data("kendoNumericTextBox").value(0);
+                    } else {
+                        // Đóng popup hoặc drawer nếu có
+                        var popUp = $("#window").data("kendoWindow");
+                        popUp.close();
+                    }
+
+                    // Reload lại grid
+                    reloadGrid(gridId);
+                } else {
+                    createNotify.alert.error({ text: data.message || "Đã xảy ra lỗi khi lưu dữ liệu." });
+                }
+            })
+            .catch(error => {
+                createNotify.alert.error({ text: "Lỗi khi gửi yêu cầu: " + error });
+            });
+    }
+
 </script>
 <div class="col-sm-12 form-column-info">
     <div class="hr hr-dotted hr-double hr10"></div>
     <div class="pull-right" style="margin-right: 10px;">
-        <button class="btn btn-sm btn-info" data-url="@_url" data-type="@_type" data-grid="@_grid" onclick="SaveNewV2(event);">
+        <button class="btn btn-sm btn-info" data-url="@_url" data-type="@_type" data-grid="@_grid" onclick="saveNews('new');">
             <i class="ace-icon glyphicon glyphicon-floppy-open"></i>
             Lưu &amp; tạo mới
         </button>
-        <button class="btn btn-sm btn-info save-close" data-url="@_url" data-type="@_type" data-grid="@_grid" onclick="SaveCloseV2(event);">
+        <button class="btn btn-sm btn-info save-close" data-url="@_url" data-type="@_type" data-grid="@_grid" onclick="saveNews('close');">
             <i class="ace-icon glyphicon glyphicon-floppy-save"></i>
             Lưu &amp; đóng
         </button>

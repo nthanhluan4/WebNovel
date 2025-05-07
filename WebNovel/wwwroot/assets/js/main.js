@@ -3038,7 +3038,7 @@ window.Wolmart = {};
         e.preventDefault();
         Wolmart.popup({
             items: {
-                src: '<video src="assets/video/memory-of-a-woman.mp4" autoplay loop controls>',
+                src: '<video src="~/assets/video/memory-of-a-woman.mp4" autoplay loop controls>',
                 type: "inline"
             },
             mainClass: "mfp-video-popup"

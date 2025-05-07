@@ -24,6 +24,7 @@ namespace WebNovel.Services.Implementations
         public async Task<Story?> GetByIdAsync(int id) => await _repository.GetByIdAsync(id);
 
         public async Task<Story?> GetBySlugAsync(string slug) => await _repository.GetBySlugAsync(slug);
+        public async Task<StoryDto?> GetStoryDtoBySlugAsync(string slug) => await _repository.GetStoryDtoBySlugAsync(slug);
 
         public async Task<List<Story>> GetByGenreAsync(int genreId) => await _repository.GetByGenreAsync(genreId);
 

@@ -10,7 +10,7 @@
     <meta name="keywords" content="CityTruyenHay.Com | City Truyện Hay - Thành phố truyện dịch" />
     <meta name="description" content="CityTruyenHay.Com | Nơi đọc truyện dịch miễn phí">
     <!-- Favicon -->
-    <link rel="icon" type="image/png" href="assets/images/logo/favicon.png">
+    <link rel="icon" type="image/png" href="~/assets/images/logo/favicon.png">
     <!-- WebFont.js -->
     <script>
         WebFontConfig = {
@@ -18,32 +18,34 @@
         };
         (function (d) {
             var wf = d.createElement('script'), s = d.scripts[0];
-            wf.src = 'assets/js/webfont.js';
+            wf.src = '~/assets/js/webfont.js';
             wf.async = true;
             s.parentNode.insertBefore(wf, s);
         })(document);
     </script>
 
-    <link rel="preload" href="assets/vendor/fontawesome-free/webfonts/fa-regular-400.woff2" as="font" type="font/woff2"
+    <link rel="preload" href="~/assets/vendor/fontawesome-free/webfonts/fa-regular-400.woff2" as="font" type="font/woff2"
           crossorigin="anonymous">
-    <link rel="preload" href="assets/vendor/fontawesome-free/webfonts/fa-solid-900.woff2" as="font" type="font/woff2"
+    <link rel="preload" href="~/assets/vendor/fontawesome-free/webfonts/fa-solid-900.woff2" as="font" type="font/woff2"
           crossorigin="anonymous">
-    <link rel="preload" href="assets/vendor/fontawesome-free/webfonts/fa-brands-400.woff2" as="font" type="font/woff2"
+    <link rel="preload" href="~/assets/vendor/fontawesome-free/webfonts/fa-brands-400.woff2" as="font" type="font/woff2"
           crossorigin="anonymous">
-    <link rel="preload" href="assets/fonts/wolmart.woff?png09e" as="font" type="font/woff" crossorigin="anonymous">
+    <link rel="preload" href="~/assets/fonts/wolmart.woff?png09e" as="font" type="font/woff" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-...tùy theo phiên bản..." crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     <!-- Vendor CSS -->
-    <link rel="stylesheet" type="text/css" href="assets/vendor/fontawesome-free/css/all.min.css">
+    <link rel="stylesheet" type="text/css" href="~/assets/vendor/fontawesome-free/css/all.min.css">
 
     <!-- Plugins CSS -->
-    <link rel="stylesheet" href="assets/vendor/swiper/swiper-bundle.min.css">
-    <link rel="stylesheet" type="text/css" href="assets/vendor/animate/animate.min.css">
-    <link rel="stylesheet" type="text/css" href="assets/vendor/magnific-popup/magnific-popup.min.css">
+    <link rel="stylesheet" type="text/css" href="~/assets/vendor/swiper/swiper-bundle.min.css">
+    <link rel="stylesheet" type="text/css" href="~/assets/vendor/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="~/assets/vendor/magnific-popup/magnific-popup.min.css">
 
     <!-- Default CSS -->
-    <link rel="stylesheet" type="text/css" href="assets/css/demo4.min.css">
+    <link rel="stylesheet" type="text/css" href="~/assets/css/style.min.css" />
+    <link rel="stylesheet" type="text/css" href="~/assets/css/demo4.min.css">
+    <script src="~/assets/vendor/jquery/jquery.min.js"></script>
 </head>
 
 <body class="home">
@@ -162,7 +164,7 @@
                 <div class="container">
                     <div class="inner-wrap">
                         <div class="header-left flex-1">
-                            <div class="dropdown category-dropdown show-dropdown" data-visible="true">
+                            <div id="genre-dropdown" class="dropdown category-dropdown" data-visible="true">
                                 <a href="#" class="category-toggle text-white" role="button" data-toggle="dropdown"
                                    aria-haspopup="true" aria-expanded="true" data-display="static"
                                    title="Browse Categories">
@@ -429,8 +431,8 @@
                                                 <li>
                                                     <div class="menu-banner banner-fixed menu-banner4">
                                                         <figure>
-                                                            <img src="assets/images/menu/banner-4.jpg" alt="Menu Banner"
-                                                                 width="235" height="433" />
+                                                           @*  <img src="~/assets/images/menu/banner-4.jpg" alt="Menu Banner"
+                                                                 width="235" height="433" /> *@
                                                         </figure>
                                                         <div class="banner-content">
                                                             <h4 class="banner-subtitle font-weight-normal">
@@ -556,9 +558,9 @@
                                                     <div class="col-6">
                                                         <div class="banner banner-fixed menu-banner5 br-xs">
                                                             <figure>
-                                                                <img src="assets/images/menu/banner-5.jpg" alt="Banner"
+                                                              @*   <img src="~/assets/images/menu/banner-5.jpg" alt="Banner"
                                                                      width="410" height="123"
-                                                                     style="background-color: #D2D2D2;" />
+                                                                     style="background-color: #D2D2D2;" /> *@
                                                             </figure>
                                                             <div class="banner-content text-right y-50">
                                                                 <h4 class="banner-subtitle font-weight-normal text-default text-capitalize">
@@ -576,9 +578,9 @@
                                                     <div class="col-6">
                                                         <div class="banner banner-fixed menu-banner5 br-xs">
                                                             <figure>
-                                                                <img src="assets/images/menu/banner-6.jpg" alt="Banner"
+                                                                @* <img src="~/assets/images/menu/banner-6.jpg" alt="Banner"
                                                                      width="410" height="123"
-                                                                     style="background-color: #9F9888;" />
+                                                                     style="background-color: #9F9888;" /> *@
                                                             </figure>
                                                             <div class="banner-content y-50">
                                                                 <h4 class="banner-subtitle font-weight-normal text-white text-capitalize">
@@ -690,8 +692,8 @@
                                                     <li>
                                                         <div class="banner-fixed menu-banner menu-banner2">
                                                             <figure>
-                                                                <img src="assets/images/menu/banner-2.jpg" alt="Menu Banner"
-                                                                     width="235" height="347" />
+                                                         @*        <img src="~/assets/images/menu/banner-2.jpg" alt="Menu Banner"
+                                                                     width="235" height="347" /> *@
                                                             </figure>
                                                             <div class="banner-content">
                                                                 <div class="banner-price-info mb-1 ls-normal">
@@ -889,7 +891,6 @@
                         </div>
                         <figure class="product-media">
                             <a href="product-default.html">
-                                <img src="assets/images/cart/product-1.jpg" alt="product" height="84" width="94" />
                             </a>
                         </figure>
                         <button class="btn btn-link btn-close" aria-label="button">
@@ -912,7 +913,6 @@
                         </div>
                         <figure class="product-media">
                             <a href="product-default.html">
-                                <img src="assets/images/cart/product-2.jpg" alt="product" width="84" height="94" />
                             </a>
                         </figure>
                         <button class="btn btn-link btn-close" aria-label="button">
@@ -937,7 +937,7 @@
         <div class="header-search hs-toggle dir-up">
             <a href="#" class="search-toggle sticky-link">
                 <i class="w-icon-search"></i>
-                <p>Search</p>
+                <p>Tìm truyện</p>
             </a>
             <form action="#" class="input-wrapper">
                 <input type="text" class="form-control" name="search" autocomplete="off" placeholder="Search"
@@ -1427,17 +1427,16 @@
     </div>
     <!-- End of Mobile Menu -->
     <!-- Plugin JS File -->
-    <script src="assets/vendor/jquery/jquery.min.js"></script>
-    <script src="assets/vendor/parallax/parallax.min.js"></script>
-    <script src="assets/vendor/jquery.plugin/jquery.plugin.min.js"></script>
-    <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
-    <script src="assets/vendor/imagesloaded/imagesloaded.pkgd.min.js"></script>
-    <script src="assets/vendor/isotope/isotope.pkgd.min.js"></script>
-    <script src="assets/vendor/magnific-popup/jquery.magnific-popup.min.js"></script>
-    <script src="assets/vendor/zoom/jquery.zoom.js"></script>
+    <script src="~/assets/vendor/parallax/parallax.min.js"></script>
+    <script src="~/assets/vendor/jquery.plugin/jquery.plugin.min.js"></script>
+    <script src="~/assets/vendor/swiper/swiper-bundle.min.js"></script>
+    <script src="~/assets/vendor/imagesloaded/imagesloaded.pkgd.min.js"></script>
+    <script src="~/assets/vendor/isotope/isotope.pkgd.min.js"></script>
+    <script src="~/assets/vendor/magnific-popup/jquery.magnific-popup.min.js"></script>
+    <script src="~/assets/vendor/zoom/jquery.zoom.js"></script>
 
     <!-- Main Js-->
-    <script src="assets/js/main.js"></script>
+    <script src="~/assets/js/main.js"></script>
 </body>
 
 </html>
