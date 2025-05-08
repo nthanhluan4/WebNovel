@@ -7550,7 +7550,7 @@ body .product-popup {
             color: #999
         }
 
-            .product-single .product-categories span:not(:last-child):after, .product-single .product-sku span:not(:last-child):after {
+            .product-single .product-categories span:not(:last-child):after{
                 content: ",";
                 display: inline-block;
                 vertical-align: middle

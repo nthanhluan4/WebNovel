@@ -5,6 +5,8 @@
     // Layout = "_HomeLayout";
     Layout = "_AppLayout";
     var token = ViewBag.AntiForgeryToken as string;
+
+    var ratingWidth = Math.Round(Model.Rating / 5 * 20, 0) + "%";
 }
 
 <style>
@@ -20,6 +22,20 @@
         background: #fff;
         border-radius: 8px;
     }
+
+    .product-categories.genre {
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+        .product-categories.genre .btn-wrap {
+            padding: 4px;
+        }
+
+    .btn.genre {
+        font-size: 1.3rem;
+    }
+
 </style>
 <!-- Start of Main -->
 <main class="main mb-10 pb-1">
@@ -49,64 +65,62 @@
                         <div class="col-md-9 mb-4 mb-md-6">
                             <div class="product-details" data-sticky-options="{'minWidth': 767}">
                                 <h1 class="product-title">@Model.Title</h1>
+                                <div class="ratings-container">
+                                    <div class="ratings-full">
+                                        <span class="ratings" style="width: @ratingWidth;"></span>
+                                        <span class="tooltiptext tooltip-top"></span>
+                                    </div>
+                                    <a href="#product-tab-reviews" class="rating-reviews scroll-to">
+                                        (@Model.Rating
+                                        lượt đánh giá)
+                                    </a>
+                                </div>
+                                <hr class="product-divider">
+
                                 <div class="product-bm-wrapper">
                                     <div class="product-meta">
                                         <div class="product-categories">
                                             Tác giả:
-                                            <span class="product-category"><a href="/danh-sach-truyen/tac-gia/@Model.AuthorName">@Model.AuthorName</a></span>
+                                            <span class="product-category"><a href="/tac-gia/@Model.Slug">@Model.AuthorName</a></span>
                                         </div>
                                         <div class="product-categories">
                                             Đóng góp bởi:
-                                            <span class="product-category"><a href="/danh-sach-truyen/nguoi-dong-gop/@Model.ContributorName">@Model.ContributorName</a></span>
+                                            <span class="product-category"><a href="/nguoi-dong-gop/@Model.ContributorSlug">@Model.ContributorName</a></span>
                                         </div>
                                         <div class="product-categories">
                                             Tình trạng:
-                                            <span class="product-category">@Model.Status</span>
+                                            <span class="product-category text-secondary">@Model.Status</span>
                                         </div>
-                                        <div class="product-categories">
-                                            Thể loại:
+                                        <div class="product-categories genre">
                                             @{
-                                                var genres = Model.GenreNames.Split(',').Select(s => s.Trim()).ToList();
-                                                foreach (var gen in genres)
+                                                for (int i = 0; i < Model.ListGenreName.Count; i++)
                                                 {
-                                                    <span class="product-category">@gen</span>
+                                                    <div class="btn-wrap ">
+                                                        <span class="btn genre btn-success btn-outline btn-ellipse">
+                                                            <a href="/danh-sach-truyen/the-loai/@Model.ListGenreSlug[i]">@Model.ListGenreName[i]</a>
+                                                        </span>
+                                                    </div>
+                                                }
+                                                for (int i = 0; i < Model.ListTagName.Count; i++)
+                                                {
+                                                    <div class="btn-wrap ">
+                                                        <span class="btn genre btn-primary btn-outline btn-ellipse">
+                                                            <a href="/danh-sach-truyen/the-loai/@Model.ListTagSlug[i]">@Model.ListTagName[i]</a>
+                                                        </span>
+                                                    </div>
                                                 }
                                             }
                                         </div>
-                                        <div class="product-sku">
-                                            Chủ đề:
-                                            @{
-                                                var tags = Model.TagNames.Split(',').Select(s => s.Trim()).ToList();
-                                                foreach (var tag in tags)
-                                                {
-                                                    <span class="product-category">@tag</span>
-                                                }
-                                            }
+                                        <div class="product-sku widget widget-category">
+                                            <div class="category-box">
+                                                <span>@Model.TotalChapters chương</span>
+                                                <span>@Model.TotalWords chữ</span>
+                                                <span>@Model.ReadCount lượt đọc</span>
+                                                <span>@Model.TotalVotes đề cử</span>
+                                                <span>@Model.FollowCount lưu trữ</span>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-
-                                <hr class="product-divider">
-
-                                <div class="product-price"><ins class="new-price">$40.00</ins></div>
-
-                                <div class="ratings-container">
-                                    <div class="ratings-full">
-                                        <span class="ratings" style="width: 80%;"></span>
-                                        <span class="tooltiptext tooltip-top"></span>
-                                    </div>
-                                    <a href="#product-tab-reviews" class="rating-reviews scroll-to">
-                                        (3
-                                        Reviews)
-                                    </a>
-                                </div>
-
-                                <div class="product-short-desc">
-                                    <ul class="list-type-check list-style-none">
-                                        <li>Ultrices eros in cursus turpis massa cursus mattis.</li>
-                                        <li>Volutpat ac tincidunt vitae semper quis lectus.</li>
-                                        <li>Aliquam id diam maecenas ultricies mi eget mauris.</li>
-                                    </ul>
                                 </div>
 
                                 <hr class="product-divider">

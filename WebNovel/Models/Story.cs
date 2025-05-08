@@ -32,6 +32,8 @@ namespace WebNovel.Models
 
         public long ViewCount { get; set; } = 0;
         public int FollowCount { get; set; } = 0;
+        public long RatingCount { get; set; } = 0;
+        public long CommentCount { get; set; } = 0;
         public double Rating { get; set; } = 0;
 
 

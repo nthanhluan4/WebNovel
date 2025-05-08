@@ -47,7 +47,7 @@ public class GenreController : ControllerBase
     public async Task<IActionResult> Create([FromBody] Genre model)
     {
         var result = await _service.CreateAsync(model);
-        _cachedLookup.RemoveTagCache();
+        _cachedLookup.RemoveGenreCache();
         return Ok(result);
     }
 
@@ -56,7 +56,7 @@ public class GenreController : ControllerBase
     public async Task<IActionResult> Update(int id, [FromBody] Genre model)
     {
         var result = await _service.UpdateAsync(id, model);
-        _cachedLookup.RemoveTagCache();
+        _cachedLookup.RemoveGenreCache();
         return Ok(result);
     }
 
@@ -83,7 +83,7 @@ public class GenreController : ControllerBase
                 return NotFound(new { Success = false, Message = $"Không tìm thấy ID: {id}" });
             }
         }
-        _cachedLookup.RemoveTagCache();
+        _cachedLookup.RemoveGenreCache();
         return Ok(new { Success = true, Message = $"Đã xóa {lstId.Count} Genre" });
     }
 }

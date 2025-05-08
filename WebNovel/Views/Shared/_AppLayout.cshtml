@@ -57,6 +57,67 @@
         .icon-box-content {
             font-size: 1.5rem;
         }
+
+        .text-secondary {
+            color: #ffa800;
+        }
+
+        .btn.genre {
+            display: inline-block;
+            font-weight: 100;
+            font-size: 1rem;
+            padding: 0.5em 1em 0.4em 1em;
+            color: #000;
+        }
+
+
+
+
+            .btn.genre.btn-success {
+                color: #345f10 !important;
+                border: 1px solid #345f10;
+            }
+
+        .genre.btn-success.btn-outline:active,
+        .genre.btn-success.btn-outline:focus,
+        .genre.btn-success.btn-outline:hover {
+            background-color: #345f10;
+            color: #fff !important;
+            font-weight: 400;
+        }
+
+            .genre.btn-success.btn-outline:active > a,
+            .genre.btn-success.btn-outline:focus > a,
+            .genre.btn-success.btn-outline:hover > a,
+            .btn-primary.btn-outline.genre:active > a,
+            .btn-primary.btn-outline.genre:focus > a,
+            .btn-primary.btn-outline.genre:hover > a {
+                color: #fff !important;
+            }
+
+        .btn.genre.btn-primary {
+            color: #0c09a3 !important;
+            border: 1px solid #0c09a3;
+        }
+
+        .btn-primary.btn-outline.genre:active,
+        .btn-primary.btn-outline.genre:focus,
+        .btn-primary.btn-outline.genre:hover {
+            background-color: #0c09a3;
+            color: #fff !important;
+            font-weight: 400;
+        }
+
+        .product-sku .category-box span:not(:last-child)::after {
+            content: "";
+            display: inline-block;
+            width: 1px;
+            height: 13px;
+            border-left: 1px solid #ccc;
+            margin: 0px 0.9rem 0 1rem;
+            vertical-align: bottom;
+        }
+
     </style>
     <div class="page-wrapper">
         <h1 class="d-none">CityTruyenHay.Com | City Truyện Hay - Thành phố truyện dịch</h1>
@@ -431,8 +492,8 @@
                                                 <li>
                                                     <div class="menu-banner banner-fixed menu-banner4">
                                                         <figure>
-                                                           @*  <img src="~/assets/images/menu/banner-4.jpg" alt="Menu Banner"
-                                                                 width="235" height="433" /> *@
+                                                            @*  <img src="~/assets/images/menu/banner-4.jpg" alt="Menu Banner"
+                                                            width="235" height="433" /> *@
                                                         </figure>
                                                         <div class="banner-content">
                                                             <h4 class="banner-subtitle font-weight-normal">
@@ -558,9 +619,9 @@
                                                     <div class="col-6">
                                                         <div class="banner banner-fixed menu-banner5 br-xs">
                                                             <figure>
-                                                              @*   <img src="~/assets/images/menu/banner-5.jpg" alt="Banner"
-                                                                     width="410" height="123"
-                                                                     style="background-color: #D2D2D2;" /> *@
+                                                                @*   <img src="~/assets/images/menu/banner-5.jpg" alt="Banner"
+                                                                width="410" height="123"
+                                                                style="background-color: #D2D2D2;" /> *@
                                                             </figure>
                                                             <div class="banner-content text-right y-50">
                                                                 <h4 class="banner-subtitle font-weight-normal text-default text-capitalize">
@@ -579,8 +640,8 @@
                                                         <div class="banner banner-fixed menu-banner5 br-xs">
                                                             <figure>
                                                                 @* <img src="~/assets/images/menu/banner-6.jpg" alt="Banner"
-                                                                     width="410" height="123"
-                                                                     style="background-color: #9F9888;" /> *@
+                                                                width="410" height="123"
+                                                                style="background-color: #9F9888;" /> *@
                                                             </figure>
                                                             <div class="banner-content y-50">
                                                                 <h4 class="banner-subtitle font-weight-normal text-white text-capitalize">
@@ -692,8 +753,8 @@
                                                     <li>
                                                         <div class="banner-fixed menu-banner menu-banner2">
                                                             <figure>
-                                                         @*        <img src="~/assets/images/menu/banner-2.jpg" alt="Menu Banner"
-                                                                     width="235" height="347" /> *@
+                                                                @*        <img src="~/assets/images/menu/banner-2.jpg" alt="Menu Banner"
+                                                                width="235" height="347" /> *@
                                                             </figure>
                                                             <div class="banner-content">
                                                                 <div class="banner-price-info mb-1 ls-normal">

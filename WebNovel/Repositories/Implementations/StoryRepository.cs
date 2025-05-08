@@ -33,8 +33,8 @@ namespace WebNovel.Repositories.Implementations
 
         public async Task<StoryDto?> GetStoryDtoBySlugAsync(string slug)
         {
-            var allGenres = await _lookupRepo.GetAllGenresAsync();
-            var allTags = await _lookupRepo.GetAllTagsAsync();
+            var allGenres = await _lookupRepo.GetGenresAsync();
+            var allTags = await _lookupRepo.GetTagsAsync();
 
             var query = from sto in _context.Stories.AsNoTracking()
                         join aut in _context.Authors on sto.AuthorId equals aut.Id
@@ -45,11 +45,13 @@ namespace WebNovel.Repositories.Implementations
                             Id = sto.Id,
                             Title = sto.Name,
                             AuthorName = aut.Name,
+                            AuthorSlug = aut.Slug,
                             Slug = sto.Slug,
                             CoverUrl = sto.CoverUrl,
                             ContributorName = con.Name,
-                            GenreNames = GetDataHelper.ConvertIdsToNames(sto.GenreIds, allGenres),
-                            TagNames = GetDataHelper.ConvertIdsToNames(sto.Tags, allTags),
+                            ContributorSlug = con.Slug,
+                            GenreNames = sto.GenreIds,
+                            TagNames = sto.Tags,
                             Description = sto.Description,
                             TotalChapters = sto.TotalChapters,
                             TotalWords = sto.TotalWords,
@@ -61,8 +63,27 @@ namespace WebNovel.Repositories.Implementations
                             Rating = sto.Rating,
                             CreatedAt = sto.CreatedAt,
                         };
+            var result = await query.FirstOrDefaultAsync();
+            var lstGenre = result.GenreNames.Split(',')
+                            .Select(id => int.TryParse(id, out var parsedId) ? parsedId : 0)
+                            .Where(id => id != 0 && allGenres.ContainsKey(id))
+                            .Select(id => allGenres[id])
+                            .ToList();
+            var lstTag = result.TagNames.Split(',')
+                            .Select(id => int.TryParse(id, out var parsedId) ? parsedId : 0)
+                            .Where(id => id != 0 && allTags.ContainsKey(id))
+                            .Select(id => allTags[id])
+                            .ToList();
 
-            return await query.FirstOrDefaultAsync();
+            result.ListGenreSlug = lstGenre.Select(s => s.Slug).ToList();
+            result.ListGenreName = lstGenre.Select(s => s.Name).ToList();
+            result.GenreNames = string.Join(", ", result.ListGenreName);
+
+            result.ListTagSlug = lstTag.Select(s => s.Slug).ToList();
+            result.ListTagName = lstTag.Select(s => s.Name).ToList();
+            result.TagNames = string.Join(", ", result.ListTagName);
+
+            return result;
         }
 
 
