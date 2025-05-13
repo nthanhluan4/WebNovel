@@ -75,6 +75,7 @@ public class StoryController : ControllerBase
     {
         var user = await _userManager.GetUserAsync(User);
         model.CreatedByUserId = user?.Id;
+        model.GenreIds = model.GenreId.ToString();
         var result = await _service.CreateAsync(model);
         return Ok(result);
     }

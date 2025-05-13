@@ -168,17 +168,17 @@
                 <label for="GenreIds">Thể loại</label>
             </div>
             <div class="col-sm-8 div-value-info">
-                @(Html.Kendo().MultiSelect()
-                    .Name("GenreIds")
-                    .Placeholder("-- Chọn thể loại --")
+                @(Html.Kendo().DropDownList()
+                    .Name("GenreId")
+                    .OptionLabel("-- Chọn thể loại --")
                     .DataTextField("Name")
                     .DataValueField("Id")
                     .DataSource(source =>
                     {
                         source.Read(read => read.Url("/api/genre/dropdown").Type(HttpVerbs.Get));
                     })
-                    .Value(Model.GenreIds)
-                    .HtmlAttributes(new { fm_data_field = "GenreIds" }))
+                    .Value(Model.GenreId.ToString())
+                    .HtmlAttributes(new { fm_data_field = "GenreId" }))
             </div>
         </div>
 
