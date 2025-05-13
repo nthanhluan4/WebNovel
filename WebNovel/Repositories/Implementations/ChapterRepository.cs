@@ -118,6 +118,7 @@ namespace WebNovel.Repositories.Implementations
                                    Order = cha.Order,
                                    CreatedAt = cha.CreatedAt,
                                    UpdatedAt = cha.UpdatedAt,
+                                   DisplayTimeAt = TextUtils.GetDisplayTime(cha.PostedAt, cha.CreatedAt),
                                    IsPublic = cha.IsPublic,
                                }).OrderByDescending(x => x.StoryName)
                               .Skip(request.PageSize * (request.Page - 1))
@@ -130,25 +131,44 @@ namespace WebNovel.Repositories.Implementations
         public async Task<DataSourceResult> GetDataSourceByStoryAsync(int storyId, DataSourceRequest request)
         {
             var query = await (from cha in _context.Chapters
-                              join sto in _context.Stories on cha.StoryId equals sto.Id
-                              where cha.StoryId == storyId
-                              select new ChapterDto()
-                              {
-                                  Id = cha.Id,
-                                  Title = cha.Title,
-                                  StoryName = sto.Name,
-                                  WordCount = cha.WordCount,
-                                  ReadCount = cha.ReadCount,
-                                  Order = cha.Order,
-                                  CreatedAt = cha.CreatedAt,
-                                  UpdatedAt = cha.UpdatedAt,
-                                  IsPublic = cha.IsPublic,
-                              }).OrderByDescending(x => x.StoryName)
+                               join sto in _context.Stories on cha.StoryId equals sto.Id
+                               where cha.StoryId == storyId
+                               select new ChapterDto()
+                               {
+                                   Id = cha.Id,
+                                   Title = cha.Title,
+                                   StoryName = sto.Name,
+                                   WordCount = cha.WordCount,
+                                   ReadCount = cha.ReadCount,
+                                   Order = cha.Order,
+                                   CreatedAt = cha.CreatedAt,
+                                   UpdatedAt = cha.UpdatedAt,
+                                   DisplayTimeAt = TextUtils.GetDisplayTime(cha.PostedAt, cha.CreatedAt),
+                                   IsPublic = cha.IsPublic,
+                               }).OrderByDescending(x => x.StoryName)
                               .Skip(request.PageSize * (request.Page - 1))
                               .Take(request.PageSize)
                               .ToListAsync();
             var result = await query.ToDataSourceResultAsync(request);
             return result;
+        }
+
+        public async Task<List<ChapterDto>> GetNewChapterByStoryIdAsync(int storyId, int take)
+        {
+            return await _context.Chapters.Where(c => c.StoryId == storyId && c.IsPublic == true)
+                .OrderByDescending(c => c.Order)
+                .Take(take).Select(s => new ChapterDto()
+                {
+                    Id = s.Id,
+                    Title = s.Title,
+                    WordCount = s.WordCount,
+                    ReadCount = s.ReadCount,
+                    Order = s.Order,
+                    CreatedAt = s.CreatedAt,
+                    UpdatedAt = s.UpdatedAt,
+                    DisplayTimeAt = TextUtils.GetDisplayTime(s.PostedAt, s.CreatedAt),
+                    IsPublic = s.IsPublic,
+                }).ToListAsync();
         }
     }
 }

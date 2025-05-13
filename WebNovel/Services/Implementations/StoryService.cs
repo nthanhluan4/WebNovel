@@ -174,5 +174,20 @@ namespace WebNovel.Services.Implementations
         {
             return await _repository.GetDataSourceAsync(request);
         }
+
+        public async Task<List<StoryDto>> GetByGenreSlugAsync(string slug)
+        {
+            return await _repository.GetByGenreSlugAsync(slug);
+        }
+
+        public async Task<List<StoryDto>> GetByAuthorSlugAsync(string slug)
+        {
+            return await _repository.GetByAuthorSlugAsync(slug);
+        }
+
+        public async Task<List<StoryDto>> GetByContributorSlugAsync(string slug)
+        {
+            return await _repository.GetByContributorSlugAsync(slug);
+        }
     }
 }

@@ -454,5 +454,105 @@ namespace WebNovel.Repositories.Implementations
 
             return await query.ToDataSourceResultAsync(request);
         }
+
+        public async Task<List<StoryDto>> GetByGenreSlugAsync(string slug)
+        {
+            var allGenres = await _lookupRepo.GetAllGenresAsync();
+            var allTags = await _lookupRepo.GetAllTagsAsync();
+
+            var query = from sto in _context.Stories
+                        join gen in _context.Genres on sto.GenreId equals gen.Id
+                        join aut in _context.Authors on sto.AuthorId equals aut.Id
+                        join con in _context.Contributors on sto.ContributorId equals con.Id
+                        where gen.Slug == slug
+                        select new StoryDto()
+                        {
+                            Id = sto.Id,
+                            Title = sto.Name,
+                            AuthorName = aut.Name,
+                            Slug = sto.Slug,
+                            CoverUrl = sto.CoverUrl,
+                            ContributorName = con.Name,
+                            GenreNames = GetDataHelper.ConvertIdsToNames(sto.GenreIds, allGenres),
+                            TagNames = GetDataHelper.ConvertIdsToNames(sto.Tags, allTags),
+                            Description = sto.Description,
+                            TotalChapters = sto.TotalChapters,
+                            TotalWords = sto.TotalWords,
+                            TotalVotes = sto.TotalVotes,
+                            ReadCount = sto.ReadCount,
+                            ViewCount = sto.ViewCount,
+                            FollowCount = sto.FollowCount,
+                            Status = GetDataHelper.ConvertStoryStatusToNames(sto.Status),
+                            Rating = sto.Rating,
+                            CreatedAt = sto.CreatedAt,
+                        };
+           return await query.ToListAsync();
+        }
+
+        public async Task<List<StoryDto>> GetByAuthorSlugAsync(string slug)
+        {
+            var allGenres = await _lookupRepo.GetAllGenresAsync();
+            var allTags = await _lookupRepo.GetAllTagsAsync();
+
+            var query = from sto in _context.Stories
+                        join aut in _context.Authors on sto.AuthorId equals aut.Id
+                        join con in _context.Contributors on sto.ContributorId equals con.Id
+                        where aut.Slug == slug
+                        select new StoryDto()
+                        {
+                            Id = sto.Id,
+                            Title = sto.Name,
+                            AuthorName = aut.Name,
+                            Slug = sto.Slug,
+                            CoverUrl = sto.CoverUrl,
+                            ContributorName = con.Name,
+                            GenreNames = GetDataHelper.ConvertIdsToNames(sto.GenreIds, allGenres),
+                            TagNames = GetDataHelper.ConvertIdsToNames(sto.Tags, allTags),
+                            Description = sto.Description,
+                            TotalChapters = sto.TotalChapters,
+                            TotalWords = sto.TotalWords,
+                            TotalVotes = sto.TotalVotes,
+                            ReadCount = sto.ReadCount,
+                            ViewCount = sto.ViewCount,
+                            FollowCount = sto.FollowCount,
+                            Status = GetDataHelper.ConvertStoryStatusToNames(sto.Status),
+                            Rating = sto.Rating,
+                            CreatedAt = sto.CreatedAt,
+                        };
+            return await query.ToListAsync();
+        }
+
+        public async Task<List<StoryDto>> GetByContributorSlugAsync(string slug)
+        {
+            var allGenres = await _lookupRepo.GetAllGenresAsync();
+            var allTags = await _lookupRepo.GetAllTagsAsync();
+
+            var query = from sto in _context.Stories
+                        join aut in _context.Authors on sto.AuthorId equals aut.Id
+                        join con in _context.Contributors on sto.ContributorId equals con.Id
+                        where con.Slug == slug
+                        select new StoryDto()
+                        {
+                            Id = sto.Id,
+                            Title = sto.Name,
+                            AuthorName = aut.Name,
+                            Slug = sto.Slug,
+                            CoverUrl = sto.CoverUrl,
+                            ContributorName = con.Name,
+                            GenreNames = GetDataHelper.ConvertIdsToNames(sto.GenreIds, allGenres),
+                            TagNames = GetDataHelper.ConvertIdsToNames(sto.Tags, allTags),
+                            Description = sto.Description,
+                            TotalChapters = sto.TotalChapters,
+                            TotalWords = sto.TotalWords,
+                            TotalVotes = sto.TotalVotes,
+                            ReadCount = sto.ReadCount,
+                            ViewCount = sto.ViewCount,
+                            FollowCount = sto.FollowCount,
+                            Status = GetDataHelper.ConvertStoryStatusToNames(sto.Status),
+                            Rating = sto.Rating,
+                            CreatedAt = sto.CreatedAt,
+                        };
+            return await query.ToListAsync();
+        }
     }
 }

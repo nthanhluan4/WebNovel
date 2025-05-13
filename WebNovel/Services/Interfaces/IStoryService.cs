@@ -34,5 +34,10 @@ namespace WebNovel.Services.Interfaces
         Task<List<StoryDto>> GetNewChapterStoriesAsync(int count);
         Task<List<StoryDto>> GetStoriesByStatusAsync(string status);
         Task<DataSourceResult> GetDataSourceAsync(DataSourceRequest request);
+
+
+        Task<List<StoryDto>> GetByGenreSlugAsync(string slug);
+        Task<List<StoryDto>> GetByAuthorSlugAsync(string slug);
+        Task<List<StoryDto>> GetByContributorSlugAsync(string slug);
     }
 }

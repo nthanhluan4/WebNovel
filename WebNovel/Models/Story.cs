@@ -22,6 +22,7 @@ namespace WebNovel.Models
         [StringLength(200)]
         public string? ContributorType { get; set; }   // Ví dụ: "Dịch giả", "Convert"
         public double ChapterRatePerWeek { get; set; } // Tốc độ ra chương trung bình mỗi tuần
+        public int GenreId { get; set; } = 0;// "1,3,4"
         public string? GenreIds { get; set; } // "1,3,4"
         public string? Tags { get; set; } // "dị giới, học đường"
 

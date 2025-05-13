@@ -3,6 +3,7 @@ using Kendo.Mvc.UI;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using WebNovel.Models;
+using WebNovel.Models.Dtos;
 using WebNovel.Repositories.Implementations;
 using WebNovel.Repositories.Interfaces;
 using WebNovel.Services.Interfaces;
@@ -139,6 +140,11 @@ namespace WebNovel.Services.Implementations
         public async Task<DataSourceResult> GetDataSourceByStoryAsync(int storyId, DataSourceRequest request)
         {
             return await _repository.GetDataSourceByStoryAsync(storyId, request);
+        }
+
+        public async Task<List<ChapterDto>> GetNewChapterByStoryIdAsync(int storyId, int take)
+        {
+            return await _repository.GetNewChapterByStoryIdAsync(storyId, take);
         }
     }
 

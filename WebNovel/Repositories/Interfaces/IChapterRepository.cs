@@ -1,5 +1,6 @@
 ﻿using Kendo.Mvc.UI;
 using WebNovel.Models;
+using WebNovel.Models.Dtos;
 
 namespace WebNovel.Repositories.Interfaces
 {
@@ -19,6 +20,10 @@ namespace WebNovel.Repositories.Interfaces
         Task<bool> SaveChangesAsync();
         Task<DataSourceResult> GetDataSourceAsync(DataSourceRequest request);
         Task<DataSourceResult> GetDataSourceByStoryAsync(int storyId, DataSourceRequest request);
+
+
+        Task<List<ChapterDto>> GetNewChapterByStoryIdAsync(int storyId, int take);
+
     }
-    
+
 }

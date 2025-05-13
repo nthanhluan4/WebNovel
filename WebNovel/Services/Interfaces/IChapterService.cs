@@ -1,5 +1,6 @@
 ﻿using Kendo.Mvc.UI;
 using WebNovel.Models;
+using WebNovel.Models.Dtos;
 
 namespace WebNovel.Services.Interfaces
 {
@@ -20,5 +21,7 @@ namespace WebNovel.Services.Interfaces
         Task IncreaseReadCountAsync(string chapterId, string? userId);
         Task<DataSourceResult> GetDataSourceAsync(DataSourceRequest request);
         Task<DataSourceResult> GetDataSourceByStoryAsync(int storyId, DataSourceRequest request);
+
+        Task<List<ChapterDto>> GetNewChapterByStoryIdAsync(int storyId, int take);
     }
 }
