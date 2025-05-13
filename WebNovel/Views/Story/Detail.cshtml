@@ -7,6 +7,12 @@
     var token = ViewBag.AntiForgeryToken as string;
 
     var ratingWidth = Math.Round(Model.Rating / 5 * 20, 0) + "%";
+
+    var storiesOfAuthor = (List<StoryDto>)ViewBag.StoriesOfAuthor;
+    var storiesOfContributor = (List<StoryDto>)ViewBag.StoriesOfContributor;
+    var storiesOfGenre = (List<StoryDto>)ViewBag.StoriesOfGenre;
+    var newChapters = (List<StoryDto>)ViewBag.NewChapters;
+
 }
 
 <style>
