@@ -146,6 +146,11 @@ namespace WebNovel.Services.Implementations
         {
             return await _repository.GetNewChapterByStoryIdAsync(storyId, take);
         }
+
+        public async Task<ChapterDto> GetChapterReadingAsync(string storySlug, string chapterSlug)
+        {
+            return await _repository.GetChapterReadingAsync(storySlug, chapterSlug);
+        }
     }
 
 }

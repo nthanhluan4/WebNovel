@@ -23,5 +23,6 @@ namespace WebNovel.Services.Interfaces
         Task<DataSourceResult> GetDataSourceByStoryAsync(int storyId, DataSourceRequest request);
 
         Task<List<ChapterDto>> GetNewChapterByStoryIdAsync(int storyId, int take);
+        Task<ChapterDto> GetChapterReadingAsync(string storySlug, string chapterSlug);
     }
 }

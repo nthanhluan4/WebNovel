@@ -23,6 +23,7 @@ namespace WebNovel.Repositories.Interfaces
 
 
         Task<List<ChapterDto>> GetNewChapterByStoryIdAsync(int storyId, int take);
+        Task<ChapterDto> GetChapterReadingAsync(string storySlug, string chapterSlug);
 
     }
 

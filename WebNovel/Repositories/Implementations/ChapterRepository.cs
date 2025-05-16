@@ -1,4 +1,5 @@
-﻿using Kendo.Mvc.Extensions;
+﻿using Azure.Core;
+using Kendo.Mvc.Extensions;
 using Kendo.Mvc.UI;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -112,7 +113,9 @@ namespace WebNovel.Repositories.Implementations
                                {
                                    Id = cha.Id,
                                    Title = cha.Title,
+                                   Slug = cha.Slug,
                                    StoryName = sto.Name,
+                                   StorySlug = sto.Slug,
                                    WordCount = cha.WordCount,
                                    ReadCount = cha.ReadCount,
                                    Order = cha.Order,
@@ -137,7 +140,9 @@ namespace WebNovel.Repositories.Implementations
                                {
                                    Id = cha.Id,
                                    Title = cha.Title,
+                                   Slug = cha.Slug,
                                    StoryName = sto.Name,
+                                   StorySlug = sto.Slug,
                                    WordCount = cha.WordCount,
                                    ReadCount = cha.ReadCount,
                                    Order = cha.Order,
@@ -161,6 +166,7 @@ namespace WebNovel.Repositories.Implementations
                 {
                     Id = s.Id,
                     Title = s.Title,
+                    Slug = s.Slug,
                     WordCount = s.WordCount,
                     ReadCount = s.ReadCount,
                     Order = s.Order,
@@ -169,6 +175,35 @@ namespace WebNovel.Repositories.Implementations
                     DisplayTimeAt = TextUtils.GetDisplayTime(s.PostedAt, s.CreatedAt),
                     IsPublic = s.IsPublic,
                 }).ToListAsync();
+        }
+
+        public async Task<ChapterDto> GetChapterReadingAsync(string storySlug, string chapterSlug)
+        {
+            var query = await (from cha in _context.Chapters
+                               join sto in _context.Stories on cha.StoryId equals sto.Id
+                               where cha.Slug == chapterSlug && sto.Slug == storySlug && cha.IsPublic == true
+                               select new ChapterDto()
+                               {
+                                   Id = cha.Id,
+                                   Title = cha.Title,
+                                   Slug = cha.Slug,
+                                   StoryName = sto.Name,
+                                   StorySlug = sto.Slug,
+                                   WordCount = cha.WordCount,
+                                   ReadCount = cha.ReadCount,
+                                   Order = cha.Order,
+                                   CreatedAt = cha.CreatedAt,
+                                   UpdatedAt = cha.UpdatedAt,
+                                   DisplayTimeAt = TextUtils.GetDisplayTime(cha.PostedAt, cha.CreatedAt),
+                                   IsPublic = cha.IsPublic,
+                               }).FirstOrDefaultAsync();
+            var content = await _context.ChapterContents.FirstOrDefaultAsync(s => s.ChapterId == query.Id);
+            if(content != null)
+            {
+                query.Content = content.Content;
+            }
+
+            return query;
         }
     }
 }

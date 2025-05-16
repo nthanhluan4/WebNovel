@@ -11,7 +11,7 @@
     var storiesOfAuthor = (List<StoryDto>)ViewBag.StoriesOfAuthor;
     var storiesOfContributor = (List<StoryDto>)ViewBag.StoriesOfContributor;
     var storiesOfGenre = (List<StoryDto>)ViewBag.StoriesOfGenre;
-    var newChapters = (List<StoryDto>)ViewBag.NewChapters;
+    var newChapters = (List<ChapterDto>)ViewBag.NewChapters;
 
 }
 
@@ -144,6 +144,12 @@
     .sticky-sidebar .title {
         font-size: 1.5rem;
         margin-bottom: 0;
+    }
+
+
+    .icon-box-icon.story-cover img{
+        width: 35px;
+        height:50px;
     }
 </style>
 <!-- Start of Main -->
@@ -308,37 +314,15 @@
                         <h2 class="title title-underline pt-3">Chương mới</h2>
                         <div class="bought-together-products">
                             <ul class="list-chapter">
-                                <li class="chapter-item">
-                                    <a class="chapter-item-link" href="/truyen/@Model.Slug/">
-                                        <span>Chương 1</span>
-                                        <span>2 ngày trước</span>
-                                    </a>
-
-                                </li>
-                                <li class="chapter-item">
-                                    <a class="chapter-item-link" href="/truyen/@Model.Slug/">
-                                        <span>Chương 1</span>
-                                        <span>2 ngày trước</span>
-                                    </a>
-                                </li>
-                                <li class="chapter-item">
-                                    <a class="chapter-item-link" href="/truyen/@Model.Slug/">
-                                        <span>Chương 1</span>
-                                        <span>2 ngày trước</span>
-                                    </a>
-                                </li>
-                                <li class="chapter-item">
-                                    <a class="chapter-item-link" href="/truyen/@Model.Slug/">
-                                        <span>Chương 1</span>
-                                        <span>2 ngày trước</span>
-                                    </a>
-                                </li>
-                                <li class="chapter-item">
-                                    <a class="chapter-item-link" href="/truyen/@Model.Slug/">
-                                        <span>Chương 1</span>
-                                        <span>2 ngày trước</span>
-                                    </a>
-                                </li>
+                                @foreach (var chaper in newChapters)
+                                {
+                                    <li class="chapter-item">
+                                        <a class="chapter-item-link" href="/doc-truyen/@Model.Slug/@chaper.Slug">
+                                            <span>@chaper.Title</span>
+                                            <span>@chaper.DisplayTimeAt</span>
+                                        </a>
+                                    </li>
+                                }
                             </ul>
                         </div>
                     </div>
@@ -1281,65 +1265,67 @@
                         <div class="sticky-sidebar">
                             <div class="widget widget-icon-box mb-6">
                                 <div class="title title-underline pt-3">Truyện cùng tác giả</div>
-                                <div class="icon-box icon-box-side">
-                                    <span class="icon-box-icon text-dark">
-                                        <i class="w-icon-truck"></i>
-                                    </span>
-                                    <div class="icon-box-content">
-                                        <h4 class="icon-box-title">Free Shipping & Returns</h4>
-                                        <p>For all orders over $99</p>
+                                @if (storiesOfAuthor.Count == 0)
+                                {
+                                    <div class="icon-box icon-box-side">
+                                        <span class="icon-box-icon text-dark">
+                                            <i class="w-icon-truck"></i>
+                                        </span>
+                                        <div class="icon-box-content">
+                                            <p>Tuyệt vời, bạn đang đọc tác phẩm duy nhất có trên hệ thống của tác giả @Model.AuthorName.</p>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="icon-box icon-box-side">
-                                    <span class="icon-box-icon text-dark">
-                                        <i class="w-icon-bag"></i>
-                                    </span>
-                                    <div class="icon-box-content">
-                                        <h4 class="icon-box-title">Secure Payment</h4>
-                                        <p>We ensure secure payment</p>
-                                    </div>
-                                </div>
-                                <div class="icon-box icon-box-side">
-                                    <span class="icon-box-icon text-dark">
-                                        <i class="w-icon-money"></i>
-                                    </span>
-                                    <div class="icon-box-content">
-                                        <h4 class="icon-box-title">Money Back Guarantee</h4>
-                                        <p>Any back within 30 days</p>
-                                    </div>
-                                </div>
+                                }
+                                else
+                                {
+                                    foreach (var sto in storiesOfAuthor)
+                                    {
+                                        <div class="icon-box">
+                                            <a class="icon-box-side" href="/truyen/@sto.Slug">
+                                                <div class="icon-box-icon story-cover">
+                                                    <img src="/uploads/story_cover/@sto.CoverUrl" />
+                                                </div>
+                                                <div class="icon-box-content">
+                                                    <h4 class="icon-box-title">@sto.Title</h4>
+                                                    <p>@sto.GenreNames - @sto.TotalChapters chương</p>
+                                                </div>
+                                            </a>
+                                        </div>
+                                    }
+                                }
                             </div>
                             <!-- End of Widget Icon Box -->
 
                             <div class="widget widget-icon-box mb-6">
                                 <div class="title title-underline pt-3">Truyện cùng người đăng</div>
-                                <div class="icon-box icon-box-side">
-                                    <span class="icon-box-icon text-dark">
-                                        <i class="w-icon-truck"></i>
-                                    </span>
-                                    <div class="icon-box-content">
-                                        <h4 class="icon-box-title">Free Shipping & Returns</h4>
-                                        <p>For all orders over $99</p>
+                                @if (storiesOfContributor.Count == 0)
+                                {
+                                    <div class="icon-box icon-box-side">
+                                        <span class="icon-box-icon text-dark">
+                                            <i class="w-icon-truck"></i>
+                                        </span>
+                                        <div class="icon-box-content">
+                                            <p>Tuyệt vời, bạn đang đọc tác phẩm duy nhất có trên hệ thống của người đóng góp @Model.ContributorName.</p>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="icon-box icon-box-side">
-                                    <span class="icon-box-icon text-dark">
-                                        <i class="w-icon-bag"></i>
-                                    </span>
-                                    <div class="icon-box-content">
-                                        <h4 class="icon-box-title">Secure Payment</h4>
-                                        <p>We ensure secure payment</p>
-                                    </div>
-                                </div>
-                                <div class="icon-box icon-box-side">
-                                    <span class="icon-box-icon text-dark">
-                                        <i class="w-icon-money"></i>
-                                    </span>
-                                    <div class="icon-box-content">
-                                        <h4 class="icon-box-title">Money Back Guarantee</h4>
-                                        <p>Any back within 30 days</p>
-                                    </div>
-                                </div>
+                                }
+                                else
+                                {
+                                    foreach (var sto in storiesOfContributor)
+                                    {
+                                        <div class="icon-box">
+                                            <a class="icon-box-side" href="/truyen/@sto.Slug">
+                                                <div class="icon-box-icon story-cover">
+                                                    <img src="/uploads/story_cover/@sto.CoverUrl" />
+                                                </div>
+                                                <div class="icon-box-content">
+                                                    <h4 class="icon-box-title">@sto.Title</h4>
+                                                    <p>@sto.GenreNames - @sto.TotalChapters chương</p>
+                                                </div>
+                                            </a>
+                                        </div>
+                                    }
+                                }
                             </div>
 
                             <!-- End of Widget Icon Box -->
