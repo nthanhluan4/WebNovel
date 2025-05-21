@@ -181,6 +181,8 @@ namespace WebNovel.Repositories.Implementations
         {
             var query = await (from cha in _context.Chapters
                                join sto in _context.Stories on cha.StoryId equals sto.Id
+                               join aut in _context.Authors on sto.AuthorId equals aut.Id
+                               join con in _context.Contributors on sto.ContributorId equals con.Id
                                where cha.Slug == chapterSlug && sto.Slug == storySlug && cha.IsPublic == true
                                select new ChapterDto()
                                {
@@ -189,6 +191,10 @@ namespace WebNovel.Repositories.Implementations
                                    Slug = cha.Slug,
                                    StoryName = sto.Name,
                                    StorySlug = sto.Slug,
+                                   AuthorName = aut.Name,
+                                   AuthorSlug = aut.Slug,
+                                   ContributorName = con.Name,
+                                   ContributorSlug = con.Slug,
                                    WordCount = cha.WordCount,
                                    ReadCount = cha.ReadCount,
                                    Order = cha.Order,

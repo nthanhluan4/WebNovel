@@ -19,7 +19,7 @@ namespace WebNovel.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> Read(string storySlug, string chapterSlug)
         {
-            var chapter = _chapterService.GetChapterReadingAsync(storySlug, chapterSlug);
+            var chapter = await _chapterService.GetChapterReadingAsync(storySlug, chapterSlug);
 
             return View("Read", chapter);
         }

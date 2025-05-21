@@ -9,6 +9,10 @@
         public int Order { get; set; }
         public string StoryName { get; set; }
         public string StorySlug { get; set; }
+        public string AuthorName { get; set; }
+        public string AuthorSlug { get; set; }
+        public string ContributorName { get; set; }
+        public string ContributorSlug { get; set; }
         public long WordCount { get; set; } 
         public long ReadCount { get; set; }
         public string DisplayTimeAt { get; set; }
