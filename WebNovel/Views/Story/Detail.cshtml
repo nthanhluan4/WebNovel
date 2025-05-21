@@ -50,7 +50,16 @@
         font-size: 1.3rem;
     }
 
-    .product-single .btn-cart:not(:first-child) {
+    .product-single .btn-action {
+        flex: 1;
+        margin-bottom: 1rem;
+        padding-left: 0;
+        padding-right: 0;
+        min-width: 14rem;
+    }
+
+        .product-single .btn-action:not(:first-child),
+        .product-single .btn-cart:not(:first-child) {
         margin-left: 10px;
     }
 
@@ -243,10 +252,10 @@
 
                                 <div class="product-sticky-content sticky-content">
                                     <div class="product-form container">
-                                        <button class="btn btn-primary btn-cart">
+                                        <a class="btn btn-primary btn-action" href="/doc-truyen/@Model.Slug/chuong-1">
                                             <i class="fa-solid fa-book-open-reader mr-2"></i>
                                             <span>Đọc từ đầu</span>
-                                        </button>
+                                        </a>
 
 
                                         <button class="btn btn-primary btn-cart">

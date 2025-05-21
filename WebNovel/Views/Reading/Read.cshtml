@@ -31,10 +31,29 @@
         display: flex;
     }
 
+    .product-form .btn-list {
+        flex: 1;
+        margin-bottom: 1rem;
+        padding-left: 0;
+        padding-right: 0;
+        min-width: 12rem;
+    }
+    
+    .product-form .btn-list.btn-chapters {
+            min-width: 4rem;
+        }
+
     .chapter-content {
         white-space: pre-wrap;
-        font-size: 18px;
-        color: #000;
+    }
+
+        .chapter-content .content-text {
+            font-size: 18px;
+            color: #000;
+        }
+
+    .line-info .info {
+        padding-right: 10px;
     }
 </style>
 <input type="hidden" id="RequestVerificationToken" value="@token" />
@@ -63,19 +82,19 @@
 
                             <div class="product-sticky-content sticky-content">
                                 <div class="product-form container">
-                                    <button class="btn btn-primary btn-cart">
+                                    <button class="btn btn-primary btn-list btn-cart">
                                         <i class="fa-solid fa-book-open-reader mr-2"></i>
                                         <span>Chương trước</span>
                                     </button>
 
 
-                                    <button class="btn btn-primary btn-cart">
+                                    <button class="btn btn-primary btn-list btn-chapters">
                                         <i class="fa-solid fa-list mr-2"></i>
                                         <span>DS Chương</span>
                                     </button>
 
 
-                                    <button class="btn btn-primary btn-cart">
+                                    <button class="btn btn-primary btn-list btn-cart">
                                         <i class="fa-solid fa-book mr-2"></i>
                                         <span>Chương sau</span>
                                     </button>
@@ -87,17 +106,17 @@
                                 <h1 class="product-title">@Model.Title</h1>
                                 <h5 class="author-title">
                                     <a href="/nguoi-dong-gop/@Model.ContributorSlug">
-                                        <i class="fa fa-pencil-square-o"></i>
+                                        <i class="fa-regular fa-pen-to-square"></i>
                                         @Model.ContributorName
                                     </a>
                                 </h5>
                                 <div class="line-info">
-                                    <h5 class="author-title">
-                                        <i class="fa fa-clock-o"></i>
+                                    <h5 class="info">
+                                        <i class="fa-solid fa-file-lines"></i>
                                         @Model.WordCount chữ
                                     </h5>
-                                    <h5 class="author-title">
-                                        <i class="fa fa-clock-o"></i>
+                                    <h5 class="info">
+                                        <i class="fa-regular fa-clock"></i>
                                         @Model.CreatedAt.ToString("dd/MM/yyyy HH:mm")
                                     </h5>
                                 </div>
@@ -105,9 +124,7 @@
                         </div>
                     </div>
                     <div class="chapter-content new-chapter row mt-5">
-                        <div class="content-text">
-                            @Model.Content
-                        </div>
+                        <div class="content-text">@Model.Content</div>
                     </div>
                 </div>
 
