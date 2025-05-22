@@ -12,6 +12,7 @@ namespace WebNovel.Repositories.Interfaces
         Task<Chapter?> GetByOrderAsync(int storyId, int order);
         Task AddAsync(Chapter chapter);
         Task UpdateAsync(Chapter chapter);
+        Task IncreaseReadCountAsync(string chapterSlug, string storySlug, string? userId);
         Task DeleteAsync(string id);
 
         Task<int> CountChaptersAsync(int storyId);

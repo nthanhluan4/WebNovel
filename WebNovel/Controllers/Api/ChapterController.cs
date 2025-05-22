@@ -77,17 +77,17 @@ namespace WebNovel.Controllers.Api
             var user = await _userManager.GetUserAsync(User);
             var chapter = await _service.GetByIdAsync(id);
             if (chapter == null) return NotFound();
-            _taskQueue.QueueBackgroundTask(async token =>
-            {
-                try
-                {
-                    await _service.IncreaseReadCountAsync(chapter.Id, user?.Id);
-                }
-                catch (Exception ex)
-                {
-                    _logger.LogError(ex, $"Không thể cập nhật lượt đọc cho chương [{chapter.Id} - {chapter.Title}], truyện [{chapter.StoryId}].");
-                }
-            });
+            //_taskQueue.QueueBackgroundWorkItem(async token =>
+            //{
+            //    try
+            //    {
+            //        await _service.IncreaseReadCountAsync(chapter.Id, user?.Id);
+            //    }
+            //    catch (Exception ex)
+            //    {
+            //        _logger.LogError(ex, $"Không thể cập nhật lượt đọc cho chương [{chapter.Id} - {chapter.Title}], truyện [{chapter.StoryId}].");
+            //    }
+            //});
             var content = await _service.LoadContentAsync(chapter);
             return Ok(new { chapter.Id, chapter.Title, content });
         }

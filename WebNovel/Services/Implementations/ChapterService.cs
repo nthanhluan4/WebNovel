@@ -94,27 +94,10 @@ namespace WebNovel.Services.Implementations
             return await _repository.SaveChangesAsync();
         }
 
-        public async Task IncreaseReadCountAsync(string chapterId, string? userId)
+        public async Task IncreaseReadCountAsync(string chapterSlug, string storySlug, string? userId)
         {
-            var chapter = await _repository.GetByIdAsync(chapterId);
-            if (chapter == null) return;
-
-            chapter.ReadCount++;
-            await _repository.UpdateAsync(chapter);
-
+            await _repository.IncreaseReadCountAsync(chapterSlug, storySlug, userId);
             await _repository.SaveChangesAsync();
-            await _storyService.IncreaseReadCountAsync(chapter.StoryId);
-            _taskQueue.QueueBackgroundTask(async token =>
-            {
-                try
-                {
-                    await _chapterReadingService.RecordChapterReadAsync(userId, chapter.StoryId, chapterId);
-                }
-                catch (Exception ex)
-                {
-                    _logger.LogError(ex, $"Không thể cập nhật thông tin stats (Số chương, Số chữ), tỉ lệ ra chương/tuần của truyện [{chapter.StoryId}].");
-                }
-            });
         }
 
         public async Task<List<Chapter>> GetAllAsync()

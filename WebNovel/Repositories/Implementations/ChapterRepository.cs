@@ -9,6 +9,7 @@ using WebNovel.Models;
 using WebNovel.Models.Dtos;
 using WebNovel.Repositories.Interfaces;
 using WebNovel.Utils;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace WebNovel.Repositories.Implementations
 {
@@ -204,12 +205,67 @@ namespace WebNovel.Repositories.Implementations
                                    IsPublic = cha.IsPublic,
                                }).FirstOrDefaultAsync();
             var content = await _context.ChapterContents.FirstOrDefaultAsync(s => s.ChapterId == query.Id);
-            if(content != null)
+            if (content != null)
             {
                 query.Content = content.Content;
             }
 
             return query;
+        }
+
+        public async Task IncreaseReadCountAsync(string chapterSlug, string storySlug, string? userId)
+        {
+            var chapter = await _context.Chapters.FirstOrDefaultAsync(s => s.Slug == chapterSlug);
+            if (chapter != null)
+            {
+                chapter.ReadCount++;
+                _context.Chapters.Update(chapter);
+
+            }
+            var story = await _context.Stories.FirstOrDefaultAsync(s => s.Id == chapter.StoryId);
+            if (story != null)
+            {
+                story.ReadCount++;
+                _context.Stories.Update(story);
+            }
+            if (!string.IsNullOrEmpty(userId))
+            {
+                var today = DateTime.UtcNow.Date;
+
+                // 1. Update ChapterReadByDate
+                var readByDate = await _context.ChapterReadByDates
+                .FirstOrDefaultAsync(x => x.ChapterId == chapter.Id && x.ReadDate.Date == today.Date);
+                if (readByDate == null)
+                {
+                    await _context.ChapterReadByDates.AddAsync(new ChapterReadByDate
+                    {
+                        ChapterId = chapter.Id,
+                        ReadDate = today,
+                        ReadCount = 1
+                    });
+                }
+                else
+                {
+                    readByDate.ReadCount += 1;
+                    _context.ChapterReadByDates.Update(readByDate);
+                }
+
+                // 2. Insert vào UserChapterRead nếu chưa có
+                if (!string.IsNullOrEmpty(userId))
+                {
+                    var alreadyRead = await _context.UserChapterReads
+                        .AnyAsync(x => x.UserId == userId && x.ChapterId == chapter.Id);
+                    if (!alreadyRead)
+                    {
+                        await _context.UserChapterReads.AddAsync(new UserChapterRead
+                        {
+                            UserId = userId,
+                            StoryId = chapter.StoryId,
+                            ChapterId = chapter.Id
+                        });
+                    }
+                }
+            }
         }
     }
 }

@@ -34,7 +34,7 @@ namespace WebNovel.Controllers
             _backgroundTaskQueue.QueueBackgroundWorkItem(async (sp, token) =>
             {
                 var chapterService = sp.GetRequiredService<IChapterService>();
-                await chapterService.IncreaseReadCountAsync(chapter.Id, user?.Id);
+                await chapterService.IncreaseReadCountAsync(chapterSlug, storySlug, user?.Id);
             });
             return View("Read", chapter);
         }

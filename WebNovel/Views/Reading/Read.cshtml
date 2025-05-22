@@ -38,8 +38,8 @@
         padding-right: 0;
         min-width: 12rem;
     }
-    
-    .product-form .btn-list.btn-chapters {
+
+        .product-form .btn-list.btn-chapters {
             min-width: 4rem;
         }
 
@@ -54,6 +54,182 @@
 
     .line-info .info {
         padding-right: 10px;
+    }
+
+    /* CSS cho các nút mới và popup cài đặt */
+    .chapter-actions-toolbar {
+        /*    display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            align-items: center; */
+
+        position: fixed;
+        right: 10vw;
+        top: 30%;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        width: 10px;
+    }
+
+        .chapter-actions-toolbar .btn-list {
+            margin-bottom: 0; /* Bỏ margin-bottom mặc định nếu có */
+        }
+
+    .settings-popup {
+        display: none; /* Ẩn mặc định */
+        position: fixed;
+        z-index: 1050;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(0,0,0,0.5);
+        justify-content: center; /* Căn giữa theo chiều ngang */
+        align-items: center; /* Căn giữa theo chiều dọc */
+    }
+
+    .settings-popup-content {
+        background-color: #fefefe;
+        margin: auto;
+        padding: 20px;
+        border: 1px solid #888;
+        width: 80%;
+        max-width: 500px;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+        display: flex;
+        flex-direction: column;
+    }
+
+    .settings-popup-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding-bottom: 10px;
+        border-bottom: 1px solid #eee;
+    }
+
+        .settings-popup-header h4 {
+            margin: 0;
+            font-size: 1.25rem;
+        }
+
+    .btn-close-popup { /* Đổi tên class để tránh xung đột nếu có */
+        border: none;
+        background: none;
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: #aaa;
+        cursor: pointer;
+    }
+
+        .btn-close-popup:hover {
+            color: #000;
+        }
+
+    .settings-popup-body {
+        padding: 15px 0;
+        max-height: 60vh;
+        overflow-y: auto;
+    }
+
+    .setting-item {
+        margin-bottom: 15px;
+        display: flex;
+        flex-direction: column;
+    }
+
+        .setting-item label {
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+
+        .setting-item .form-control { /* Giả sử bạn có style .form-control cơ bản */
+            width: 100%;
+            padding: .375rem .75rem;
+            font-size: 1rem;
+            line-height: 1.5;
+            color: #495057;
+            background-color: #fff;
+            background-clip: padding-box;
+            border: 1px solid #ced4da;
+            border-radius: .25rem;
+            transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+        }
+
+        .setting-item input[type="color"].form-control { /* Điều chỉnh cho input color */
+            height: calc(1.5em + .75rem + 2px);
+            padding: .375rem;
+        }
+
+        .setting-item select.form-control {
+            height: calc(2.25rem + 2px);
+        }
+
+
+    .settings-popup-footer {
+        display: flex;
+        justify-content: flex-end;
+        padding-top: 10px;
+        border-top: 1px solid #eee;
+        gap: 10px;
+    }
+
+    /* Responsive adjustments for the toolbar on smaller screens */
+    @@media (max-width: 768px) {
+        .product-form.container,
+        .chapter-actions-toolbar {
+            flex-direction: column; /* Stack buttons vertically */
+        }
+
+            .product-form.container .btn-list,
+            .chapter-actions-toolbar .btn-list {
+                width: 100%; /* Make buttons full width */
+                margin-left: 0;
+                margin-right: 0;
+                margin-bottom: 10px; /* Add some space between stacked buttons */
+            }
+
+                .product-form.container .btn-list:last-child,
+                .chapter-actions-toolbar .btn-list:last-child {
+                    margin-bottom: 0;
+                }
+
+        .settings-popup-content {
+            width: 90%;
+        }
+    }
+
+    /* swatch hình tròn */
+    .color-picker, .width-picker {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    .color-swatch {
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        cursor: pointer;
+        border: 2px solid #fff;
+        box-shadow: 0 0 0 1px #ced4da;
+    }
+
+        .color-swatch.selected {
+            box-shadow: 0 0 0 3px #0d6efd;
+        }
+
+    .size-btn, .width-btn {
+        min-width: 48px;
+    }
+
+    .font-size-group {
+        display: flex;
+        align-items: center;
     }
 </style>
 <input type="hidden" id="RequestVerificationToken" value="@token" />
@@ -101,7 +277,6 @@
                                 </div>
                             </div>
                             <hr class="product-divider">
-
                             <div class="chapter-details">
                                 <h1 class="product-title">@Model.Title</h1>
                                 <h5 class="author-title">
@@ -125,6 +300,25 @@
                     </div>
                     <div class="chapter-content new-chapter row mt-5">
                         <div class="content-text">@Model.Content</div>
+                        <div class="chapter-actions-toolbar product-form container mt-3 mb-3">
+                            <button class="btn btn-outline-primary btn-list" id="bookmarkBtn">
+                                <i class="fa-regular fa-bookmark mr-1"></i>
+                                <span>Đánh dấu</span>
+                            </button>
+                            <button class="btn btn-outline-primary btn-list" id="nominateBtn">
+                                <i class="fa-solid fa-arrow-up-right-from-square mr-1"></i>
+                                <span>Đề cử</span>
+                            </button>
+                            <button class="btn btn-outline-primary btn-list" id="favoriteBtn">
+                                <i class="fa-regular fa-heart mr-1"></i>
+                                <span>Yêu thích</span>
+                            </button>
+                            <button class="btn btn-primary btn-list" id="settingsBtn">
+                                <i class="fa-solid fa-gear mr-1"></i>
+                                <span>Thiết lập</span>
+                            </button>
+                        </div>
+
                     </div>
                 </div>
 
@@ -135,3 +329,160 @@
     <!-- End of Page Content -->
 </main>
 <!-- End of Main -->
+<!-- ==== Popup Thiết lập ==== -->
+<div id="settingsPopup" class="settings-popup">
+    <div class="settings-popup-content">
+
+        <div class="settings-popup-header">
+            <h4>Tùy chỉnh đọc truyện</h4>
+            <button id="closeSettingsPopup" class="btn-close-popup">&times;</button>
+        </div>
+
+        <div class="settings-popup-body">
+
+            <!-- 1) Màu nền + chữ -->
+            <div class="setting-item">
+                <label>Màu nền &amp; chữ:</label>
+                <div class="color-picker">
+                    <div class="color-swatch bg-swatch" data-color="#ffffff" data-text="#000000" style="background-color:#ffffff"></div>
+                    <div class="color-swatch bg-swatch" data-color="#f8f9fa" data-text="#111111" style="background-color:#f8f9fa"></div>
+                    <div class="color-swatch bg-swatch" data-color="#faf0e6" data-text="#222222" style="background-color:#faf0e6"></div>
+                    <div class="color-swatch bg-swatch" data-color="#212529" data-text="#f1f1f1" style="background-color:#212529"></div>
+                    <div class="color-swatch bg-swatch" data-color="#000000" data-text="#f8f9fa" style="background-color:#000000"></div>
+                </div>
+            </div>
+
+            <!-- 2) Cỡ chữ -->
+            <div class="setting-item">
+                <label>Cỡ chữ:</label>
+                <div class="font-size-group">
+                    <button id="fontSizeDown" class="size-btn">A-</button>
+                    <span id="fontSizeLabel" class="mx-2">18 px</span>
+                    <button id="fontSizeUp" class="size-btn">A+</button>
+                </div>
+            </div>
+
+            <!-- 3) Font -->
+            <div class="setting-item">
+                <label for="fontFamilySelect">Font chữ:</label>
+                <select id="fontFamilySelect" class="form-control">
+                    <option value="'Times New Roman', Times, serif">Times New Roman</option>
+                    <option value="Arial, Helvetica, sans-serif">Arial</option>
+                    <option value="Georgia, serif">Georgia</option>
+                    <option value="Verdana, Geneva, sans-serif">Verdana</option>
+                    <option value="'Courier New', Courier, monospace">Courier New</option>
+                    <option value="'Palatino Linotype', 'Book Antiqua', Palatino, serif">Palatino</option>
+                </select>
+            </div>
+
+            <!-- 4) Độ rộng -->
+            <div class="setting-item">
+                <label>Độ rộng nội dung (px):</label>
+                <div class="width-picker">
+                    <button class="width-btn btn btn-outline-secondary" data-width="auto">Tự động</button>
+                    <button class="width-btn btn btn-outline-secondary" data-width="640">640</button>
+                    <button class="width-btn btn btn-outline-secondary" data-width="800">800</button>
+                    <button class="width-btn btn btn-outline-secondary" data-width="900">900</button>
+                    <button class="width-btn btn btn-outline-secondary" data-width="1000">1000</button>
+                    <button class="width-btn btn btn-outline-secondary" data-width="1280">1280</button>
+                </div>
+            </div>
+
+        </div><!-- /body -->
+
+        <div class="settings-popup-footer">
+            <button id="resetSettingsBtn" class="btn btn-secondary">Mặc định</button>
+            <button id="saveSettingsBtn" class="btn btn-primary">Lưu &amp; Đóng</button>
+        </div>
+
+    </div>
+</div>
+<!-- ==== /Popup ==== -->
+<script>
+    (() => {
+        /* ----- DOM ----- */
+        const popup = document.getElementById('settingsPopup');
+        const openBtn = document.getElementById('settingsBtn');
+        const closeBtn = document.getElementById('closeSettingsPopup');
+        const saveBtn = document.getElementById('saveSettingsBtn');
+
+        /* Nội dung và nhãn */
+        const contentText = document.querySelector('.main-content');
+        const contentWrap = document.querySelector('.main-content');
+        const fontLabel = document.getElementById('fontSizeLabel');
+
+        /* ----- Mặc định & localStorage ----- */
+        const DEFAULT = {
+            bg: '#ffffff', color: '#000000', fontSize: 18,
+            fontFamily: "'Times New Roman', Times, serif", width: 'auto'
+        };
+        const LS_KEY = 'readerSettings';
+        const load = () => JSON.parse(localStorage.getItem(LS_KEY)) ?? { ...DEFAULT };
+        const save = s => localStorage.setItem(LS_KEY, JSON.stringify(s));
+
+        /* ----- Áp dụng style ----- */
+        let settings = load(); apply(settings);
+
+        function apply(s) {
+            contentText.style.backgroundColor = s.bg;
+            contentText.style.color = s.color;
+            contentText.style.fontSize = s.fontSize + 'px';
+            contentText.style.fontFamily = s.fontFamily;
+            contentWrap.style.maxWidth = s.width === 'auto' ? '' : s.width + 'px';
+            fontLabel.textContent = s.fontSize + ' px';
+
+            document.querySelectorAll('.bg-swatch').forEach(e => {
+                e.classList.toggle('selected', e.dataset.color === s.bg);
+            });
+            document.querySelectorAll('.width-btn').forEach(e => {
+                e.classList.toggle('active', e.dataset.width === s.width);
+            });
+        }
+
+        /* ----- Sự kiện ----- */
+        openBtn.onclick = () => popup.style.display = 'flex';
+        const closePopup = () => popup.style.display = 'none';
+        closeBtn.onclick = closePopup;
+        saveBtn.onclick = closePopup;
+        window.onkeydown = e => { if (e.key === 'Escape') closePopup(); };
+
+        /* Chọn màu */
+        document.querySelectorAll('.bg-swatch').forEach(e => {
+            e.onclick = () => {
+                settings.bg = e.dataset.color;
+                settings.color = e.dataset.text;
+                save(settings); apply(settings);
+            };
+        });
+
+        /* Cỡ chữ */
+        document.getElementById('fontSizeDown').onclick = () => {
+            settings.fontSize = Math.max(10, settings.fontSize - 2);
+            save(settings); apply(settings);
+        };
+        document.getElementById('fontSizeUp').onclick = () => {
+            settings.fontSize = Math.min(48, settings.fontSize + 2);
+            save(settings); apply(settings);
+        };
+
+        /* Font */
+        document.getElementById('fontFamilySelect').onchange = e => {
+            settings.fontFamily = e.target.value;
+            save(settings); apply(settings);
+        };
+
+        /* Độ rộng */
+        document.querySelectorAll('.width-btn').forEach(e => {
+            e.onclick = () => {
+                settings.width = e.dataset.width;
+                save(settings); apply(settings);
+            };
+        });
+
+        /* Reset */
+        document.getElementById('resetSettingsBtn').onclick = () => {
+            settings = { ...DEFAULT };
+            save(settings); apply(settings);
+        };
+    })();
+</script>
